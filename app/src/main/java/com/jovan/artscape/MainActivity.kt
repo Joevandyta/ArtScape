@@ -15,5 +15,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.bottomAppBar.background = null
+
+
     }
 }
