@@ -112,4 +112,6 @@
     <string name="painting_name_dummy">Painting Name</string>
     <string name="substract">substract</string>
     <string name="total_painting_dummy">777</string>
+    <string name="about_artist">About Artist</string>
+    <string name="artist_address">Artist Address</string>
 </resources>
