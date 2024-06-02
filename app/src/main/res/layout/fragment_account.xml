@@ -20,14 +20,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <View
-                android:id="@+id/view"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@drawable/bg_view_account"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@string/username"
+            android:textColor="?attr/colorOnPrimary"
+            style="@style/bold"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/picture_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
 
             <TextView
                 android:id="@+id/tv_name"
@@ -52,6 +58,20 @@
                 app:layout_constraintTop_toBottomOf="@+id/view"
                 app:shapeAppearanceOverlay="@style/CircleImage" />
 
+
+        <Button
+            android:id="@+id/button"
+            style="@style/bold"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/picture_layout" />
+
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/img_picture"
                 android:layout_width="130dp"
@@ -63,15 +83,6 @@
                 app:layout_constraintStart_toStartOf="@+id/picture_layout"
                 app:layout_constraintTop_toTopOf="@+id/picture_layout"
                 app:shapeAppearanceOverlay="@style/CircleImage" />
-
-            <Button
-                android:id="@+id/button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/edit_profile"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/picture_layout" />
 
             <include
                 android:id="@+id/settings_card"
