@@ -48,8 +48,19 @@ dependencies {
     implementation(libs.androidx.preference)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    //googlePlayServices
+    implementation(libs.play.services.base)
+
+    implementation(libs.github.glide )
+//    dataStore
+    implementation(libs.androidx.datastore.preferences)
+
+    //retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit2.converter.gson)
 }

@@ -11,16 +11,18 @@
 
     </style>
 
+    <style name="SettingCardStyle">
+        <item name="android:background">?attr/colorSecondaryContainer</item>
+        <item name="android:layout_height">2dp</item>
+    </style>
 
     <!-- Title TextView style -->
     <style name="TitleText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">24sp</item>
-        <item name="android:textColor">@attr/colorOnPrimary</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:padding">4dp</item>
-        <item name="android:layout_marginStart">4dp</item>
+        <item name="android:padding">8dp</item>
 
     </style>
 
@@ -28,6 +30,7 @@
     <style name="SectionBgStyle">
         <item name="android:background">@color/opacity_20_primary</item>
         <item name="android:layout_marginTop">16dp</item>
+        <item name="android:padding">5dp</item>
     </style>
 
 
@@ -36,7 +39,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">?attr/colorSurfaceInverse</item>
         <item name="android:layout_marginStart">4dp</item>
 
     </style>
@@ -46,6 +49,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorSurfaceInverse</item>
     </style>
 
     <!-- Description TextView style -->
@@ -61,6 +65,7 @@
         <item name="android:paddingTop">8dp</item>
         <item name="android:paddingBottom">8dp</item>
     </style>
+
 
     <style name="light">
         <item name="android:fontFamily">@font/montserrat_light</item>
@@ -88,6 +93,57 @@
     <style name="semibold">
         <item name="android:fontFamily">@font/montserrat_semibold</item>
         <item name="android:textColor">@color/black_400</item>
+    </style>
+
+<!--    button-->
+    <style name="CustomButtonStyle" parent="Widget.Material3.Button">
+        <item name="android:textSize">18sp</item> <!-- Increase the text size as needed -->
+    </style>
+
+
+    <style name="RoundedImage">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+    <style name="CircleImage">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="ToolbarDefaultIconStyle" parent="Base.Theme.ArtScape">
+        <item name="android:textColorPrimary">?attr/colorOnPrimary</item>
+        <item name="android:textColorSecondary">?attr/colorOnPrimary</item>
+        <item name="android:textColorTertiary">?attr/colorOnPrimary</item>
+        <item name="android:textColorHint">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="ToolbarDefaultIconStyleBlackOrWhite" parent="Base.Theme.ArtScape">
+        <item name="android:textColorPrimary">?attr/colorBlackorWhite</item>
+        <item name="android:textColorSecondary">?attr/colorBlackorWhite</item>
+        <item name="android:textColorTertiary">?attr/colorBlackorWhite</item>
+        <item name="android:textColorHint">?attr/colorBlackorWhite</item>
+        <item name="titleTextColor">?attr/colorBlackorWhite</item>
+    </style>
+    <style name="SearchBarStyle">
+        <item name="android:editTextColor">?attr/colorOnSurfaceVariant</item>
+
+    </style>
+
+    <style name="ToolbarCenteredTitleStyle" parent="Widget.MaterialComponents.Toolbar">
+        <item name="titleCentered">true</item>
+    </style>
+
+
+    <style name="PriceTvStyle" parent="PaintingTvStyle">
+        <item name="titleCentered">true</item>
+        <item name="android:textColor">?attr/colorTertiary</item>
+    </style>
+    <style name="PaintingTvStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorBlackorWhite</item>
     </style>
 
 </resources>

@@ -80,4 +80,36 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="select_your_user_type">Select your user type</string>
+    <string name="user">User</string>
+    <string name="artist">Artist</string>
+    <string name="art_title">Art Title</string>
+    <string name="description">Description</string>
+    <string name="preview_image">Preview Image</string>
+    <string name="camera">Camera</string>
+    <string name="galery">galery</string>
+    <string name="upload">Upload</string>
+    <string name="name">Name</string>
+    <string name="title_painting">Title Painting</string>
+    <string name="genre">Genre</string>
+    <string name="search_art_or_user">Search art or user</string>
+    <string name="tabs">tabs</string>
+
+    <string name="tab_1">Painting</string>
+    <string name="tab_2">Artist</string>
+    <string name="create_your_account">Create your account!</string>
+    <string name="price">Price</string>
+    <string name="painting_title">Painting Title</string>
+    <string name="abstract_painting_dummy">Abstract Painting Dummy</string>
+    <string name="double_colon">:</string>
+    <string name="created_at">Created at</string>
+    <string name="artist_name">Artist Name</string>
+    <string name="year_dummy">1999</string>
+    <string name="leornardo_da_vinci">Leornardo Da Vinci</string>
+    <string name="total">Total</string>
+    <string name="price_dummy">Rp500.000</string>
+    <string name="checkout">Checkout</string>
+    <string name="painting_name_dummy">Painting Name</string>
+    <string name="substract">substract</string>
+    <string name="total_painting_dummy">777</string>
 </resources>
