@@ -61,4 +61,33 @@
         <item name="android:paddingTop">8dp</item>
         <item name="android:paddingBottom">8dp</item>
     </style>
+
+    <style name="light">
+        <item name="android:fontFamily">@font/montserrat_light</item>
+        <item name="android:textColor">@color/md_theme_primary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="regular">
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:textColor">@color/black_400</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="medium">
+        <item name="android:fontFamily">@font/montserrat_medium</item>
+        <item name="android:textColor">@color/black_400</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="bold">
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+        <item name="android:textColor">@color/black_400</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="semibold">
+        <item name="android:fontFamily">@font/montserrat_semibold</item>
+        <item name="android:textColor">@color/black_400</item>
+    </style>
+
 </resources>

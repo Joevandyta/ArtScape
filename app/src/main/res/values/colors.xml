@@ -158,4 +158,6 @@
     <color name="colorOnCustomColor1_highContrast">#FFFFFF</color>
     <color name="colorCustomColor1Container_highContrast">#60325E</color>
     <color name="colorOnCustomColor1Container_highContrast">#FFFFFF</color>
+
+    <color name="black_400">#1D1617</color>
 </resources>

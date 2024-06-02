@@ -28,7 +28,8 @@
             android:layout_marginBottom="16dp"
             android:text="@string/username"
             android:textColor="?attr/colorOnPrimary"
-            style="@style/TitleText"
+            style="@style/bold"
+            android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/picture_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -56,6 +57,9 @@
 
         <Button
             android:id="@+id/button"
+            style="@style/bold"
+            android:textSize="12sp"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/edit_profile"
