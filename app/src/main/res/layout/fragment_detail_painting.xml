@@ -68,6 +68,69 @@
                     android:layout_height="wrap_content"
                     android:text="@string/painting_title" />
 
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_about_artist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                app:cardCornerRadius="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cv_painting_title">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_about_artist"
+                        style="@style/bold"
+                        android:text="@string/about_artist"
+                        android:layout_marginStart="16dp"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/img_artist"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_about_artist"
+                        app:srcCompat="@drawable/ic_person" />
+
+                    <TextView
+                        android:id="@+id/tv_artist_name"
+                        style="@style/regular"
+                        android:text="@string/artist_name"
+                        android:layout_marginStart="16dp"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toEndOf="@+id/img_artist"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_about_artist"/>
+
+                    <TextView
+                        android:id="@+id/tv_artist_address"
+                        style="@style/regular"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/artist_address"
+                        android:layout_marginStart="16dp"
+
+
+                        app:layout_constraintStart_toEndOf="@+id/img_artist"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_artist_name"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -77,7 +140,7 @@
                 android:layout_marginVertical="10dp"
                 app:cardCornerRadius="0dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cv_painting_title">
+                app:layout_constraintTop_toBottomOf="@+id/cv_about_artist">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"

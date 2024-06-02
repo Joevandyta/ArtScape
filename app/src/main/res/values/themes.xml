@@ -59,11 +59,12 @@
         <item name="colorOnCustomColor1Container">@color/colorOnCustomColor1Container</item>
         <item name="colorBlackorWhite">@color/black_or_white</item>
 
+
+
         <!--Costum Component-->
         <item name="materialButtonStyle">@style/CustomButtonStyle</item>
         <item name="materialCardViewStyle">@style/Widget.MaterialComponents.CardView</item>
 <!--        <item name="appBarLayoutStyle">@style/ToolbarDefaultIconStyle</item>-->
-
     </style>
 
     <style name="Theme.ArtScape" parent="Base.Theme.ArtScape" />
