@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.main.MainActivity">
 
     <FrameLayout
         android:id="@+id/fragment_container"
@@ -15,12 +15,15 @@
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_app_bar_layout"
+        style="@style/Widget.MaterialComponents.BottomAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:fabCradleMargin="10dp"
-        app:fabCradleRoundedCornerRadius="16dp" >
+        app:fabCradleVerticalOffset="5dp"
+        app:fabCradleRoundedCornerRadius="20dp" >
         <com.google.android.material.bottomnavigation.BottomNavigationView
+            style="@style/Widget.MaterialComponents.BottomNavigationView"
             android:id="@+id/bottom_app_bar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -31,10 +34,14 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_upload_art"
+        style="@style/Widget.MaterialComponents.FloatingActionButton"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/upload_new_art"
+
         android:src="@drawable/ic_add"
-        app:layout_anchor="@id/bottom_app_bar_layout"/>
+        app:layout_anchor="@+id/bottom_app_bar"
+        app:layout_anchorGravity="top|center" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

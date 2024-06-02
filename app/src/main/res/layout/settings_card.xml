@@ -8,7 +8,8 @@
     <View
         android:id="@+id/bg_transaction_title"
         android:layout_width="match_parent"
-        android:layout_height="28dp"
+        android:layout_height="35dp"
+
         style="@style/SectionBgStyle"
         card_view:layout_constraintTop_toTopOf="parent"
         card_view:layout_constraintStart_toStartOf="parent"
@@ -52,7 +53,7 @@
                 android:layout_height="2dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="20dp"
-                android:background="?attr/colorPrimary"
+                style="@style/SettingCardStyle"
                 card_view:layout_constraintTop_toBottomOf="@+id/tv_notification"
                 tools:layout_editor_absoluteX="8dp" />
 
@@ -99,7 +100,7 @@
                 android:layout_height="2dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="20dp"
-                android:background="?attr/colorPrimary"
+                style="@style/SettingCardStyle"
                 card_view:layout_constraintTop_toBottomOf="@+id/tv_transaction_history"
                 tools:layout_editor_absoluteX="8dp" />
 
@@ -119,9 +120,8 @@
     <View
         android:id="@+id/bg_general_title"
         android:layout_width="match_parent"
-        android:layout_height="28dp"
+        android:layout_height="35dp"
         style="@style/SectionBgStyle"
-
         card_view:layout_constraintTop_toBottomOf="@+id/cv_transaction_history"
         card_view:layout_constraintStart_toStartOf="parent"
         />
@@ -132,6 +132,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/general"
+
         card_view:layout_constraintBottom_toBottomOf="@+id/bg_general_title"
         card_view:layout_constraintTop_toTopOf="@+id/bg_general_title" />
     <com.google.android.material.card.MaterialCardView
@@ -164,7 +165,7 @@
                 android:layout_height="2dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="20dp"
-                android:background="?attr/colorPrimary"
+                style="@style/SettingCardStyle"
                 card_view:layout_constraintTop_toBottomOf="@+id/tv_address"
                 tools:layout_editor_absoluteX="8dp" />
 
@@ -184,7 +185,7 @@
     <View
         android:id="@+id/bg_about_title"
         android:layout_width="match_parent"
-        android:layout_height="28dp"
+        android:layout_height="35dp"
         style="@style/SectionBgStyle"
 
         card_view:layout_constraintTop_toBottomOf="@+id/cv_address"
@@ -230,7 +231,7 @@
                 android:layout_height="2dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="20dp"
-                android:background="?attr/colorPrimary"
+                style="@style/SettingCardStyle"
                 card_view:layout_constraintTop_toBottomOf="@+id/tv_support"
                 tools:layout_editor_absoluteX="8dp" />
 
@@ -276,7 +277,7 @@
                 android:layout_height="2dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="20dp"
-                android:background="?attr/colorPrimary"
+                style="@style/SettingCardStyle"
                 card_view:layout_constraintTop_toBottomOf="@+id/tv_about_app"
                 tools:layout_editor_absoluteX="8dp" />
 
@@ -296,7 +297,8 @@
     <View
         android:id="@+id/bg_logout_title"
         android:layout_width="match_parent"
-        android:layout_height="28dp"
+        android:layout_height="35dp"
+
         style="@style/SectionBgStyle"
 
         card_view:layout_constraintTop_toBottomOf="@+id/cv_about_app"
@@ -317,6 +319,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/transparant"
+
         card_view:cardElevation="0dp"
         card_view:layout_constraintTop_toBottomOf="@+id/bg_logout_title">
 
@@ -339,10 +342,9 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="20dp"
-                android:background="?attr/colorPrimary"
+                style="@style/SettingCardStyle"
                 card_view:layout_constraintTop_toBottomOf="@+id/tv_logout"
                 tools:layout_editor_absoluteX="8dp" />
 

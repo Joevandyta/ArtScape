@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.ArtScape" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Base.Theme.ArtScape" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
 
@@ -57,8 +57,16 @@
         <item name="colorOnCustomColor1">@color/colorOnCustomColor1</item>
         <item name="colorCustomColor1Container">@color/colorCustomColor1Container</item>
         <item name="colorOnCustomColor1Container">@color/colorOnCustomColor1Container</item>
+        <item name="colorBlackorWhite">@color/black_or_white</item>
+
+        <!--Costum Component-->
+        <item name="materialButtonStyle">@style/CustomButtonStyle</item>
+        <item name="materialCardViewStyle">@style/Widget.MaterialComponents.CardView</item>
+<!--        <item name="appBarLayoutStyle">@style/ToolbarDefaultIconStyle</item>-->
+
     </style>
 
     <style name="Theme.ArtScape" parent="Base.Theme.ArtScape" />
+
 
 </resources>

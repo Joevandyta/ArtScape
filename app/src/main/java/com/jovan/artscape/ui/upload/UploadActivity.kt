@@ -1,18 +1,14 @@
 package com.jovan.artscape.ui.upload
 
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.jovan.artscape.R
+import com.bumptech.glide.Glide
 import com.jovan.artscape.databinding.ActivityUploadBinding
 
 class UploadActivity : AppCompatActivity() {
@@ -22,15 +18,26 @@ class UploadActivity : AppCompatActivity() {
         binding = ActivityUploadBinding.inflate(layoutInflater)
         setContentView(binding.root)
         topActionBar()
-
+        bindingView()
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                finish()
+                showExitConfirmationDialog()
             }
         })
-
     }
-
+    private fun showExitConfirmationDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("Are you sure you want to go back? Any unsaved changes will be lost.")
+            .setCancelable(false)
+            .setPositiveButton("Yes") { dialog, id ->
+                finish()
+            }
+            .setNegativeButton("No") { dialog, id ->
+                dialog.dismiss()
+            }
+        val alert = builder.create()
+        alert.show()
+    }
     private fun topActionBar(){
         supportActionBar?.show()
         supportActionBar?.title = "Upload Art"
@@ -39,6 +46,15 @@ class UploadActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
+    private fun bindingView(){
+        val uri = Uri.parse(intent.getStringExtra(EXTRA_IMAGE))
+
+        binding.apply {
+            Glide.with(this@UploadActivity)
+                .load(uri)
+                .into(previewImageView)
+        }
+    }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle item selection
         return when (item.itemId) {
@@ -50,7 +66,9 @@ class UploadActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
+    companion object {
+        const val EXTRA_IMAGE= "extra_image"
+    }
     private fun showToast(text: String){
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }
