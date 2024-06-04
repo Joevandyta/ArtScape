@@ -21,7 +21,6 @@
 
             android:id="@+id/upload_toolbar"
             style="@style/ToolbarCenteredTitleStyle"
-            android:theme="@style/ToolbarDefaultIconStyleBlackOrWhite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
@@ -151,7 +150,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ed_description"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:ems="10"
                     android:gravity="start|top"
                     android:inputType="textMultiLine"

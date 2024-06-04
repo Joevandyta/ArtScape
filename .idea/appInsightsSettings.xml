@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.jovan.artscape" />
+                  <option name="mobileSdkAppId" value="1:92310495355:android:c37cc53b9d5f17b167c2de" />
+                  <option name="projectId" value="artscape-capstone" />
+                  <option name="projectNumber" value="92310495355" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

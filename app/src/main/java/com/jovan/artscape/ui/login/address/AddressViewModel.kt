@@ -1,13 +1,13 @@
-package com.jovan.artscape.ui.login
+package com.jovan.artscape.ui.login.address
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jovan.artscape.data.ProvideRepository
-import com.jovan.artscape.remote.response.DistrictResponse
-import com.jovan.artscape.remote.response.ProvinceResponse
-import com.jovan.artscape.remote.response.RegenciesResponse
-import com.jovan.artscape.remote.response.VillageResponse
+import com.jovan.artscape.remote.response.address.DistrictResponse
+import com.jovan.artscape.remote.response.address.ProvinceResponse
+import com.jovan.artscape.remote.response.address.RegenciesResponse
+import com.jovan.artscape.remote.response.address.VillageResponse
 import kotlinx.coroutines.launch
 
 class AddressViewModel(private val repository: ProvideRepository):ViewModel() {

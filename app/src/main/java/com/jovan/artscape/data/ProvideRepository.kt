@@ -1,12 +1,32 @@
 package com.jovan.artscape.data
 
+import com.jovan.artscape.data.pref.ProvidePreference
+import com.jovan.artscape.data.pref.UserModel
 import com.jovan.artscape.remote.api.RetrofiClient
-import com.jovan.artscape.remote.response.DistrictResponse
-import com.jovan.artscape.remote.response.ProvinceResponse
-import com.jovan.artscape.remote.response.RegenciesResponse
-import com.jovan.artscape.remote.response.VillageResponse
+import com.jovan.artscape.remote.response.address.DistrictResponse
+import com.jovan.artscape.remote.response.address.ProvinceResponse
+import com.jovan.artscape.remote.response.address.RegenciesResponse
+import com.jovan.artscape.remote.response.address.VillageResponse
+import kotlinx.coroutines.flow.Flow
 
-class ProvideRepository private constructor(){
+class ProvideRepository private constructor(
+    private var providePreference: ProvidePreference
+){
+
+    //Session DataStore
+    suspend fun saveSession(user: UserModel) {
+        providePreference.saveSession(user)
+    }
+
+    fun getSession(): Flow<UserModel> {
+        return providePreference.getSession()
+    }
+
+    suspend fun logout() {
+        providePreference.logout()
+    }
+
+    //API Region
     suspend fun getProvinces(): List<ProvinceResponse> {
         return RetrofiClient.getApiService().getProvince()
     }
@@ -26,10 +46,10 @@ class ProvideRepository private constructor(){
         @Volatile
         private var instance: ProvideRepository? = null
         fun getInstance(
-
+            providePreference: ProvidePreference
         ): ProvideRepository =
             instance ?: synchronized(this) {
-                instance ?: ProvideRepository()
+                instance ?: ProvideRepository(providePreference)
             }.also { instance = it }
     }
 }

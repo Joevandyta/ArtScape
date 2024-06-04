@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "92310495355",
+    "project_id": "artscape-capstone",
+    "storage_bucket": "artscape-capstone.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:92310495355:android:c37cc53b9d5f17b167c2de",
+        "android_client_info": {
+          "package_name": "com.jovan.artscape"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "92310495355-6ntch3thr3orisc0gp40q90k0spihiio.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jovan.artscape",
+            "certificate_hash": "c1202918bfd720201944f1287e0ac6e0c6b72b49"
+          }
+        },
+        {
+          "client_id": "92310495355-ubm4g3f2eradhu2g5jeu4q3tp3hmrr9r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvTniX36w-Kk__T16_yzrn-3ZOjROgOKI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "92310495355-ubm4g3f2eradhu2g5jeu4q3tp3hmrr9r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

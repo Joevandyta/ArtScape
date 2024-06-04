@@ -5,7 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.jovan.artscape.data.Injection
 import com.jovan.artscape.data.ProvideRepository
-import com.jovan.artscape.ui.login.AddressViewModel
+import com.jovan.artscape.ui.login.LoginViewModel
+import com.jovan.artscape.ui.login.address.AddressViewModel
+import com.jovan.artscape.ui.main.MainViewModel
+import com.jovan.artscape.ui.main.account.AccountViewModel
 
 
 class ViewModelFactory(private val repository: ProvideRepository) :
@@ -16,6 +19,15 @@ class ViewModelFactory(private val repository: ProvideRepository) :
         return when {
             modelClass.isAssignableFrom(AddressViewModel::class.java) -> {
                 AddressViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
+                LoginViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(AccountViewModel::class.java) -> {
+                AccountViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(MainViewModel::class.java) -> {
+                MainViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

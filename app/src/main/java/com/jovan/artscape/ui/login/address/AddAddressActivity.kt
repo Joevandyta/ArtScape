@@ -1,4 +1,4 @@
-package com.jovan.artscape.ui.login
+package com.jovan.artscape.ui.login.address
 
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -24,6 +24,10 @@ class AddAddressActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val autoCompleteProvince = binding.autoCompleteProvince
+        val autoCompleteRegency = binding.autoCompleteRegency
+        val autoCompleteDistrict = binding.autoCompleteDistrict
+        val autoCompleteVillage = binding.autoCompleteVillage
+
         viewModel.getProvinces().observe(this) { provinces ->
             val item = provinces.map { it.name }
             val adapterItems = ArrayAdapter(this, R.layout.list_item_address, item)
@@ -32,11 +36,12 @@ class AddAddressActivity : AppCompatActivity() {
             autoCompleteProvince.setOnItemClickListener { adapterView, _, i, _ ->
                 val item = adapterView.getItemAtPosition(i).toString()
                 Toast.makeText(this@AddAddressActivity, "Item: $item", Toast.LENGTH_SHORT).show()
+                clearRegencyAdapter()
                 viewModel.setRegencies(provinces[i].id.toString())
             }
         }
 
-        val autoCompleteRegency = binding.autoCompleteRegency
+
         viewModel.getRegencies().observe(this) { regency ->
             val item = regency.map { it.name }
             val adapterItems = ArrayAdapter(this, R.layout.list_item_address, item)
@@ -46,11 +51,10 @@ class AddAddressActivity : AppCompatActivity() {
                 val itemList = adapterView.getItemAtPosition(i).toString()
                 Toast.makeText(this@AddAddressActivity, "Item: $itemList", Toast.LENGTH_SHORT)
                     .show()
+                clearDistrictAdapter()
                 viewModel.setDistricts(regency[i].id.toString())
             }
         }
-
-        val autoCompleteDistrict = binding.autoCompleteDistrict
         viewModel.getDistricts().observe(this) { district ->
             val item = district.map { it.name }
             val adapterItems = ArrayAdapter(this, R.layout.list_item_address, item)
@@ -60,11 +64,10 @@ class AddAddressActivity : AppCompatActivity() {
                 val itemList = adapterView.getItemAtPosition(i).toString()
                 Toast.makeText(this@AddAddressActivity, "Item: $itemList", Toast.LENGTH_SHORT)
                     .show()
+                clearVillageAdapter()
                 viewModel.setVillages(district[i].id.toString())
             }
         }
-
-        val autoCompleteVillage = binding.autoCompleteVillage
         viewModel.getVillages().observe(this) { village ->
             val item = village.map { it.name }
             val adapterItems = ArrayAdapter(this, R.layout.list_item_address, item)
@@ -76,5 +79,27 @@ class AddAddressActivity : AppCompatActivity() {
                     .show()
             }
         }
+    }
+    private fun clearRegencyAdapter() {
+        val emptyAdapter = ArrayAdapter<String>(this, R.layout.list_item_address, listOf())
+        val autoCompleteRegency = binding.autoCompleteRegency
+        autoCompleteRegency.setAdapter(emptyAdapter)
+        autoCompleteRegency.setText("")
+        clearDistrictAdapter()
+    }
+
+    private fun clearDistrictAdapter() {
+        val emptyAdapter = ArrayAdapter<String>(this, R.layout.list_item_address, listOf())
+        val autoCompleteDistrict = binding.autoCompleteDistrict
+        autoCompleteDistrict.setAdapter(emptyAdapter)
+        autoCompleteDistrict.setText("")
+        clearVillageAdapter()
+    }
+
+    private fun clearVillageAdapter() {
+        val emptyAdapter = ArrayAdapter<String>(this, R.layout.list_item_address, listOf())
+        val autoCompleteVillage = binding.autoCompleteVillage
+        autoCompleteVillage.setAdapter(emptyAdapter)
+        autoCompleteVillage.setText("")
     }
 }
