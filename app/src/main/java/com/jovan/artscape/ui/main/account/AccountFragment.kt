@@ -9,6 +9,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.jovan.artscape.R
 import com.jovan.artscape.databinding.FragmentAccountBinding
+import com.jovan.artscape.ui.AboutActivity
+import com.jovan.artscape.ui.NotificationActivity
+import com.jovan.artscape.ui.TransactionActivity
 import com.jovan.artscape.ui.login.LoginActivity
 
 // TODO: Rename parameter arguments, choose names that match
@@ -37,10 +40,14 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
 
         binding.settingsCard.apply {
             cvNotification.setOnClickListener {
+                startActivity(Intent(requireContext(), NotificationActivity::class.java))
                 showToast("Ini Notif")
+                true
             }
             cvTransactionHistory.setOnClickListener {
+                startActivity(Intent(requireContext(), TransactionActivity::class.java))
                 showToast("Transaksi")
+                true
             }
             cvAddress.setOnClickListener {
                 showToast("Ini Alamat")
@@ -49,7 +56,9 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
                 showToast("Ini Pembayaran")
             }
             cvAboutApp.setOnClickListener {
+                startActivity(Intent(requireContext(), AboutActivity::class.java))
                 showToast("Ini about")
+                true
             }
             cvLogout.setOnClickListener {
                 showToast("Logout")

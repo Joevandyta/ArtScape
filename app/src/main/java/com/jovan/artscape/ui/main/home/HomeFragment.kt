@@ -17,6 +17,7 @@ import androidx.lifecycle.Lifecycle
 import com.jovan.artscape.R
 import com.jovan.artscape.databinding.FragmentHomeBinding
 import com.jovan.artscape.ui.CartActivity
+import com.jovan.artscape.ui.NotificationActivity
 import com.jovan.artscape.ui.main.painting.DetailPaintingFragment
 import com.jovan.artscape.ui.search.SearchActivity
 
@@ -65,10 +66,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     }
                     R.id.bar_notification -> {
                         // TODO : Go to notification
-
-                        replaceFragment()
+                        startActivity(Intent(requireContext(), NotificationActivity::class.java))
                         showToast("Notif Bro")
-
                         true
                     }
                     R.id.bar_search -> {
