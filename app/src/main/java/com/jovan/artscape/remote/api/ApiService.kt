@@ -1,4 +1,29 @@
 package com.jovan.artscape.remote.api
 
-class ApiService {
+import com.jovan.artscape.remote.response.DistrictResponse
+import com.jovan.artscape.remote.response.ProvinceResponse
+import com.jovan.artscape.remote.response.RegenciesResponse
+import com.jovan.artscape.remote.response.VillageResponse
+import retrofit2.http.GET
+import retrofit2.http.Path
+
+interface ApiService {
+    @GET("provinces.json")
+    suspend fun getProvince(
+    ):List<ProvinceResponse>
+
+    @GET("regencies/{province_id}.json")
+    suspend fun getRegencies(
+        @Path("province_id") provinceId: String
+    ):List<RegenciesResponse>
+
+    @GET("districts/{regencies_id}.json")
+    suspend fun getDistrict(
+        @Path("regencies_id") regenciesId: String
+    ):List<DistrictResponse>
+
+    @GET("villages/{district_id}.json")
+    suspend fun getVillage(
+        @Path("district_id") districtId: String
+    ):List<VillageResponse>
 }
