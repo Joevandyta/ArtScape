@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.jovan.artscape.R
 import com.jovan.artscape.databinding.FragmentAccountBinding
 import com.jovan.artscape.ui.login.LoginActivity
+import com.jovan.artscape.ui.profile.EditProfileActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,51 +36,57 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentAccountBinding.bind(view)
 
-        binding.settingsCard.apply {
-            cvNotification.setOnClickListener {
-                showToast("Ini Notif")
-            }
-            cvTransactionHistory.setOnClickListener {
-                showToast("Transaksi")
-            }
-            cvAddress.setOnClickListener {
-                showToast("Ini Alamat")
-            }
-            cvSupport.setOnClickListener {
-                showToast("Ini Pembayaran")
-            }
-            cvAboutApp.setOnClickListener {
-                showToast("Ini about")
-            }
-            cvLogout.setOnClickListener {
-                showToast("Logout")
-                AlertDialog.Builder(requireContext()).apply {
-                    Log.d("Logout AlertDialog", "Login dengan test Berhasil.")
-                    setTitle("Logging Out")
-                    setMessage("Are you?")
-                    setPositiveButton("yes") { _, _ ->
-                        startActivity(Intent(requireContext(), LoginActivity::class.java))
 
-                        showLoading(false)
-
-                    }
-                    setNegativeButton("no") { _, _ ->
-                        showLoading(false)
-                    }
-                    setCancelable(false)
-                    create()
-                    show()
+        binding.apply {
+            editProfileButton.setOnClickListener {
+                startActivity(Intent(requireContext(), EditProfileActivity::class.java))
+            }
+            settingsCard.apply {
+                cvNotification.setOnClickListener {
+                    showToast("Ini Notif")
                 }
+                cvTransactionHistory.setOnClickListener {
+                    showToast("Transaksi")
+                }
+                cvAddress.setOnClickListener {
+                    showToast("Ini Alamat")
+                }
+                cvSupport.setOnClickListener {
+                    showToast("Ini Pembayaran")
+                }
+                cvAboutApp.setOnClickListener {
+                    showToast("Ini about")
+                }
+                cvLogout.setOnClickListener {
+                    showToast("Logout")
+                    AlertDialog.Builder(requireContext()).apply {
+                        Log.d("Logout AlertDialog", "Login dengan test Berhasil.")
+                        setTitle("Logging Out")
+                        setMessage("Are you?")
+                        setPositiveButton("yes") { _, _ ->
+                            startActivity(Intent(requireContext(), LoginActivity::class.java))
 
+                            showLoading(false)
+
+                        }
+                        setNegativeButton("no") { _, _ ->
+                            showLoading(false)
+                        }
+                        setCancelable(false)
+                        create()
+                        show()
+                    }
+                }
             }
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-    private fun showToast(text: String){
+    private fun showToast(text: String) {
         Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
     }
 
