@@ -4,14 +4,19 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
 
-        <!-- <item name="floatingActionButtonStyle" >@style/FloatingActionButtonStyle</item>-->
+         <item name="floatingActionButtonStyle" >@style/FloatingActionButtonStyle</item>
 
-        <item name="colorPrimary">@color/md_theme_primary</item>
+
+        
+        <item name="colorPrimary">@color/light_blue_600</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
+        <item name="backgroundColor">@color/white</item>
+        <item name="colorOnSecondary">@color/black_or_white</item>
+
         <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
         <item name="colorOnPrimaryContainer">@color/md_theme_onPrimaryContainer</item>
         <item name="colorSecondary">@color/md_theme_secondary</item>
-        <item name="colorOnSecondary">@color/md_theme_onSecondary</item>
+        
         <item name="colorSecondaryContainer">@color/md_theme_secondaryContainer</item>
         <item name="colorOnSecondaryContainer">@color/md_theme_onSecondaryContainer</item>
         <item name="colorTertiary">@color/md_theme_tertiary</item>
@@ -57,7 +62,6 @@
         <item name="colorCustomColor1Container">@color/colorCustomColor1Container</item>
         <item name="colorOnCustomColor1Container">@color/colorOnCustomColor1Container</item>
         <item name="colorBlackorWhite">@color/black_or_white</item>
-
 
 
         <!--Costum Component-->

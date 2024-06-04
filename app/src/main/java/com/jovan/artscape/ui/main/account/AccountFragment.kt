@@ -9,6 +9,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.jovan.artscape.R
 import com.jovan.artscape.databinding.FragmentAccountBinding
+import com.jovan.artscape.ui.AboutActivity
+import com.jovan.artscape.ui.NotificationActivity
+import com.jovan.artscape.ui.TransactionActivity
 import com.jovan.artscape.ui.login.LoginActivity
 import com.jovan.artscape.ui.profile.EditProfileActivity
 
@@ -40,6 +43,7 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
         binding.apply {
             editProfileButton.setOnClickListener {
                 startActivity(Intent(requireContext(), EditProfileActivity::class.java))
+
             }
             settingsCard.apply {
                 cvNotification.setOnClickListener {
