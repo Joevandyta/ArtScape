@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.jovan.artscape.data.Injection
 import com.jovan.artscape.data.ProvideRepository
+import com.jovan.artscape.ui.login.AddressViewModel
 
 
 class ViewModelFactory(private val repository: ProvideRepository) :
@@ -13,13 +14,12 @@ class ViewModelFactory(private val repository: ProvideRepository) :
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
-/*            modelClass.isAssignableFrom(PaintingViewModel::class.java) -> {
-                PaintingViewModel(repository) as T
-            }*/
+            modelClass.isAssignableFrom(AddressViewModel::class.java) -> {
+                AddressViewModel(repository) as T
+            }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
     }
-
 
     companion object {
         @Volatile

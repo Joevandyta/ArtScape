@@ -12,6 +12,7 @@
         style="@style/Widget.MaterialComponents.AppBarLayout.Primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/transparant"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -19,12 +20,12 @@
         <com.google.android.material.appbar.MaterialToolbar
 
             android:id="@+id/upload_toolbar"
+            style="@style/ToolbarCenteredTitleStyle"
+            android:theme="@style/ToolbarDefaultIconStyleBlackOrWhite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
-            android:theme="@style/ToolbarDefaultIconStyle"
-            app:title="@string/upload_art"
-            app:titleTextColor="?attr/colorOnPrimary" />
+            app:title="@string/upload_art"/>
     </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
@@ -87,7 +88,6 @@
                     android:layout_height="match_parent"
                     android:ems="10"
                     android:gravity="start|center"
-
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -111,6 +111,7 @@
                     android:gravity="start|center"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/ed_price_layout"

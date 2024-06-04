@@ -1,10 +1,9 @@
 package com.jovan.artscape.data.pref
 
-import android.content.Context
-import java.util.prefs.Preferences
-
 
 class ProvidePreference private constructor() {
+
+
 
 
     companion object {

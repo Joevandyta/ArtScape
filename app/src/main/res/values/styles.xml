@@ -127,6 +127,7 @@
         <item name="android:textColorHint">?attr/colorOnPrimary</item>
     </style>
 
+
     <style name="ToolbarDefaultIconStyleBlackOrWhite" parent="Base.Theme.ArtScape">
         <item name="android:textColorPrimary">?attr/colorBlackorWhite</item>
         <item name="android:textColorSecondary">?attr/colorBlackorWhite</item>
