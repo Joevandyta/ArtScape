@@ -1,4 +1,4 @@
-package com.jovan.artscape.remote.response
+package com.jovan.artscape.remote.response.address
 
 data class ProvinceResponse(
     val id: Int,

@@ -1,4 +1,5 @@
 <resources>
+    <string name="web_client_id">92310495355-ubm4g3f2eradhu2g5jeu4q3tp3hmrr9r.apps.googleusercontent.com</string>
     <string name="app_name">ArtScape</string>
     <string name="account">Account</string>
     <string name="home">Home</string>

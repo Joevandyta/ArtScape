@@ -1,18 +1,21 @@
 package com.jovan.artscape.ui.main
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 import com.jovan.artscape.R
+import com.jovan.artscape.ViewModelFactory
 import com.jovan.artscape.databinding.ActivityMainBinding
+import com.jovan.artscape.ui.login.LoginActivity
 import com.jovan.artscape.ui.main.account.AccountFragment
 import com.jovan.artscape.ui.main.home.HomeFragment
 import com.jovan.artscape.ui.upload.UploadActivity
@@ -21,7 +24,10 @@ import com.jovan.artscape.ui.upload.UploadActivity.Companion.EXTRA_IMAGE
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var currentImageUri: Uri? = null
-
+    private lateinit var auth: FirebaseAuth
+    private val viewModel by viewModels<MainViewModel>{
+        ViewModelFactory.getInstance(this)
+    }
     private val launcherGallery = registerForActivityResult(
         ActivityResultContracts.PickVisualMedia()
     ) { uri: Uri? ->
@@ -39,19 +45,26 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         supportActionBar?.hide()
         setContentView(binding.root)
-        bottomAppBar()
+        auth = Firebase.auth
+        getSession(auth)
 
+        bottomAppBar()
         // Set initial fragment
         if (savedInstanceState == null) {
             replaceFragment(HomeFragment())
         }
     }
-    private fun allPermissionsGranted() =
-        ContextCompat.checkSelfPermission(
-            this,
-            REQUIRED_PERMISSION
-        ) == PackageManager.PERMISSION_GRANTED
-
+    private fun getSession(auth: FirebaseAuth){
+        val firebaseUser = auth.currentUser
+        viewModel.getSesion().observe(this){user ->
+            if (firebaseUser == null && !user.isLogin) {
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
+            }else {
+                Log.d("TOKEN", "Token: ${user.token}")
+            }
+        }
+    }
     private fun bottomAppBar() {
         binding.bottomAppBar.background = null
         binding.bottomAppBar.setOnItemSelectedListener { menuItem ->
@@ -79,9 +92,5 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.replace(R.id.fragment_container, fragment)
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
-    }
-
-    companion object {
-        private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA
     }
 }

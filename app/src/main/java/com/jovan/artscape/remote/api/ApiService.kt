@@ -1,9 +1,9 @@
 package com.jovan.artscape.remote.api
 
-import com.jovan.artscape.remote.response.DistrictResponse
-import com.jovan.artscape.remote.response.ProvinceResponse
-import com.jovan.artscape.remote.response.RegenciesResponse
-import com.jovan.artscape.remote.response.VillageResponse
+import com.jovan.artscape.remote.response.address.DistrictResponse
+import com.jovan.artscape.remote.response.address.ProvinceResponse
+import com.jovan.artscape.remote.response.address.RegenciesResponse
+import com.jovan.artscape.remote.response.address.VillageResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 

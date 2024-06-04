@@ -6,14 +6,20 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.credentials.ClearCredentialStateRequest
+import androidx.credentials.CredentialManager
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 import com.jovan.artscape.R
+import com.jovan.artscape.ViewModelFactory
 import com.jovan.artscape.databinding.FragmentAccountBinding
-import com.jovan.artscape.ui.AboutActivity
-import com.jovan.artscape.ui.NotificationActivity
-import com.jovan.artscape.ui.TransactionActivity
 import com.jovan.artscape.ui.login.LoginActivity
 import com.jovan.artscape.ui.profile.EditProfileActivity
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,14 +27,22 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 class AccountFragment : Fragment(R.layout.fragment_account) {
+    private val viewModel by viewModels<AccountViewModel> {
+        ViewModelFactory.getInstance(requireContext())
+    }
     private var _binding: FragmentAccountBinding? = null
+    private lateinit var auth: FirebaseAuth
     private val binding get() = _binding!!
     private var param1: String? = null
     private var param2: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        auth = Firebase.auth
+        val firebaseUser = auth.currentUser
+        if (firebaseUser == null) {
+            startActivity(Intent(requireContext(), LoginActivity::class.java))
+        }
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -63,28 +77,37 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
                 }
                 cvLogout.setOnClickListener {
                     showToast("Logout")
-                    AlertDialog.Builder(requireContext()).apply {
-                        Log.d("Logout AlertDialog", "Login dengan test Berhasil.")
-                        setTitle("Logging Out")
-                        setMessage("Are you?")
-                        setPositiveButton("yes") { _, _ ->
-                            startActivity(Intent(requireContext(), LoginActivity::class.java))
+                    viewModel.getSesion().observe(viewLifecycleOwner){
+                        AlertDialog.Builder(requireContext()).apply {
+                            Log.d("Logout AlertDialog", "Login dengan test Berhasil.")
+                            setTitle("Logging Out ${it.token}")
+                            setMessage("Are you?")
+                            setPositiveButton("yes") { _, _ ->
+                                signOut()
+                                showLoading(false)
 
-                            showLoading(false)
-
+                            }
+                            setNegativeButton("no") { _, _ ->
+                                showLoading(false)
+                            }
+                            setCancelable(false)
+                            create()
+                            show()
                         }
-                        setNegativeButton("no") { _, _ ->
-                            showLoading(false)
-                        }
-                        setCancelable(false)
-                        create()
-                        show()
                     }
+
                 }
             }
         }
     }
-
+    private fun signOut() {
+        lifecycleScope.launch {
+            val credentialManager = CredentialManager.create(requireContext())
+            auth.signOut()
+            credentialManager.clearCredentialState(ClearCredentialStateRequest())
+            startActivity(Intent(requireContext(), LoginActivity::class.java))
+        }
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

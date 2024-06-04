@@ -142,6 +142,7 @@
 
     <style name="ToolbarCenteredTitleStyle" parent="Widget.MaterialComponents.Toolbar">
         <item name="titleCentered">true</item>
+
     </style>
 
 

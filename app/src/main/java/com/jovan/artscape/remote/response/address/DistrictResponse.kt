@@ -1,4 +1,4 @@
-package com.jovan.artscape.remote.response
+package com.jovan.artscape.remote.response.address
 
 import com.google.gson.annotations.SerializedName
 
