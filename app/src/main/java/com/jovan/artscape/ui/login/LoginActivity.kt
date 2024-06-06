@@ -25,7 +25,7 @@ import com.jovan.artscape.R
 import com.jovan.artscape.ViewModelFactory
 import com.jovan.artscape.data.pref.UserModel
 import com.jovan.artscape.databinding.ActivityLoginBinding
-import com.jovan.artscape.ui.login.address.AddAddressActivity
+import com.jovan.artscape.ui.login.artist.UserDataActivity
 import com.jovan.artscape.ui.main.MainActivity
 import kotlinx.coroutines.launch
 
@@ -49,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
             signIn()
         }
         binding.buttonDummy.setOnClickListener {
-            startActivity(Intent(this, AddAddressActivity::class.java))
+            startActivity(Intent(this, UserDataActivity::class.java))
         }
     }
     private fun signIn() {
@@ -62,6 +62,7 @@ class LoginActivity : AppCompatActivity() {
         val request = GetCredentialRequest.Builder() //import from androidx.CredentialManager
             .addCredentialOption(googleIdOption)
             .build()
+
         lifecycleScope.launch {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
                 try {
@@ -88,7 +89,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun handleSignIn(result: GetCredentialResponse) {
-        // Handle the successfully returned credential.
         when (val credential = result.credential) {
             is CustomCredential -> {
                 if (credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL) {
@@ -97,6 +97,8 @@ class LoginActivity : AppCompatActivity() {
                         val googleIdTokenCredential =
                             GoogleIdTokenCredential.createFrom(credential.data)
                         firebaseAuthWithGoogle(googleIdTokenCredential.idToken)
+                        Log.e("TOKEN HANDLE SIGN IN",googleIdTokenCredential.idToken )
+
                     } catch (e: GoogleIdTokenParsingException) {
                         Log.e(TAG, "Received an invalid google id token response", e)
                     }
@@ -112,7 +114,6 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential: AuthCredential = GoogleAuthProvider.getCredential(idToken, null)
         Log.d("TOKEN", credential.toString())
@@ -123,7 +124,7 @@ class LoginActivity : AppCompatActivity() {
                     val user: FirebaseUser? = auth.currentUser
                     val authToken = user?.getIdToken(true)
                     viewModel.saveSession(UserModel(authToken.toString()))
-                    Log.d("TOKEN", authToken.toString())
+                    Log.d("firebaseAuthWithGoogle TOKEN", authToken.toString())
 
                     updateUI(user)
                     Log.d(TAG, "signInWithCredential:success")
@@ -133,9 +134,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
     }
-    companion object {
-        private const val TAG = "LoginActivity"
-    }
+
     private fun updateUI(curentUser: FirebaseUser?) {
         if (curentUser != null){
             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
@@ -146,5 +145,9 @@ class LoginActivity : AppCompatActivity() {
         super.onStart()
         val currentUser = auth.currentUser
         updateUI(currentUser)
+    }
+
+    companion object {
+        private const val TAG = "LoginActivity"
     }
 }

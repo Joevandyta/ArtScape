@@ -33,7 +33,7 @@
             android:name=".ui.AboutActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.login.ArtistDataActivity"
+            android:name=".ui.login.artist.UserDataActivity"
             android:exported="false" />
         <activity
             android:name=".ui.RolesActivity"
