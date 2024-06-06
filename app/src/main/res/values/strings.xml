@@ -138,5 +138,8 @@
     <string name="select_districts">Select districts</string>
     <string name="select_regency">Select Regency</string>
     <string name="select_village">Select Village</string>
+    <string name="bio">Bio</string>
+    <string name="add_user_data">Add User Data</string>
+    <string name="save_data">Save Data</string>
 
 </resources>
