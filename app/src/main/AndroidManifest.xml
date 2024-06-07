@@ -24,6 +24,9 @@
             android:name=".ui.CartActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.SelectGenreActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.NotificationActivity"
             android:exported="false" />
         <activity
@@ -49,6 +52,9 @@
             android:name=".ui.search.SearchActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.main.MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
@@ -60,9 +66,7 @@
         <activity
             android:name=".ui.upload.UploadActivity"
             android:exported="false" />
-        <activity
-            android:name=".ui.main.MainActivity"
-            android:exported="false" />
-    </application>
 
+
+    </application>
 </manifest>

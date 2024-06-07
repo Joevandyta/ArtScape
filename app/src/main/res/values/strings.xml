@@ -126,10 +126,7 @@
 
     <string name="slogan">ArtScape: Exploration, from Screen to Soul</string>
     <string name="version">Versi 1.0.0</string>
-
-
-
-
+    <string name ="sign_in">Sign in to continue</string>
 
     <string name="phone_number">Phone Number</string>
     <string name="edit">Edit</string>

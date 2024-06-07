@@ -39,27 +39,29 @@
             android:layout_height="wrap_content"
             style="@style/CardViewStyle">
 
+            <ImageView
+                android:id="@+id/notif_icon"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="360dp"
+                android:src="@drawable/notification"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/tv_notification"
                 style="@style/semibold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/notification"
+                android:layout_marginStart="28dp"
 
+                android:text="@string/notification"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"
-                card_view:layout_constraintVertical_bias="0.347" />
-
-            <View
-                android:layout_width="match_parent"
-
-                android:layout_height="0.1dp"
-                android:layout_marginTop="16dp"
-                android:background="?attr/colorPrimary"
-
-                card_view:layout_constraintTop_toBottomOf="@+id/tv_notification"
-                tools:layout_editor_absoluteX="16dp" />
+                card_view:layout_constraintVertical_bias="0.0" />
 
             <ImageView
                 android:layout_width="18dp"
@@ -69,6 +71,7 @@
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription" />
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -90,26 +93,29 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/transaction_icon"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="360dp"
+                android:src="@drawable/receipt"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/tv_transaction_history"
                 style="@style/semibold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/transaction_history"
+                android:layout_marginStart="28dp"
 
+                android:text="@string/transaction_history"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"
-                card_view:layout_constraintVertical_bias="0.222" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.1dp"
-                android:layout_marginTop="16dp"
-                android:background="?attr/colorPrimary"
-
-                card_view:layout_constraintTop_toBottomOf="@+id/tv_transaction_history"
-                tools:layout_editor_absoluteX="17dp" />
+                card_view:layout_constraintVertical_bias="1.0" />
 
             <ImageView
                 android:layout_width="18dp"
@@ -162,27 +168,28 @@
             android:layout_height="wrap_content"
             style="@style/CardViewStyle">
 
+            <ImageView
+                android:id="@+id/address_icon"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="360dp"
+                android:src="@drawable/place"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/tv_address"
                 style="@style/semibold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
                 android:text="@string/address"
-
-
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:layout_width="match_parent"
-
-                android:layout_height="0.1dp"
-                android:layout_marginTop="16dp"
-                android:background="?attr/colorPrimary"
-
-                card_view:layout_constraintTop_toBottomOf="@+id/tv_address"
-                tools:layout_editor_absoluteX="16dp" />
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:layout_constraintVertical_bias="0.0" />
 
             <ImageView
                 android:layout_width="18dp"
@@ -231,26 +238,29 @@
             android:layout_height="wrap_content"
             style="@style/CardViewStyle">
 
+            <ImageView
+                android:id="@+id/support_icon"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="360dp"
+                android:src="@drawable/support"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/tv_support"
                 style="@style/semibold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/support"
+                android:layout_marginStart="28dp"
 
+                android:text="@string/support"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:layout_width="match_parent"
-
-                android:layout_height="0.1dp"
-                android:layout_marginTop="16dp"
-                android:background="?attr/colorPrimary"
-
-                card_view:layout_constraintTop_toBottomOf="@+id/tv_support"
-                tools:layout_editor_absoluteX="16dp" />
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:layout_constraintVertical_bias="0.0" />
 
             <ImageView
                 android:layout_width="18dp"
@@ -279,27 +289,29 @@
             android:layout_height="wrap_content"
             style="@style/CardViewStyle">
 
+            <ImageView
+                android:id="@+id/about_icon"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="360dp"
+                android:src="@drawable/info"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/tv_about_app"
                 style="@style/semibold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/about_app"
+                android:layout_marginStart="28dp"
 
+                android:text="@string/about_app"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"
-                card_view:layout_constraintVertical_bias="0.347" />
-
-            <View
-                android:layout_width="match_parent"
-
-                android:layout_height="0.1dp"
-                android:layout_marginTop="16dp"
-                android:background="?attr/colorPrimary"
-
-                card_view:layout_constraintTop_toBottomOf="@+id/tv_about_app"
-                tools:layout_editor_absoluteX="8dp" />
+                card_view:layout_constraintVertical_bias="0.0" />
 
             <ImageView
                 android:layout_width="18dp"
@@ -352,26 +364,29 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/logout_icon"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="360dp"
+                android:src="@drawable/logout"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/tv_logout"
                 style="@style/semibold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/logout"
+                android:layout_marginStart="24dp"
 
+                android:text="@string/logout"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:layout_width="match_parent"
-
-                android:layout_height="0.1dp"
-                android:layout_marginTop="16dp"
-                android:background="?attr/colorPrimary"
-
-                card_view:layout_constraintTop_toBottomOf="@+id/tv_logout"
-                tools:layout_editor_absoluteX="8dp" />
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:layout_constraintVertical_bias="1.0" />
 
             <ImageView
                 android:layout_width="18dp"
