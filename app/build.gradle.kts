@@ -19,7 +19,15 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "ENDPOINT_REGION", "\"https://www.emsifa.com/api-wilayah-indonesia/api/\"")
+            buildConfigField("String", "ENDPOINT_ARTSCAPE", "\"https://backend-app-artscape-7yazuf5wiq-et.a.run.app/\"")
+
+        }
         release {
+            buildConfigField("String", "ENDPOINT_REGION", "\"https://www.emsifa.com/api-wilayah-indonesia/api/\"")
+            buildConfigField("String", "ENDPOINT_ARTSCAPE", "\"https://backend-app-artscape-7yazuf5wiq-et.a.run.app/\"")
+
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -36,6 +44,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 

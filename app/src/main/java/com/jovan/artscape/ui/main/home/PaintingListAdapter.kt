@@ -1,13 +1,6 @@
 package com.jovan.artscape.ui.main.home
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
-import com.jovan.artscape.databinding.ItemGridArtBinding
-import com.jovan.artscape.remote.response.user.UserResponse
-
-class PaintingListAdapter: RecyclerView.Adapter<PaintingListAdapter.ViewHolder>()  {
+/*class PaintingListAdapter: RecyclerView.Adapter<PaintingListAdapter.ViewHolder>()  {
     private val list = ArrayList<UserResponse>()
     private var onItemClickCallBack: OnItemClickCallBack? = null
 
@@ -60,4 +53,4 @@ class PaintingListAdapter: RecyclerView.Adapter<PaintingListAdapter.ViewHolder>(
     interface OnItemClickCallBack {
         fun onItemClicked()
     }
-}
+}*/
