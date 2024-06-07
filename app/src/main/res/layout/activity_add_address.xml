@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.login.address.AddAddressActivity">
@@ -21,7 +20,7 @@
 
 
     <LinearLayout
-
+        android:id="@+id/ll_address_fields"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -49,9 +48,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/select_regency"
             android:layout_margin="16dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/til_province">
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
             <AutoCompleteTextView
                 android:id="@+id/auto_complete_regency"
@@ -89,6 +86,24 @@
                 android:layout_height="wrap_content"
                 android:inputType="none"/>
         </com.google.android.material.textfield.TextInputLayout>
+
     </LinearLayout>
+
+    <Button
+        android:id="@+id/button_address"
+        style="@style/semibold"
+        android:layout_width="283dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:text="Next"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_address_fields" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

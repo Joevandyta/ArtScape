@@ -1,13 +1,20 @@
 package com.jovan.artscape.ui.login.address
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import com.jovan.artscape.R
 import com.jovan.artscape.ViewModelFactory
 import com.jovan.artscape.databinding.ActivityAddAddressBinding
+import com.jovan.artscape.ui.SelectGenreActivity
+import com.jovan.artscape.ui.main.MainActivity
+import com.jovan.artscape.ui.main.account.AccountFragment
+import com.jovan.artscape.ui.main.home.HomeFragment
 
 
 class AddAddressActivity : AppCompatActivity() {
@@ -19,7 +26,6 @@ class AddAddressActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityAddAddressBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -40,8 +46,6 @@ class AddAddressActivity : AppCompatActivity() {
                 viewModel.setRegencies(provinces[i].id.toString())
             }
         }
-
-
         viewModel.getRegencies().observe(this) { regency ->
             val item = regency.map { it.name }
             val adapterItems = ArrayAdapter(this, R.layout.list_item_address, item)
@@ -79,7 +83,9 @@ class AddAddressActivity : AppCompatActivity() {
                     .show()
             }
         }
+        actionButton()
     }
+
     private fun clearRegencyAdapter() {
         val emptyAdapter = ArrayAdapter<String>(this, R.layout.list_item_address, listOf())
         val autoCompleteRegency = binding.autoCompleteRegency
@@ -102,4 +108,10 @@ class AddAddressActivity : AppCompatActivity() {
         autoCompleteVillage.setAdapter(emptyAdapter)
         autoCompleteVillage.setText("")
     }
+    private fun actionButton() {
+        binding.buttonAddress.setOnClickListener {
+            startActivity(Intent(this, SelectGenreActivity::class.java))
+        }
+    }
 }
+

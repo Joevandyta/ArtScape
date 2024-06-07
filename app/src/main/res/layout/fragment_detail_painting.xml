@@ -55,7 +55,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_painting_title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_marginVertical="10dp"
                 app:cardCornerRadius="0dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -64,6 +64,7 @@
                 <TextView
                     android:id="@+id/tv_painting_title"
                     style="@style/TitleText"
+                    android:layout_marginStart="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/painting_title" />
@@ -75,7 +76,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_about_artist"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:layout_marginVertical="10dp"
                 app:cardCornerRadius="0dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -83,18 +84,23 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
 
                     <TextView
                         android:id="@+id/tv_about_artist"
-                        style="@style/bold"
-                        android:text="@string/about_artist"
+                        style="@style/semibold"
+                        android:layout_width="399dp"
+                        android:layout_height="24dp"
                         android:layout_marginStart="16dp"
 
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+
+                        android:layout_marginTop="12dp"
+                        android:text="@string/about_artist"
+                        android:textSize="14dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_goneMarginStart="16dp" />
+
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/img_artist"
                         android:layout_width="wrap_content"
@@ -107,27 +113,30 @@
 
                     <TextView
                         android:id="@+id/tv_artist_name"
-                        style="@style/regular"
-                        android:text="@string/artist_name"
-                        android:layout_marginStart="16dp"
-
+                        style="@style/description_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/artist_name"
+                        android:textSize="12dp"
                         app:layout_constraintStart_toEndOf="@+id/img_artist"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_about_artist"/>
+                        app:layout_constraintTop_toBottomOf="@+id/tv_about_artist" />
 
                     <TextView
                         android:id="@+id/tv_artist_address"
-                        style="@style/regular"
+                        style="@style/description_text"
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/artist_address"
                         android:layout_marginStart="16dp"
+                        android:text="@string/artist_address"
+                        android:textSize="12dp"
 
 
                         app:layout_constraintStart_toEndOf="@+id/img_artist"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_artist_name"/>
+                        app:layout_constraintTop_toBottomOf="@+id/tv_artist_name" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -148,10 +157,11 @@
 
                     <TextView
                         android:id="@+id/tv_description_title"
-                        style="@style/SubtitleText"
+                        style="@style/semibold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="8dp"
 
                         android:text="@string/description"
                         app:layout_constraintStart_toStartOf="parent"
@@ -170,7 +180,7 @@
                         <TableRow>
 
                             <TextView
-                                style="@style/DescriptionText"
+                                style="@style/description_text"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="@string/artist_name" />
@@ -184,7 +194,7 @@
 
                             <TextView
                                 android:id="@+id/tv_artist"
-                                style="@style/DescriptionText"
+                                style="@style/description_text"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:padding="4dp"
@@ -194,7 +204,7 @@
                         <TableRow>
 
                             <TextView
-                                style="@style/DescriptionText"
+                                style="@style/description_text"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="@string/genre" />
@@ -208,7 +218,7 @@
 
                             <TextView
                                 android:id="@+id/tv_genre"
-                                style="@style/DescriptionText"
+                                style="@style/description_text"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:padding="4dp"
@@ -218,7 +228,7 @@
                         <TableRow>
 
                             <TextView
-                                style="@style/DescriptionText"
+                                style="@style/description_text"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="@string/created_at" />
@@ -232,7 +242,7 @@
 
                             <TextView
                                 android:id="@+id/tv_create_at"
-                                style="@style/DescriptionText"
+                                style="@style/description_text"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:padding="4dp"
@@ -244,7 +254,7 @@
 
                     <TextView
                         android:id="@+id/tv_description"
-                        style="@style/DescriptionText"
+                        style="@style/description_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="40dp"

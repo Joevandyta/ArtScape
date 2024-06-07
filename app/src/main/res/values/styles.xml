@@ -73,6 +73,12 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="description_text">
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:textColor">@color/black_400</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
     <style name="regular">
         <item name="android:fontFamily">@font/montserrat_regular</item>
         <item name="android:textColor">@color/black_400</item>
@@ -99,15 +105,18 @@
         <item name="android:textColor">@color/black_400</item>
     </style>
 
-<!--    Toolbar Notification Style-->
+<!--    Toolbar Style-->
     <style name="AppToolbar" parent="Widget.AppCompat.Toolbar">
         <item name="android:background">@android:color/white</item>
         <item name="android:textColorPrimary">@android:color/black</item>
     </style>
 
-    <!--    button-->
-    <style name="CustomButtonStyle" parent="Widget.Material3.Button">
-        <item name="android:textSize">18sp</item> <!-- Increase the text size as needed -->
+    <!--  Button Style-->
+    <style name="CustomButtonStyle" parent="">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@drawable/text_button</item>
+        <item name="android:textAppearance">@style/semibold</item>
+        <item name="android:background">@drawable/bg_gradient</item>
     </style>
 
 
@@ -117,7 +126,7 @@
     </style>
     <style name="CircleImage">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">50%</item>
+        <item name="cornerSize">30%</item>
     </style>
 
     <style name="ToolbarDefaultIconStyle" parent="Base.Theme.ArtScape">
