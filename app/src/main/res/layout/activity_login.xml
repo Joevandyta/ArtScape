@@ -53,17 +53,24 @@
         android:layout_height="49dp"
         android:layout_marginTop="32dp"
         android:gravity="center"
-        android:text="Next"
+        android:text="@string/next"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="18dp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/sign_in_button"
         app:layout_constraintStart_toStartOf="@+id/sign_in_button"
         app:layout_constraintTop_toBottomOf="@+id/sign_in_button" />
 
-    <com.google.android.gms.common.SignInButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/sign_in_button"
+        style="@style/Widget.Material3.Button.ElevatedButton"
         android:layout_width="284dp"
+        android:text="@string/sign_in"
+        android:textSize="18sp"
+        app:backgroundTint="@color/white"
+        app:icon="@drawable/ic_google_sign_in"
+        app:iconTint="@null"
+        android:textColor="@color/gray_600"
         android:layout_height="57dp"
         android:layout_marginTop="64dp"
         android:elevation="4dp"

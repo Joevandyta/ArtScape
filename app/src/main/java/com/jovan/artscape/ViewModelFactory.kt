@@ -5,9 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.jovan.artscape.data.Injection
 import com.jovan.artscape.data.ProvideRepository
-import com.jovan.artscape.ui.login.artist.UserViewModel
 import com.jovan.artscape.ui.login.LoginViewModel
 import com.jovan.artscape.ui.login.address.AddressViewModel
+import com.jovan.artscape.ui.login.artist.UserViewModel
+import com.jovan.artscape.ui.login.interest.GenreViewModel
 import com.jovan.artscape.ui.main.MainViewModel
 import com.jovan.artscape.ui.main.account.AccountViewModel
 
@@ -32,6 +33,9 @@ class ViewModelFactory(private val repository: ProvideRepository) :
             }
             modelClass.isAssignableFrom(UserViewModel::class.java) -> {
                 UserViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(GenreViewModel::class.java) -> {
+                GenreViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

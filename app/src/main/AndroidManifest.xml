@@ -24,7 +24,7 @@
             android:name=".ui.CartActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.SelectGenreActivity"
+            android:name=".ui.login.interest.SelectGenreActivity"
             android:exported="false" />
         <activity
             android:name=".ui.NotificationActivity"
@@ -37,9 +37,6 @@
             android:exported="false" />
         <activity
             android:name=".ui.login.artist.UserDataActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.RolesActivity"
             android:exported="false" />
         <activity
             android:name=".ui.login.LoginActivity"

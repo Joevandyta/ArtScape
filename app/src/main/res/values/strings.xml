@@ -126,7 +126,7 @@
 
     <string name="slogan">ArtScape: Exploration, from Screen to Soul</string>
     <string name="version">Versi 1.0.0</string>
-    <string name ="sign_in">Sign in to continue</string>
+    <string name ="sign_in_to_continue">Sign in to continue</string>
 
     <string name="phone_number">Phone Number</string>
     <string name="edit">Edit</string>
@@ -138,5 +138,6 @@
     <string name="bio">Bio</string>
     <string name="add_user_data">Add User Data</string>
     <string name="save_data">Save Data</string>
+    <string name="sign_in">Sign In</string>
 
 </resources>

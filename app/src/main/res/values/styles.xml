@@ -112,7 +112,7 @@
     </style>
 
     <!--  Button Style-->
-    <style name="CustomButtonStyle" parent="">
+    <style name="CustomButtonStyle">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@drawable/text_button</item>
         <item name="android:textAppearance">@style/semibold</item>
@@ -144,6 +144,7 @@
         <item name="android:textColorHint">?attr/colorBlackorWhite</item>
         <item name="titleTextColor">?attr/colorBlackorWhite</item>
     </style>
+
     <style name="SearchBarStyle">
         <item name="android:editTextColor">?attr/colorOnSurfaceVariant</item>
 
