@@ -1,20 +1,17 @@
 package com.jovan.artscape.ui.login.address
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
 import com.jovan.artscape.R
 import com.jovan.artscape.ViewModelFactory
 import com.jovan.artscape.databinding.ActivityAddAddressBinding
-import com.jovan.artscape.ui.SelectGenreActivity
-import com.jovan.artscape.ui.main.MainActivity
-import com.jovan.artscape.ui.main.account.AccountFragment
-import com.jovan.artscape.ui.main.home.HomeFragment
+import com.jovan.artscape.remote.request.AddUserRequest
+import com.jovan.artscape.ui.login.interest.SelectGenreActivity
 
 
 class AddAddressActivity : AppCompatActivity() {
@@ -110,8 +107,21 @@ class AddAddressActivity : AppCompatActivity() {
     }
     private fun actionButton() {
         binding.buttonAddress.setOnClickListener {
-            startActivity(Intent(this, SelectGenreActivity::class.java))
+            val user = if (Build.VERSION.SDK_INT >= 33) {
+                intent.getParcelableExtra(EXTRA_USER_DATA, AddUserRequest::class.java)
+            } else {
+                @Suppress("DEPRECATION")
+                intent.getParcelableExtra(EXTRA_USER_DATA)
+            }
+
+            val intent = Intent(this@AddAddressActivity, SelectGenreActivity::class.java)
+            intent.putExtra(SelectGenreActivity.EXTRA_USER_WITH_ADDRESS, user)
+            startActivity(intent)
         }
+    }
+
+    companion object {
+        const val EXTRA_USER_DATA = "extra_user_data"
     }
 }
 

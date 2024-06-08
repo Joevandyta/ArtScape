@@ -10,6 +10,7 @@ import com.jovan.artscape.remote.response.address.RegenciesResponse
 import com.jovan.artscape.remote.response.address.VillageResponse
 import com.jovan.artscape.remote.response.user.SuccessResponse
 import kotlinx.coroutines.flow.Flow
+import retrofit2.Response
 
 class ProvideRepository private constructor(
     private var providePreference: ProvidePreference
@@ -45,22 +46,13 @@ class ProvideRepository private constructor(
         return RetrofiClient.getApiRegion().getVillage(id)
     }
 
-    suspend fun addUser(addUserRequest: AddUserRequest): SuccessResponse{
+    suspend fun addUser(addUserRequest: AddUserRequest): Response<SuccessResponse>{
         return RetrofiClient.getApiArtSpace().addUser(addUserRequest)
-        /*try {
-            val response = RetrofiClient.getApiArtSpace().addUser(nama = name, email = email, deskripsi = bio, interest)
-            if (response.isSuccessful) {
-                UserResponse.Success(response.body()!!)
-            } else {
-                val errorBody = response.errorBody()?.string()
-                val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
-                UserResponse.Error(errorResponse.error, errorResponse.details)
-            }
-        } catch (e: HttpException) {
-            UserResponse.Error("Error True", e.message())
-        } catch (e: Exception) {
-            UserResponse.Error("Error Exeption",e.message ?: "An unknown error occurred")
-        }*/
+    }
+
+
+    suspend fun uploadPainting(addUserRequest: AddUserRequest): Response<SuccessResponse>{
+        return RetrofiClient.getApiArtSpace().addUser(addUserRequest)
     }
 
     companion object {

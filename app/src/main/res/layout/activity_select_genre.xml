@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.SelectGenreActivity">
+    tools:context=".ui.login.interest.SelectGenreActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_genre"
@@ -188,7 +188,7 @@
         android:layout_margin="10sp"/>
 
     <Button
-        android:id="@+id/buttonSelect"
+        android:id="@+id/button_save"
         style="@style/semibold"
         android:layout_width="283dp"
         android:layout_height="49dp"
@@ -196,9 +196,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="31dp"
         android:gravity="center"
-        android:text="Next"
+        android:text="@string/save_data"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="18sp" />
-
 </RelativeLayout>

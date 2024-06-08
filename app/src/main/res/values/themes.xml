@@ -65,7 +65,7 @@
 
 
         <!--Costum Component-->
-        <item name="materialButtonStyle">@style/CustomButtonStyle</item>
+<!--        <item name="materialButtonStyle">@style/CustomButtonStyle</item>-->
         <item name="materialCardViewStyle">@style/Widget.MaterialComponents.CardView</item>
 <!--        <item name="appBarLayoutStyle">@style/ToolbarDefaultIconStyle</item>-->
     </style>

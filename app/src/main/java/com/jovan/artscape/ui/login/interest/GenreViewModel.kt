@@ -1,4 +1,4 @@
-package com.jovan.artscape.ui.login.artist
+package com.jovan.artscape.ui.login.interest
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -14,7 +14,7 @@ import com.jovan.artscape.remote.response.user.UserResponse
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
-class UserViewModel(private val repository: ProvideRepository): ViewModel() {
+class GenreViewModel(private val repository: ProvideRepository): ViewModel() {
     private val userResponse = MutableLiveData<UserResponse<SuccessResponse>>()
     fun addUser(name: String, email: String, bio:String, interest: List<String>){
         viewModelScope.launch {

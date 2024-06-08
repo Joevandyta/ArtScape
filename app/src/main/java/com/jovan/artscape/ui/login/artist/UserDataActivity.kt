@@ -1,46 +1,120 @@
 package com.jovan.artscape.ui.login.artist
 
+import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.jovan.artscape.ViewModelFactory
 import com.jovan.artscape.databinding.ActivityUserDataBinding
 import com.jovan.artscape.remote.request.AddUserRequest
+import com.jovan.artscape.ui.login.address.AddAddressActivity
 
 class UserDataActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUserDataBinding
     private val viewModel by viewModels<UserViewModel> {
         ViewModelFactory.getInstance(this)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUserDataBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.buttonAdd.setOnClickListener {
-            val name = "Tio"
-            val email = "Tio@gmail.com"
-            val bio = "Tioadasdadadada dadadad "
-            val interest = listOf("makan", "minum")
 
-/*            val nameBody = name.toRequestBody()
-            val emailBody = email.toRequestBody()
-            val bioBody = bio.toRequestBody()
-            val interestBody = interest.joinToString(", ").toRequestBody()*/
+        setMyButtonEnable()
+        enableButton()
+        actionSetup()
+    }
 
-            val requestBody = AddUserRequest(
-                nama = "jopaniniboss",
-                email = "jopaniniboss@gmail.com",
-                deskripsi = "Eiyooo",
-                minat = listOf("menari", "Noho")
-            )
-            viewModel.addUser(name, email, bio, interest)
-        }
+    private fun enableButton() {
+        binding.apply {
+            edName.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
 
-        viewModel.getAddUser().observe(this){ response ->
-            response.let {
-            }
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
 
+                }
+
+                override fun afterTextChanged(s: Editable) {
+                    setMyButtonEnable()
+                }
+            })
+            edBio.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+
+                }
+
+                override fun afterTextChanged(s: Editable) {
+                    setMyButtonEnable()
+                }
+            })
+
+            edPhoneNumber.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+
+                }
+
+                override fun afterTextChanged(s: Editable) {
+                    setMyButtonEnable()
+                }
+            })
         }
     }
+
+    fun setMyButtonEnable() {
+        binding.apply {
+            val isNameValid = edName.text.toString().isNotEmpty()
+            val isBioValid = edBio.text.toString().isNotEmpty()
+
+            buttonAddUser.isEnabled = isNameValid && isBioValid
+        }
+    }
+
+    private fun actionSetup() {
+        binding.apply {
+            buttonAddUser.setOnClickListener {
+
+                val userData = AddUserRequest(
+                    name = edName.text.toString(),
+                    bio = edBio.text.toString(),
+                    email = "Joe@gmail.com",
+                    interest = listOf("Football", "Basketball"),
+                )
+                val intent = Intent(this@UserDataActivity, AddAddressActivity::class.java)
+                intent.putExtra(AddAddressActivity.EXTRA_USER_DATA, userData)
+                startActivity(intent)
+            }
+        }
+    }
+
+    private fun showToast(text: String) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+    }
+
+
 }
