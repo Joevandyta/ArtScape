@@ -13,6 +13,7 @@ class SearchActivity : AppCompatActivity() {
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        actionButton()
         val searchView = binding.searchView
         searchView.clearFocus()
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -27,5 +28,11 @@ class SearchActivity : AppCompatActivity() {
                 return true
             }
         })
+    }
+
+    private fun actionButton() {
+        binding.backButton.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
     }
 }

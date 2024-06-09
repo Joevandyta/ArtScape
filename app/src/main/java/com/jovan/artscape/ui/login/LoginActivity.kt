@@ -97,7 +97,8 @@ class LoginActivity : AppCompatActivity() {
                         val googleIdTokenCredential =
                             GoogleIdTokenCredential.createFrom(credential.data)
                         firebaseAuthWithGoogle(googleIdTokenCredential.idToken)
-                        Log.e("TOKEN HANDLE SIGN IN",googleIdTokenCredential.idToken )
+                        Log.e("TOKEN HANDLE SIGN IN",googleIdTokenCredential.idToken)
+
 
                     } catch (e: GoogleIdTokenParsingException) {
                         Log.e(TAG, "Received an invalid google id token response", e)
@@ -121,11 +122,18 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) {
                 if (it.isSuccessful) {
-                    val user: FirebaseUser? = auth.currentUser
-                    val authToken = user?.getIdToken(true)
-                    viewModel.saveSession(UserModel(authToken.toString()))
-                    Log.d("firebaseAuthWithGoogle TOKEN", authToken.toString())
+                    val user = auth.currentUser
+                    user?.getIdToken(true)?.addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val uidToken = task.result?.token
+                            viewModel.saveSession(UserModel(uidToken.toString()))
+                            Log.d("firebaseAuthWithGoogle TOKEN", uidToken.toString())
 
+                        } else {
+                            // Handle error -> task.getException()
+                            Log.d("ERROR","Error getting ID Token: ${task.exception}")
+                            }
+                        }
                     updateUI(user)
                     Log.d(TAG, "signInWithCredential:success")
                 } else {
@@ -134,13 +142,13 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
     }
-
     private fun updateUI(curentUser: FirebaseUser?) {
         if (curentUser != null){
             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
             finish()
         }
     }
+
     override fun onStart() {
         super.onStart()
         val currentUser = auth.currentUser
