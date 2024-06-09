@@ -146,7 +146,7 @@
     </style>
 
     <style name="SearchBarStyle">
-        <item name="android:editTextColor">?attr/colorOnSurfaceVariant</item>
+        <item name="android:editTextColor">?attr/colorBlackorWhite</item>
 
     </style>
 

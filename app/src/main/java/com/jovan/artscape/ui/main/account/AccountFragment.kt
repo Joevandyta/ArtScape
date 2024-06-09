@@ -47,6 +47,8 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -77,7 +79,7 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
                 }
                 cvLogout.setOnClickListener {
                     showToast("Logout")
-                    viewModel.getSesion().observe(viewLifecycleOwner){
+                    viewModel.getSesion().observe(viewLifecycleOwner) {
                         AlertDialog.Builder(requireContext()).apply {
                             Log.d("Logout AlertDialog", "Login dengan test Berhasil.")
                             setTitle("Logging Out ${it.token}")
@@ -85,7 +87,6 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
                             setPositiveButton("yes") { _, _ ->
                                 signOut()
                                 showLoading(false)
-
                             }
                             setNegativeButton("no") { _, _ ->
                                 showLoading(false)
@@ -95,11 +96,11 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
                             show()
                         }
                     }
-
                 }
             }
         }
     }
+
     private fun signOut() {
         lifecycleScope.launch {
             val credentialManager = CredentialManager.create(requireContext())
@@ -108,6 +109,7 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
             startActivity(Intent(requireContext(), LoginActivity::class.java))
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

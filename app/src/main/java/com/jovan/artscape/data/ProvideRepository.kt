@@ -10,11 +10,13 @@ import com.jovan.artscape.remote.response.address.RegenciesResponse
 import com.jovan.artscape.remote.response.address.VillageResponse
 import com.jovan.artscape.remote.response.user.SuccessResponse
 import kotlinx.coroutines.flow.Flow
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 
 class ProvideRepository private constructor(
     private var providePreference: ProvidePreference
-){
+) {
 
     //Session DataStore
     suspend fun saveSession(user: UserModel) {
@@ -46,13 +48,31 @@ class ProvideRepository private constructor(
         return RetrofiClient.getApiRegion().getVillage(id)
     }
 
-    suspend fun addUser(addUserRequest: AddUserRequest): Response<SuccessResponse>{
+    suspend fun addUser(addUserRequest: AddUserRequest): Response<SuccessResponse> {
         return RetrofiClient.getApiArtSpace().addUser(addUserRequest)
     }
 
 
-    suspend fun uploadPainting(addUserRequest: AddUserRequest): Response<SuccessResponse>{
-        return RetrofiClient.getApiArtSpace().addUser(addUserRequest)
+    suspend fun uploadPainting(
+        title: RequestBody,
+        description: RequestBody,
+        media: MultipartBody.Part,
+        genre: RequestBody,
+        price: RequestBody,
+        createdYear: RequestBody,
+        artistId: RequestBody,
+        keterangan: RequestBody
+    ): Response<SuccessResponse> {
+        return RetrofiClient.getApiArtSpace().uploadPainting(
+            title,
+            description,
+            media,
+            genre,
+            price,
+            createdYear,
+            artistId,
+            keterangan
+        )
     }
 
     companion object {
