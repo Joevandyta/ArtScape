@@ -49,6 +49,20 @@ class InterestActivity : AppCompatActivity() {
                         showToast("User ID: ${userResponse.data.uid}")
                         viewModel.saveSession(UserModel( userResponse.data.uid, addUserRequest.idToken))
                         Log.d("UserDataActivity", "User ID: ${userResponse.data.uid}")
+                        AlertDialog.Builder(this@InterestActivity).apply {
+                            Log.d(
+                                "Save Genre AlertDialog",
+                                "${addUserRequest.idToken}, ${addUserRequest.name}, ${addUserRequest.address}, ${addUserRequest.bio}, ${addUserRequest.interest}"
+                            )
+                            setTitle("Yeah")
+                            setMessage("Data saved succesfully")
+                            setPositiveButton("Continue") { _, _ ->
+                                startActivity(Intent(this@InterestActivity, MainActivity::class.java))
+                            }
+                            setCancelable(false)
+                            create()
+                            show()
+                        }
                     }
 
                     is UserResponse.Error -> {
@@ -84,24 +98,9 @@ class InterestActivity : AppCompatActivity() {
                     @Suppress("DEPRECATION")
                     intent.getParcelableExtra(EXTRA_USER_WITH_ADDRESS)
                 }
-
                 user?.interest = selectedGenresList
-                AlertDialog.Builder(this@InterestActivity).apply {
-                    Log.d(
-                        "Save Genre AlertDialog",
-                        "${user?.idToken}, ${user?.name}, ${user?.address}, ${user?.bio}, ${user?.interest}"
-                    )
-                    setTitle("Save Data User")
-                    setMessage("Are you sure to save this data?")
-                    setPositiveButton("yes") { _, _ ->
-                        addUser(user)
-                        startActivity(Intent(this@InterestActivity, MainActivity::class.java))
-                    }
-                    setNegativeButton("No") { dialog, _ ->
-                    }
-                    create()
-                    show()
-                }
+                addUser(user)
+
             }
         }
     }
