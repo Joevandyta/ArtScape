@@ -4,11 +4,12 @@ import com.jovan.artscape.data.pref.ProvidePreference
 import com.jovan.artscape.data.pref.UserModel
 import com.jovan.artscape.remote.api.RetrofiClient
 import com.jovan.artscape.remote.request.AddUserRequest
+import com.jovan.artscape.remote.request.LoginRequest
+import com.jovan.artscape.remote.response.SuccessResponse
 import com.jovan.artscape.remote.response.address.DistrictResponse
 import com.jovan.artscape.remote.response.address.ProvinceResponse
 import com.jovan.artscape.remote.response.address.RegenciesResponse
 import com.jovan.artscape.remote.response.address.VillageResponse
-import com.jovan.artscape.remote.response.user.SuccessResponse
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -48,10 +49,16 @@ class ProvideRepository private constructor(
         return RetrofiClient.getApiRegion().getVillage(id)
     }
 
-    suspend fun addUser(addUserRequest: AddUserRequest): Response<SuccessResponse> {
-        return RetrofiClient.getApiArtSpace().addUser(addUserRequest)
+    suspend fun addUserData(addUserRequest: AddUserRequest): Response<SuccessResponse> {
+        return RetrofiClient.getApiArtSpace().addUserData(addUserRequest)
     }
 
+    suspend fun setlogin(loginRequest: LoginRequest): Response<SuccessResponse> {
+        return RetrofiClient.getApiArtSpace().login(loginRequest)
+    }
+    suspend fun getUserData(userId: String): AddUserRequest {
+        return RetrofiClient.getApiArtSpace().getUserData(userId)
+    }
 
     suspend fun uploadPainting(
         title: RequestBody,

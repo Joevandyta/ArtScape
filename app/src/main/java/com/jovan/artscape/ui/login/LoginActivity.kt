@@ -5,6 +5,8 @@ import android.credentials.GetCredentialException
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.credentials.CredentialManager
@@ -25,7 +27,9 @@ import com.jovan.artscape.R
 import com.jovan.artscape.ViewModelFactory
 import com.jovan.artscape.data.pref.UserModel
 import com.jovan.artscape.databinding.ActivityLoginBinding
+import com.jovan.artscape.remote.response.UserResponse
 import com.jovan.artscape.ui.login.artist.UserDataActivity
+import com.jovan.artscape.ui.login.artist.UserDataActivity.Companion.EXTRA_ID_TOKEN
 import com.jovan.artscape.ui.main.MainActivity
 import kotlinx.coroutines.launch
 
@@ -35,23 +39,17 @@ class LoginActivity : AppCompatActivity() {
     private val viewModel by viewModels<LoginViewModel> {
         ViewModelFactory.getInstance(this)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
-        auth = Firebase.auth
-        actionButton()
+            binding = ActivityLoginBinding.inflate(layoutInflater)
+            setContentView(binding.root)
+
+            auth = Firebase.auth
+            actionButton()
     }
 
-    private fun actionButton() {
-        binding.signInButton.setOnClickListener {
-            signIn()
-        }
-        binding.buttonDummy.setOnClickListener {
-            startActivity(Intent(this, UserDataActivity::class.java))
-        }
-    }
     private fun signIn() {
         val credentialManager =
             CredentialManager.create(this) //import from androidx.CredentialManager
@@ -64,6 +62,7 @@ class LoginActivity : AppCompatActivity() {
             .build()
 
         lifecycleScope.launch {
+            showLoading(true)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
                 try {
                     val result: GetCredentialResponse = credentialManager.getCredential(
@@ -97,9 +96,7 @@ class LoginActivity : AppCompatActivity() {
                         val googleIdTokenCredential =
                             GoogleIdTokenCredential.createFrom(credential.data)
                         firebaseAuthWithGoogle(googleIdTokenCredential.idToken)
-                        Log.e("TOKEN HANDLE SIGN IN",googleIdTokenCredential.idToken)
-
-
+                        Log.e("TOKEN HANDLE SIGN IN", googleIdTokenCredential.idToken)
                     } catch (e: GoogleIdTokenParsingException) {
                         Log.e(TAG, "Received an invalid google id token response", e)
                     }
@@ -110,11 +107,13 @@ class LoginActivity : AppCompatActivity() {
             }
 
             else -> {
+                showLoading(false)
                 // Catch any unrecognized credential type here.
                 Log.e(TAG, "Unexpected type of credential")
             }
         }
     }
+
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential: AuthCredential = GoogleAuthProvider.getCredential(idToken, null)
         Log.d("TOKEN", credential.toString())
@@ -126,33 +125,98 @@ class LoginActivity : AppCompatActivity() {
                     user?.getIdToken(true)?.addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             val uidToken = task.result?.token
-                            viewModel.saveSession(UserModel(uidToken.toString()))
+                            saveToDatabase(user, uidToken.toString())
                             Log.d("firebaseAuthWithGoogle TOKEN", uidToken.toString())
 
                         } else {
+                            showLoading(false)
                             // Handle error -> task.getException()
-                            Log.d("ERROR","Error getting ID Token: ${task.exception}")
-                            }
+                            Log.d("ERROR", "Error getting ID Token: ${task.exception}")
                         }
-                    updateUI(user)
+                    }
                     Log.d(TAG, "signInWithCredential:success")
                 } else {
                     Log.d(TAG, "signInWithCredential:failure", it.exception)
+                    showLoading(false)
                     updateUI(null)
                 }
             }
     }
+
+    private fun saveToDatabase(user: FirebaseUser?, idToken: String) {
+
+        viewModel.setLogin(idToken)
+        viewModel.getLogin().observe(this@LoginActivity) {
+            when (it) {
+                is UserResponse.Success -> {
+                    // Show ID in Toast
+                    showToast("User ID: ${it.data.uid}")
+                    Log.d("UserDataActivity", "User ID: ${it.data.uid}")
+                    viewModel.saveSession(UserModel(it.data.uid, idToken))
+                    showLoading(false)
+                    updateUI(user)
+                }
+
+                is UserResponse.Error -> {
+                    showLoading(false)
+                    // Show error message in Toast
+                    if (it.error.contains("Additional data required")) {
+                        val intent = Intent(this@LoginActivity, UserDataActivity::class.java)
+                        intent.putExtra(EXTRA_ID_TOKEN, idToken)
+                        startActivity(intent)
+                        showToast("Error: ${it.error}")
+                        Log.d("UserDataActivity", "Error: ${it.error}")
+                    }else{
+                        Log.d("UserDataActivity", "Error: Unexpected")
+                    }
+                    finish()
+                }
+            }
+        }
+
+    }
+
     private fun updateUI(curentUser: FirebaseUser?) {
-        if (curentUser != null){
+        if (curentUser != null) {
             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
             finish()
         }
     }
 
+
+    private fun actionButton() {
+        binding.signInButton.setOnClickListener {
+            signIn()
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showToast(text: String) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+    }
+
     override fun onStart() {
         super.onStart()
-        val currentUser = auth.currentUser
-        updateUI(currentUser)
+        showLoading(true)
+        viewModel.getSession().observe(this@LoginActivity) {
+            val currentUser = auth.currentUser
+            if (it.isLogin && currentUser != null) {
+                updateUI(currentUser)
+            } else currentUser?.getIdToken(true)?.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val uidToken = task.result?.token
+                    saveToDatabase(currentUser, uidToken.toString())
+                    Log.d("firebaseAuthWithGoogle TOKEN", uidToken.toString())
+                } else {
+                    showLoading(false)
+                    // Handle error -> task.getException()
+                    Log.d("ERROR", "Error getting ID Token: ${task.exception}")
+                }
+            }
+        }
     }
 
     companion object {

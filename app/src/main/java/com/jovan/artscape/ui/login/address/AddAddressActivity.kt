@@ -1,8 +1,8 @@
 package com.jovan.artscape.ui.login.address
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -11,7 +11,7 @@ import com.jovan.artscape.R
 import com.jovan.artscape.ViewModelFactory
 import com.jovan.artscape.databinding.ActivityAddAddressBinding
 import com.jovan.artscape.remote.request.AddUserRequest
-import com.jovan.artscape.ui.login.interest.SelectGenreActivity
+import com.jovan.artscape.ui.login.interest.InterestActivity
 
 
 class AddAddressActivity : AppCompatActivity() {
@@ -37,8 +37,8 @@ class AddAddressActivity : AppCompatActivity() {
             autoCompleteProvince.setAdapter(adapterItems)
 
             autoCompleteProvince.setOnItemClickListener { adapterView, _, i, _ ->
-                val item = adapterView.getItemAtPosition(i).toString()
-                Toast.makeText(this@AddAddressActivity, "Item: $item", Toast.LENGTH_SHORT).show()
+                val itemList = adapterView.getItemAtPosition(i).toString()
+                Toast.makeText(this@AddAddressActivity, "Item: $itemList", Toast.LENGTH_SHORT).show()
                 clearRegencyAdapter()
                 viewModel.setRegencies(provinces[i].id.toString())
             }
@@ -74,7 +74,6 @@ class AddAddressActivity : AppCompatActivity() {
             val adapterItems = ArrayAdapter(this, R.layout.list_item_address, item)
             autoCompleteVillage.setAdapter(adapterItems)
             autoCompleteVillage.setOnItemClickListener { adapterView, _, i, _ ->
-
                 val itemList = adapterView.getItemAtPosition(i).toString()
                 Toast.makeText(this@AddAddressActivity, "Item: $itemList", Toast.LENGTH_SHORT)
                     .show()
@@ -105,23 +104,32 @@ class AddAddressActivity : AppCompatActivity() {
         autoCompleteVillage.setAdapter(emptyAdapter)
         autoCompleteVillage.setText("")
     }
-    private fun actionButton() {
-        binding.buttonAddress.setOnClickListener {
-            val user = if (Build.VERSION.SDK_INT >= 33) {
-                intent.getParcelableExtra(EXTRA_USER_DATA, AddUserRequest::class.java)
-            } else {
-                @Suppress("DEPRECATION")
-                intent.getParcelableExtra(EXTRA_USER_DATA)
-            }
 
-            val intent = Intent(this@AddAddressActivity, SelectGenreActivity::class.java)
-            intent.putExtra(SelectGenreActivity.EXTRA_USER_WITH_ADDRESS, user)
-            startActivity(intent)
+    private fun actionButton() {
+        binding.apply {
+            buttonAddress.setOnClickListener {
+                val token = intent.getStringExtra(EXTRA_ID_TOKEN)
+                val userData = AddUserRequest(
+                    idToken = token.toString(),
+                    name = intent.getStringExtra(EXTRA_NAME).toString(),
+                    bio = intent.getStringExtra(EXTRA_BIO).toString(),
+                    address = "${autoCompleteProvince.text}/${autoCompleteRegency.text}/${autoCompleteDistrict.text}/${autoCompleteVillage.text}",
+                    interest = listOf(),
+                )
+
+                val intent = Intent(this@AddAddressActivity, InterestActivity::class.java)
+                intent.putExtra(InterestActivity.EXTRA_USER_WITH_ADDRESS, userData)
+                startActivity(intent)
+            }
         }
     }
-
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
     companion object {
-        const val EXTRA_USER_DATA = "extra_user_data"
+        const val EXTRA_ID_TOKEN = "extra_id_token"
+        const val EXTRA_NAME = "extra_name"
+        const val EXTRA_BIO = "extra_bio"
     }
 }
 

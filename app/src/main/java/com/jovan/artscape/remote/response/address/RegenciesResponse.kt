@@ -3,8 +3,8 @@ package com.jovan.artscape.remote.response.address
 import com.google.gson.annotations.SerializedName
 
 data class RegenciesResponse (
-    val id: Int,
+    val id: String,
     @SerializedName("province_id")
-    val provinceId: Int,
+    val provinceId: String,
     val name: String
     )

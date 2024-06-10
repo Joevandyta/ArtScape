@@ -1,6 +1,6 @@
 package com.jovan.artscape.remote.response.address
 
 data class ProvinceResponse(
-    val id: Int,
+    val id: String,
     val name: String
 )

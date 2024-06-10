@@ -7,8 +7,9 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class AddUserRequest(
-    @SerializedName("nama") val name: String,
-    @SerializedName("email") val email: String,
-    @SerializedName("deskripsi") val bio: String,
-    @SerializedName("minat") val interest: List<String>
+    @SerializedName("idToken") val idToken: String,
+    @SerializedName("name") val name: String,
+    @SerializedName("address") val address: String,
+    @SerializedName("description") val bio: String,
+    @SerializedName("interest") var interest: List<String>
 ):Parcelable

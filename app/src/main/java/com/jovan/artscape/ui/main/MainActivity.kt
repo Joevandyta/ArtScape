@@ -9,6 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -20,12 +21,13 @@ import com.jovan.artscape.ui.main.account.AccountFragment
 import com.jovan.artscape.ui.main.home.HomeFragment
 import com.jovan.artscape.ui.upload.UploadActivity
 import com.jovan.artscape.ui.upload.UploadActivity.Companion.EXTRA_IMAGE
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var currentImageUri: Uri? = null
     private lateinit var auth: FirebaseAuth
-    private val viewModel by viewModels<MainViewModel>{
+    private val viewModel by viewModels<MainViewModel> {
         ViewModelFactory.getInstance(this)
     }
     private val launcherGallery = registerForActivityResult(
@@ -40,31 +42,36 @@ class MainActivity : AppCompatActivity() {
             Log.d("Photo Picker", "No media selected")
         }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        supportActionBar?.hide()
-        setContentView(binding.root)
         auth = Firebase.auth
-        getSession(auth)
+        lifecycleScope.launch {
+            binding = ActivityMainBinding.inflate(layoutInflater)
+            supportActionBar?.hide()
+            getSession(auth)
+            setContentView(binding.root)
 
-        bottomAppBar()
-        // Set initial fragment
-        if (savedInstanceState == null) {
-            replaceFragment(HomeFragment())
-        }
-    }
-    private fun getSession(auth: FirebaseAuth){
-        val firebaseUser = auth.currentUser
-        viewModel.getSesion().observe(this){user ->
-            if (firebaseUser == null && !user.isLogin) {
-                startActivity(Intent(this, LoginActivity::class.java))
-                finish()
-            }else {
-                Log.d("TOKEN", "Token: ${user.token}")
+            bottomAppBar()
+            // Set initial fragment
+            if (savedInstanceState == null) {
+                replaceFragment(HomeFragment())
             }
         }
     }
+
+    private fun getSession(auth: FirebaseAuth) {
+        val firebaseUser = auth.currentUser
+        viewModel.getSesion().observe(this) {user ->
+            if (firebaseUser == null || !user.isLogin) {
+                startActivity(Intent(this@MainActivity, LoginActivity::class.java))
+                finish()
+            } else {
+                Log.d("TOKEN", "Token: ${user.isLogin}")
+            }
+        }
+    }
+
     private fun bottomAppBar() {
         binding.bottomAppBar.background = null
         binding.bottomAppBar.setOnItemSelectedListener { menuItem ->
@@ -73,10 +80,12 @@ class MainActivity : AppCompatActivity() {
                     replaceFragment(HomeFragment())
                     true
                 }
+
                 R.id.account -> {
                     replaceFragment(AccountFragment())
                     true
                 }
+
                 else -> false
             }
         }
