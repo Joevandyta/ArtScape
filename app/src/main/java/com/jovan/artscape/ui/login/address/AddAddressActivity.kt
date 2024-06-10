@@ -40,7 +40,7 @@ class AddAddressActivity : AppCompatActivity() {
                 val itemList = adapterView.getItemAtPosition(i).toString()
                 Toast.makeText(this@AddAddressActivity, "Item: $itemList", Toast.LENGTH_SHORT).show()
                 clearRegencyAdapter()
-                viewModel.setRegencies(provinces[i].id.toString())
+                viewModel.setRegencies(provinces[i].id)
             }
         }
         viewModel.getRegencies().observe(this) { regency ->
@@ -53,7 +53,7 @@ class AddAddressActivity : AppCompatActivity() {
                 Toast.makeText(this@AddAddressActivity, "Item: $itemList", Toast.LENGTH_SHORT)
                     .show()
                 clearDistrictAdapter()
-                viewModel.setDistricts(regency[i].id.toString())
+                viewModel.setDistricts(regency[i].id)
             }
         }
         viewModel.getDistricts().observe(this) { district ->
@@ -66,7 +66,7 @@ class AddAddressActivity : AppCompatActivity() {
                 Toast.makeText(this@AddAddressActivity, "Item: $itemList", Toast.LENGTH_SHORT)
                     .show()
                 clearVillageAdapter()
-                viewModel.setVillages(district[i].id.toString())
+                viewModel.setVillages(district[i].id)
             }
         }
         viewModel.getVillages().observe(this) { village ->

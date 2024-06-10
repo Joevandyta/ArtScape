@@ -38,16 +38,6 @@ class InterestActivity : AppCompatActivity() {
     }
 
     private fun addUser(addUserRequest: AddUserRequest?) {
-        val idToken = "Bearer"
-        val name = "Tio"
-        val email = "Tio@gmail.com"
-        val bio = "Tioadasdadadada dadadad"
-        val interest = listOf("makan", "minum")
-
-        /*            val nameBody = name.toRequestBody()
-                    val emailBody = email.toRequestBody()
-                    val bioBody = bio.toRequestBody()
-                    val interestBody = interest.joinToString(", ").toRequestBody()*/
 
         if (addUserRequest != null) {
             viewModel.addUser(addUserRequest)

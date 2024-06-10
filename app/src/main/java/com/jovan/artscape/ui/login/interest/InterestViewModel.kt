@@ -32,7 +32,7 @@ class InterestViewModel(private val repository: ProvideRepository): ViewModel() 
                     val errorBody = response.errorBody()?.string()
                     val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
                     UserResponse.Error(errorResponse.error, errorResponse.details?:"")
-                    userResponse.value = UserResponse.Error(errorResponse.error, errorResponse.details?:""?:"")
+                    userResponse.value = UserResponse.Error(errorResponse.error, errorResponse.details?:"")
                 }
             } catch (e: HttpException) {
                 userResponse.value = UserResponse.Error("Error True", e.message())
