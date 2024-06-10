@@ -10,6 +10,7 @@ import com.jovan.artscape.remote.response.address.DistrictResponse
 import com.jovan.artscape.remote.response.address.ProvinceResponse
 import com.jovan.artscape.remote.response.address.RegenciesResponse
 import com.jovan.artscape.remote.response.address.VillageResponse
+import com.jovan.artscape.remote.response.painting.PaintingDetails
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -82,6 +83,9 @@ class ProvideRepository private constructor(
         )
     }
 
+    suspend fun getAllpainting(): Response<List<PaintingDetails>> {
+        return RetrofiClient.getApiArtSpace().getAllPainting()
+    }
     companion object {
         @Volatile
         private var instance: ProvideRepository? = null

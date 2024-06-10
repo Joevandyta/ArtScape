@@ -15,8 +15,3 @@ data class ErrorResponse(
     val details: String? = ""
     // Other fields for error response
 )
-
-data class Error(
-    val error: String
-    // Other fields for error response
-)

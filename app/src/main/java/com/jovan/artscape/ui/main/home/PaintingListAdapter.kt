@@ -6,25 +6,23 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.jovan.artscape.R
 import com.jovan.artscape.databinding.ItemGridArtBinding
-import com.jovan.artscape.remote.response.painting.PaintingResponse
+import com.jovan.artscape.remote.response.painting.PaintingDetails
 import com.jovan.artscape.utils.GenericDiffCallback
 
 class PaintingListAdapter: RecyclerView.Adapter<PaintingListAdapter.ViewHolder>()  {
-    private val list = ArrayList<PaintingResponse>()
+    private var list: List<PaintingDetails> = emptyList()
     private var onItemClickCallBack: OnItemClickCallBack? = null
 
     fun setOnItemClickCallBack(onItemClickCallBack: OnItemClickCallBack) {
         this.onItemClickCallBack = onItemClickCallBack
     }
-    fun setList(user: ArrayList<PaintingResponse>) {
+    fun setList(user: List<PaintingDetails>) {
         val diffResult = DiffUtil.calculateDiff(
             GenericDiffCallback(list, user, { it.id },
             { it })
         )
-        list.clear()
-        list.addAll(user)
+        list = user
         diffResult.dispatchUpdatesTo(this)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -39,7 +37,7 @@ class PaintingListAdapter: RecyclerView.Adapter<PaintingListAdapter.ViewHolder>(
     override fun getItemCount(): Int = list.size
     inner class ViewHolder(private val binding: ItemGridArtBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(user: PaintingResponse) {
+        fun bind(user: PaintingDetails) {
 
             binding.apply {
 
@@ -47,7 +45,7 @@ class PaintingListAdapter: RecyclerView.Adapter<PaintingListAdapter.ViewHolder>(
                 tvItemDescription.text = user.description
 
                 Glide.with(itemView)
-                    .load(user.media)
+                    .load(user.photo)
                     .centerCrop()
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(ivItemPhoto)
@@ -77,36 +75,6 @@ class PaintingListAdapter: RecyclerView.Adapter<PaintingListAdapter.ViewHolder>(
         fun onItemClicked()
     }
 
-
-    private fun createDummyPaintings(): ArrayList<PaintingResponse> {
-        return arrayListOf(
-            PaintingResponse(
-                id = 1,
-                title = "Starry Night",
-                description = "A beautiful painting by Vincent van Gogh",
-                media = R.drawable.painting_dummy.toString()
-            ),
-            PaintingResponse(
-                id = 2,
-                title = "Mona Lisa",
-                description = "A masterpiece by Leonardo da Vinci",
-                media = R.drawable.painting_dummy.toString()
-            ),
-            PaintingResponse(
-                id = 3,
-                title = "The Scream",
-                description = "An iconic work by Edvard Munch",
-                media = R.drawable.painting_dummy.toString()
-            ),
-            PaintingResponse(
-                id = 4,
-                title = "The Persistence of Memory",
-                description = "A surreal painting by Salvador Dalí",
-                media = R.drawable.painting_dummy.toString()
-            )
-            // Add more dummy data as needed
-        )
-    }
 }
 
 
