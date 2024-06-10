@@ -1,11 +1,12 @@
 package com.jovan.artscape.remote.api
 
 import com.jovan.artscape.remote.request.AddUserRequest
+import com.jovan.artscape.remote.request.LoginRequest
+import com.jovan.artscape.remote.response.SuccessResponse
 import com.jovan.artscape.remote.response.address.DistrictResponse
 import com.jovan.artscape.remote.response.address.ProvinceResponse
 import com.jovan.artscape.remote.response.address.RegenciesResponse
 import com.jovan.artscape.remote.response.address.VillageResponse
-import com.jovan.artscape.remote.response.user.SuccessResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body
@@ -38,26 +39,36 @@ interface ApiService {
     ):List<VillageResponse>
 
     //USER
-    @POST("api/pengguna/add")
-    suspend fun addUser(
+    @POST("api/auth/google")
+    suspend fun addUserData(
         @Body addUserRequest: AddUserRequest
     ): retrofit2.Response<SuccessResponse>
 
-    @GET("api/pengguna/{id}")
+    @POST("api/auth/google")
+    suspend fun login(
+        @Body loginRequest: LoginRequest
+    ): retrofit2.Response<SuccessResponse>
+    @POST("api/auth/{id}")
+    suspend fun getUserData(
+        @Path ("id") id: String
+    ): AddUserRequest
+
+    @GET("api/artwork/{id}")
     suspend fun getUserDetail(
         @Path("id") id: String
     ): retrofit2.Response<SuccessResponse>
 
-    @PUT("api/pengguna/{id}")
-    suspend fun editUser(
-        @Path("id") id: String,
-        @Body addUserRequest: AddUserRequest
-    ): retrofit2.Response<SuccessResponse>
+    /*    @PUT("api/pengguna/{id}")
+        suspend fun editUser(
+            @Path("id") id: String,
+            @Body addUserRequest: AddUserRequest
+        ): retrofit2.Response<SuccessResponse>
 
-    @DELETE("api/pengguna/{id}")
-    suspend fun deleteUser(
-        @Path("id") id: String
-    ): retrofit2.Response<SuccessResponse>
+        @DELETE("api/pengguna/{id}")
+        suspend fun deleteUser(
+            @Path("id") id: String
+        ): retrofit2.Response<SuccessResponse>
+    */
 
     //PAINTING
     @Multipart

@@ -81,7 +81,7 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
                     showToast("Logout")
                     viewModel.getSesion().observe(viewLifecycleOwner) {
                         AlertDialog.Builder(requireContext()).apply {
-                            Log.d("Logout AlertDialog", "Login dengan test Berhasil.")
+                            Log.d("Logout AlertDialog", "TOKEN: ${it.token}")
                             setTitle("Logging Out ${it.token}")
                             setMessage("Are you?")
                             setPositiveButton("yes") { _, _ ->
@@ -103,6 +103,7 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
 
     private fun signOut() {
         lifecycleScope.launch {
+            viewModel.logout()
             val credentialManager = CredentialManager.create(requireContext())
             auth.signOut()
             credentialManager.clearCredentialState(ClearCredentialStateRequest())

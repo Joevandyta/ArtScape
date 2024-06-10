@@ -4,12 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.jovan.artscape.ViewModelFactory
 import com.jovan.artscape.databinding.ActivityUserDataBinding
-import com.jovan.artscape.remote.request.AddUserRequest
 import com.jovan.artscape.ui.login.address.AddAddressActivity
 
 class UserDataActivity : AppCompatActivity() {
@@ -99,14 +99,13 @@ class UserDataActivity : AppCompatActivity() {
         binding.apply {
             buttonAddUser.setOnClickListener {
 
-                val userData = AddUserRequest(
-                    name = edName.text.toString(),
-                    bio = edBio.text.toString(),
-                    email = "Joe@gmail.com",
-                    interest = listOf("Football", "Basketball"),
-                )
+                val token = intent.getStringExtra(EXTRA_ID_TOKEN).toString()
+
+                Log.d("token USER DATA", token)
                 val intent = Intent(this@UserDataActivity, AddAddressActivity::class.java)
-                intent.putExtra(AddAddressActivity.EXTRA_USER_DATA, userData)
+                intent.putExtra(AddAddressActivity.EXTRA_ID_TOKEN, token)
+                intent.putExtra(AddAddressActivity.EXTRA_NAME, edName.text.toString())
+                intent.putExtra(AddAddressActivity.EXTRA_BIO, edBio.text.toString())
                 startActivity(intent)
             }
         }
@@ -117,4 +116,7 @@ class UserDataActivity : AppCompatActivity() {
     }
 
 
+    companion object{
+        const val EXTRA_ID_TOKEN = "extra_id_token"
+    }
 }
