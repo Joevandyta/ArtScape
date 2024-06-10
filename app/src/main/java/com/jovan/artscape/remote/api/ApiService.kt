@@ -7,8 +7,10 @@ import com.jovan.artscape.remote.response.address.DistrictResponse
 import com.jovan.artscape.remote.response.address.ProvinceResponse
 import com.jovan.artscape.remote.response.address.RegenciesResponse
 import com.jovan.artscape.remote.response.address.VillageResponse
+import com.jovan.artscape.remote.response.painting.PaintingDetails
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -83,6 +85,10 @@ interface ApiService {
         @Part("idSeniman") artistId: RequestBody,
         @Part("keterangan") keterangan: RequestBody
     ): retrofit2.Response<SuccessResponse>
+
+
+    @GET("api/artwork/allartwork")
+    suspend fun getAllPainting(): Response<List<PaintingDetails>>
 
     @GET("api/karyaSeni/{id}")
     suspend fun getPaintingDetail(

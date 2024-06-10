@@ -11,5 +11,6 @@ data class AddUserRequest(
     @SerializedName("name") val name: String,
     @SerializedName("address") val address: String,
     @SerializedName("description") val bio: String,
-    @SerializedName("interest") var interest: List<String>
+    @SerializedName("interest") var interest: List<String>,
+    @SerializedName("phoneNumber") val phoneNumber: String,
 ):Parcelable

@@ -9,7 +9,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -21,7 +20,6 @@ import com.jovan.artscape.ui.main.account.AccountFragment
 import com.jovan.artscape.ui.main.home.HomeFragment
 import com.jovan.artscape.ui.upload.UploadActivity
 import com.jovan.artscape.ui.upload.UploadActivity.Companion.EXTRA_IMAGE
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -46,23 +44,22 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
-        lifecycleScope.launch {
-            binding = ActivityMainBinding.inflate(layoutInflater)
-            supportActionBar?.hide()
-            getSession(auth)
-            setContentView(binding.root)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        supportActionBar?.hide()
+        getSession(auth)
 
-            bottomAppBar()
-            // Set initial fragment
-            if (savedInstanceState == null) {
-                replaceFragment(HomeFragment())
-            }
+        setContentView(binding.root)
+
+        bottomAppBar()
+        // Set initial fragment
+        if (savedInstanceState == null) {
+            replaceFragment(HomeFragment())
         }
     }
 
     private fun getSession(auth: FirebaseAuth) {
         val firebaseUser = auth.currentUser
-        viewModel.getSesion().observe(this) {user ->
+        viewModel.getSesion().observe(this) { user ->
             if (firebaseUser == null || !user.isLogin) {
                 startActivity(Intent(this@MainActivity, LoginActivity::class.java))
                 finish()

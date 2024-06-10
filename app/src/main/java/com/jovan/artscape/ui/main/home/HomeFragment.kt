@@ -13,9 +13,13 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.jovan.artscape.R
+import com.jovan.artscape.ViewModelFactory
 import com.jovan.artscape.databinding.FragmentHomeBinding
+import com.jovan.artscape.remote.response.painting.PaintingResponse
 import com.jovan.artscape.ui.CartActivity
 import com.jovan.artscape.ui.NotificationActivity
 import com.jovan.artscape.ui.main.painting.DetailPaintingFragment
@@ -27,6 +31,9 @@ private const val ARG_PARAM2 = "param2"
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private var _binding: FragmentHomeBinding? = null
+    private val viewModel by viewModels<HomeViewModel> {
+        ViewModelFactory.getInstance(requireContext())
+    }
     private val binding get() = _binding!!
     private var param1: String? = null
     private var param2: String? = null
@@ -38,15 +45,41 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             param2 = it.getString(ARG_PARAM2)
         }
 
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentHomeBinding.bind(view)
         toolbar = binding.homeToolbar
+        viewModel.setAllPainting().apply {
+            showLoading(true)
+        }
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
+
+        adapterBind()
         topAppBar()
+    }
+    private fun adapterBind() {
+        val adapter = PaintingListAdapter()
+        binding.rvArt.adapter = adapter
+        binding.rvArt.layoutManager = LinearLayoutManager(requireContext())
+        viewModel.getAllPainting().observe(viewLifecycleOwner) {
+            when (it) {
+                is PaintingResponse.Success -> {
+                    Log.d("HomeFragment SUCCESS", "${it.data}")
+                    showLoading(false)
+                    adapter.setList(it.data)
+                    if (adapter.itemCount == 0) {
+                        Toast.makeText(requireContext(), "User doesnt Exist", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+                is PaintingResponse.Error -> {
+                    Log.d("HomeFragment ERROR", it.error)
+                    showLoading(false)
+                }
+            }
+        }
     }
     private fun topAppBar(){
         val menuHost: MenuHost = requireActivity()
@@ -94,5 +127,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
     private fun showToast(text: String){
         Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
+    }
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }

@@ -1,13 +1,12 @@
 package com.jovan.artscape.remote.response.painting
 
-data class PaintingResponse(
-    val id: Int,
-    val title: String? = null,
-    val description: String? = null,
-    val media: String? = null,
-    val genre: String? = null,
-    val price: String? = null,
-    val createdYear: String? = null,
-    val artistId: String? = null,
-    val keterangan: String? = null
+sealed class PaintingResponse<out T> {
+    data class Success<out T>(val data: T) : PaintingResponse<T>()
+    data class Error(val error: String) : PaintingResponse<Nothing>()
+}
+
+data class ErrorResponse(
+    val error: String,
+    val details: String? = ""
+    // Other fields for error response
 )

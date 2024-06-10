@@ -43,11 +43,12 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-            binding = ActivityLoginBinding.inflate(layoutInflater)
-            setContentView(binding.root)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
 
-            auth = Firebase.auth
-            actionButton()
+        setContentView(binding.root)
+
+        auth = Firebase.auth
+        actionButton()
     }
 
     private fun signIn() {
@@ -152,10 +153,9 @@ class LoginActivity : AppCompatActivity() {
                     // Show ID in Toast
                     showToast("User ID: ${it.data.uid}")
                     Log.d("UserDataActivity", "User ID: ${it.data.uid}")
-                    viewModel.saveSession(UserModel(it.data.uid, idToken)).apply {
-                        showLoading(false)
-                        updateUI(user)
-                    }
+                    viewModel.saveSession(UserModel(it.data.uid, idToken))
+                    showLoading(false)
+                    updateUI(user)
                 }
 
                 is UserResponse.Error -> {
@@ -167,7 +167,7 @@ class LoginActivity : AppCompatActivity() {
                         startActivity(intent)
                         showToast("Error: ${it.error}")
                         Log.d("UserDataActivity", "Error: ${it.error}")
-                    }else{
+                    } else {
                         Log.d("UserDataActivity", "Error: Unexpected")
                     }
                     finish()
