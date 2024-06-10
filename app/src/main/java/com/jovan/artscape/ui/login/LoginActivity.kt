@@ -152,9 +152,10 @@ class LoginActivity : AppCompatActivity() {
                     // Show ID in Toast
                     showToast("User ID: ${it.data.uid}")
                     Log.d("UserDataActivity", "User ID: ${it.data.uid}")
-                    viewModel.saveSession(UserModel(it.data.uid, idToken))
-                    showLoading(false)
-                    updateUI(user)
+                    viewModel.saveSession(UserModel(it.data.uid, idToken)).apply {
+                        showLoading(false)
+                        updateUI(user)
+                    }
                 }
 
                 is UserResponse.Error -> {
