@@ -17,11 +17,13 @@ import kotlinx.coroutines.launch
 
 class LoginViewModel(private val repository: ProvideRepository) : ViewModel() {
     private val apiResponse = MutableLiveData<ApiResponse<UserResponseSuccess>>()
+
     fun saveSession(user: UserModel) {
         viewModelScope.launch {
             repository.saveSession(user)
         }
     }
+
     fun getSession(): LiveData<UserModel> {
         return repository.getSession().asLiveData()
     }
@@ -35,7 +37,6 @@ class LoginViewModel(private val repository: ProvideRepository) : ViewModel() {
             if (response.isSuccessful) {
                 apiResponse.value = ApiResponse.Success(response.body()!!)
                 Log.d("RESPONSE isSuccessful", "addUser: ${response.body()}")
-
             } else {
                 val errorBody = response.errorBody()?.string()
                 val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)

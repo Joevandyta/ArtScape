@@ -67,7 +67,7 @@ interface ApiService {
         ): retrofit2.Response<SuccessResponse>
      */
 
-    // PAINTING
+    // PAINTING VBN M,./
     @Multipart
     @POST("api/artwork/add")
     suspend fun uploadPainting(
