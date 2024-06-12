@@ -12,16 +12,18 @@ import com.jovan.artscape.ui.login.interest.InterestViewModel
 import com.jovan.artscape.ui.main.MainViewModel
 import com.jovan.artscape.ui.main.account.AccountViewModel
 import com.jovan.artscape.ui.main.home.HomeViewModel
-
+import com.jovan.artscape.ui.upload.UploadViewModel
 
 class ViewModelFactory(private val repository: ProvideRepository) :
     ViewModelProvider.NewInstanceFactory() {
-
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(AddressViewModel::class.java) -> {
                 AddressViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(UploadViewModel::class.java) -> {
+                UploadViewModel(repository) as T
             }
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(repository) as T
@@ -46,6 +48,7 @@ class ViewModelFactory(private val repository: ProvideRepository) :
     }
 
     companion object {
+        @Suppress("ktlint:standard:property-naming")
         @Volatile
         private var INSTANCE: ViewModelFactory? = null
 
