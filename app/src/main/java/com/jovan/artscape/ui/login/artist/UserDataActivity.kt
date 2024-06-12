@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.credentials.ClearCredentialStateRequest
 import androidx.credentials.CredentialManager
@@ -16,16 +15,12 @@ import androidx.lifecycle.lifecycleScope
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
-import com.jovan.artscape.ViewModelFactory
 import com.jovan.artscape.databinding.ActivityUserDataBinding
 import com.jovan.artscape.ui.login.address.AddAddressActivity
 import kotlinx.coroutines.launch
 
 class UserDataActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUserDataBinding
-    private val viewModel by viewModels<UserViewModel> {
-        ViewModelFactory.getInstance(this)
-    }
     private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

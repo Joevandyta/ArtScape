@@ -1,4 +1,4 @@
-package com.jovan.artscape.ui.login
+package com.jovan.artscape.ui.upload
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -9,44 +9,48 @@ import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.jovan.artscape.data.ProvideRepository
 import com.jovan.artscape.data.pref.UserModel
-import com.jovan.artscape.remote.request.LoginRequest
 import com.jovan.artscape.remote.response.ApiResponse
 import com.jovan.artscape.remote.response.ErrorResponse
-import com.jovan.artscape.remote.response.user.UserResponseSuccess
+import com.jovan.artscape.remote.response.painting.UploadResponseSuccess
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
-class LoginViewModel(private val repository: ProvideRepository) : ViewModel() {
-    private val apiResponse = MutableLiveData<ApiResponse<UserResponseSuccess>>()
-    fun saveSession(user: UserModel) {
-        viewModelScope.launch {
-            repository.saveSession(user)
-        }
-    }
+class UploadViewModel(private val repository: ProvideRepository) : ViewModel() {
+    private val uploadResponse = MutableLiveData<ApiResponse<UploadResponseSuccess>>()
+
     fun getSession(): LiveData<UserModel> {
         return repository.getSession().asLiveData()
     }
 
-    fun setLogin(idToken: String) {
+    fun setUploadPainting(
+        photo: MultipartBody.Part,
+        title: RequestBody,
+        description: RequestBody,
+        media: RequestBody,
+        genre: RequestBody,
+        price: RequestBody,
+        yearCreated: RequestBody,
+        artistId: RequestBody,
+    ) {
         viewModelScope.launch {
-            Log.d("PARAM", "addUser: $idToken")
-            val response = repository.setlogin(LoginRequest(idToken))
-            Log.d("RESPONSE setLogin", "addUser: ${response.body()}")
+            val response = repository.uploadPainting(photo, title, description, media, genre, price, yearCreated, artistId)
 
+            Log.d("PARAM", "addUser: $yearCreated")
             if (response.isSuccessful) {
-                apiResponse.value = ApiResponse.Success(response.body()!!)
+                uploadResponse.value = ApiResponse.Success(response.body()!!)
                 Log.d("RESPONSE isSuccessful", "addUser: ${response.body()}")
-
             } else {
                 val errorBody = response.errorBody()?.string()
                 val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
-                apiResponse.value =
+                uploadResponse.value =
                     ApiResponse.Error(errorResponse.error, errorResponse.details ?: "")
                 Log.d("RESPONSE notSuccessful", "addUser: ${errorResponse.error}")
             }
         }
     }
 
-    fun getLogin(): MutableLiveData<ApiResponse<UserResponseSuccess>> {
-        return apiResponse
+    fun getUploadResponse(): LiveData<ApiResponse<UploadResponseSuccess>> {
+        return uploadResponse
     }
 }

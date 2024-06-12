@@ -17,6 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.android.libraries.identity.googleid.GoogleIdTokenParsingException
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.Firebase
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
@@ -27,7 +28,7 @@ import com.jovan.artscape.R
 import com.jovan.artscape.ViewModelFactory
 import com.jovan.artscape.data.pref.UserModel
 import com.jovan.artscape.databinding.ActivityLoginBinding
-import com.jovan.artscape.remote.response.UserResponse
+import com.jovan.artscape.remote.response.ApiResponse
 import com.jovan.artscape.ui.login.artist.UserDataActivity
 import com.jovan.artscape.ui.login.artist.UserDataActivity.Companion.EXTRA_ID_TOKEN
 import com.jovan.artscape.ui.main.MainActivity
@@ -149,16 +150,29 @@ class LoginActivity : AppCompatActivity() {
         viewModel.setLogin(idToken)
         viewModel.getLogin().observe(this@LoginActivity) {
             when (it) {
-                is UserResponse.Success -> {
+                is ApiResponse.Success -> {
                     // Show ID in Toast
                     showToast("User ID: ${it.data.uid}")
                     Log.d("UserDataActivity", "User ID: ${it.data.uid}")
-                    viewModel.saveSession(UserModel(it.data.uid, idToken))
                     showLoading(false)
-                    updateUI(user)
+                    MaterialAlertDialogBuilder(this).apply {
+                        Log.d(
+                            "Save Genre AlertDialog",
+                            "${user?.uid}"
+                        )
+                        setTitle("Yeah")
+                        setMessage(it.data.message)
+                        setPositiveButton("Continue") { _, _ ->
+                            viewModel.saveSession(UserModel(it.data.uid, idToken))
+                            updateUI(user)
+                        }
+                        setCancelable(false)
+                        create()
+                        show()
+                    }
                 }
 
-                is UserResponse.Error -> {
+                is ApiResponse.Error -> {
                     showLoading(false)
                     // Show error message in Toast
                     if (it.error.contains("Additional data required")) {

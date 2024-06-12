@@ -28,18 +28,19 @@ class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainViewModel> {
         ViewModelFactory.getInstance(this)
     }
-    private val launcherGallery = registerForActivityResult(
-        ActivityResultContracts.PickVisualMedia()
-    ) { uri: Uri? ->
-        if (uri != null) {
-            currentImageUri = uri
-            val intent = Intent(this, UploadActivity::class.java)
-            intent.putExtra(EXTRA_IMAGE, currentImageUri.toString())
-            startActivity(intent)
-        } else {
-            Log.d("Photo Picker", "No media selected")
+    private val launcherGallery =
+        registerForActivityResult(
+            ActivityResultContracts.PickVisualMedia(),
+        ) { uri: Uri? ->
+            if (uri != null) {
+                currentImageUri = uri
+                val intent = Intent(this, UploadActivity::class.java)
+                intent.putExtra(EXTRA_IMAGE, currentImageUri.toString())
+                startActivity(intent)
+            } else {
+                Log.d("Photo Picker", "No media selected")
+            }
         }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,12 +60,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun getSession(auth: FirebaseAuth) {
         val firebaseUser = auth.currentUser
-        viewModel.getSesion().observe(this) { user ->
+        viewModel.getSession().observe(this) { user ->
             if (firebaseUser == null || !user.isLogin) {
                 startActivity(Intent(this@MainActivity, LoginActivity::class.java))
                 finish()
             } else {
-                Log.d("TOKEN", "Token: ${user.isLogin}")
+                Log.d("ID", "Token: ${user.uid}")
+                Log.d("TOKEN", "Token: ${user.token}")
             }
         }
     }

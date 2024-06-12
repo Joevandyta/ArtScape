@@ -140,5 +140,9 @@
     <string name="save_data">Save Data</string>
     <string name="sign_in">Sign In</string>
     <string name="button_back">button back</string>
+    <string name="year_created">Year Created</string>
+    <string name="painting_media">Painting Media</string>
+    <string name="example_canvas_paper">example: canvas, paper</string>
+    <string name="example_2003">example: 2003</string>
 
 </resources>

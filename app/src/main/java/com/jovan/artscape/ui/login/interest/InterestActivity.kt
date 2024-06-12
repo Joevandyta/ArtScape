@@ -7,16 +7,16 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.google.android.material.chip.Chip
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.jovan.artscape.R
 import com.jovan.artscape.ViewModelFactory
 import com.jovan.artscape.data.pref.UserModel
 import com.jovan.artscape.databinding.ActivityInterestBinding
 import com.jovan.artscape.remote.request.AddUserRequest
-import com.jovan.artscape.remote.response.UserResponse
+import com.jovan.artscape.remote.response.ApiResponse
 import com.jovan.artscape.ui.main.MainActivity
 
 class InterestActivity : AppCompatActivity() {
@@ -44,18 +44,18 @@ class InterestActivity : AppCompatActivity() {
 
             viewModel.getAddUser().observe(this) { userResponse ->
                 when (userResponse) {
-                    is UserResponse.Success -> {
+                    is ApiResponse.Success -> {
                         // Show ID in Toast
                         showToast("User ID: ${userResponse.data.uid}")
                         viewModel.saveSession(UserModel( userResponse.data.uid, addUserRequest.idToken))
                         Log.d("UserDataActivity", "User ID: ${userResponse.data.uid}")
-                        AlertDialog.Builder(this@InterestActivity).apply {
+                        MaterialAlertDialogBuilder(this@InterestActivity).apply {
                             Log.d(
                                 "Save Genre AlertDialog",
                                 "${addUserRequest.idToken}, ${addUserRequest.name}, ${addUserRequest.address}, ${addUserRequest.bio}, ${addUserRequest.interest}"
                             )
                             setTitle("Yeah")
-                            setMessage("Data saved succesfully")
+                            setMessage(userResponse.data.message)
                             setPositiveButton("Continue") { _, _ ->
                                 startActivity(Intent(this@InterestActivity, MainActivity::class.java))
                             }
@@ -65,7 +65,7 @@ class InterestActivity : AppCompatActivity() {
                         }
                     }
 
-                    is UserResponse.Error -> {
+                    is ApiResponse.Error -> {
                         // Show error message in Toast
                         showToast("Error: ${userResponse.error}")
                         Log.e("UserDataActivity", "Error: ${userResponse.error}")

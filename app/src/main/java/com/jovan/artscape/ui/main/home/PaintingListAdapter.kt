@@ -7,40 +7,72 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.jovan.artscape.databinding.ItemGridArtBinding
-import com.jovan.artscape.remote.response.painting.PaintingDetails
+import com.jovan.artscape.remote.response.painting.AllPaintingResponse
 import com.jovan.artscape.utils.GenericDiffCallback
 
-class PaintingListAdapter: RecyclerView.Adapter<PaintingListAdapter.ViewHolder>()  {
-    private var list: List<PaintingDetails> = emptyList()
+class PaintingListAdapter : RecyclerView.Adapter<PaintingListAdapter.ViewHolder>() {
+    private var list: List<AllPaintingResponse> = emptyList()
     private var onItemClickCallBack: OnItemClickCallBack? = null
 
     fun setOnItemClickCallBack(onItemClickCallBack: OnItemClickCallBack) {
         this.onItemClickCallBack = onItemClickCallBack
     }
-    fun setList(user: List<PaintingDetails>) {
-        val diffResult = DiffUtil.calculateDiff(
-            GenericDiffCallback(list, user, { it.id },
-            { it })
-        )
-        list = user
+
+    fun setUserPaintingList(
+        user: List<AllPaintingResponse>,
+        artistId: String,
+    ) {
+        val filteredList = user.filter { it.artistId == artistId } // Assuming `artistId` is a property of `AllPaintingResponse`
+        val diffResult =
+            DiffUtil.calculateDiff(
+                GenericDiffCallback(
+                    list,
+                    filteredList,
+                    { it.id },
+                    { it },
+                ),
+            )
+
+        list = filteredList.reversed()
         diffResult.dispatchUpdatesTo(this)
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+
+    fun setHomePaintingList(user: List<AllPaintingResponse>) {
+        val diffResult =
+            DiffUtil.calculateDiff(
+                GenericDiffCallback(
+                    list,
+                    user,
+                    { it.id },
+                    { it },
+                ),
+            )
+
+        list = user.reversed()
+        diffResult.dispatchUpdatesTo(this)
+    }
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): ViewHolder {
         val binding = ItemGridArtBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: ViewHolder,
+        position: Int,
+    ) {
         holder.bind(list[position])
     }
 
     override fun getItemCount(): Int = list.size
+
     inner class ViewHolder(private val binding: ItemGridArtBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(user: PaintingDetails) {
-
+        fun bind(user: AllPaintingResponse) {
             binding.apply {
-
                 tvItemName.text = user.title
                 tvItemDescription.text = user.description
 
@@ -51,30 +83,13 @@ class PaintingListAdapter: RecyclerView.Adapter<PaintingListAdapter.ViewHolder>(
                     .into(ivItemPhoto)
             }
             binding.root.setOnClickListener {
-                //TODO send ID when clicked
+                // TODO send ID when clicked
                 onItemClickCallBack?.onItemClicked()
             }
         }
     }
 
-/*    private class UserDiffCallback(
-        private val oldList: List<PaintingResponse>,
-        private val newList: List<PaintingResponse>
-    ) : DiffUtil.Callback() {
-        override fun getOldListSize(): Int = oldList.size
-        override fun getNewListSize(): Int = newList.size
-        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition] == newList[newItemPosition]
-        }
-        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition] == newList[newItemPosition]
-        }
-    }*/
-
     interface OnItemClickCallBack {
         fun onItemClicked()
     }
-
 }
-
-

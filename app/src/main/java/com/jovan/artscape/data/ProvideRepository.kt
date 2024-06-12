@@ -5,22 +5,22 @@ import com.jovan.artscape.data.pref.UserModel
 import com.jovan.artscape.remote.api.RetrofiClient
 import com.jovan.artscape.remote.request.AddUserRequest
 import com.jovan.artscape.remote.request.LoginRequest
-import com.jovan.artscape.remote.response.SuccessResponse
 import com.jovan.artscape.remote.response.address.DistrictResponse
 import com.jovan.artscape.remote.response.address.ProvinceResponse
 import com.jovan.artscape.remote.response.address.RegenciesResponse
 import com.jovan.artscape.remote.response.address.VillageResponse
-import com.jovan.artscape.remote.response.painting.PaintingDetails
+import com.jovan.artscape.remote.response.painting.AllPaintingResponse
+import com.jovan.artscape.remote.response.painting.UploadResponseSuccess
+import com.jovan.artscape.remote.response.user.UserResponseSuccess
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
 
 class ProvideRepository private constructor(
-    private var providePreference: ProvidePreference
+    private var providePreference: ProvidePreference,
 ) {
-
-    //Session DataStore
+    // Session DataStore
     suspend fun saveSession(user: UserModel) {
         providePreference.saveSession(user)
     }
@@ -33,7 +33,7 @@ class ProvideRepository private constructor(
         providePreference.logout()
     }
 
-    //API Region
+    // API Region
     suspend fun getProvinces(): List<ProvinceResponse> {
         return RetrofiClient.getApiRegion().getProvince()
     }
@@ -50,48 +50,49 @@ class ProvideRepository private constructor(
         return RetrofiClient.getApiRegion().getVillage(id)
     }
 
-    suspend fun addUserData(addUserRequest: AddUserRequest): Response<SuccessResponse> {
+    suspend fun addUserData(addUserRequest: AddUserRequest): Response<UserResponseSuccess> {
         return RetrofiClient.getApiArtSpace().addUserData(addUserRequest)
     }
 
-    suspend fun setlogin(loginRequest: LoginRequest): Response<SuccessResponse> {
+    suspend fun setlogin(loginRequest: LoginRequest): Response<UserResponseSuccess> {
         return RetrofiClient.getApiArtSpace().login(loginRequest)
     }
+
     suspend fun getUserData(userId: String): AddUserRequest {
         return RetrofiClient.getApiArtSpace().getUserData(userId)
     }
 
     suspend fun uploadPainting(
+        photo: MultipartBody.Part,
         title: RequestBody,
         description: RequestBody,
-        media: MultipartBody.Part,
+        media: RequestBody,
         genre: RequestBody,
         price: RequestBody,
-        createdYear: RequestBody,
+        yearCreated: RequestBody,
         artistId: RequestBody,
-        keterangan: RequestBody
-    ): Response<SuccessResponse> {
+    ): Response<UploadResponseSuccess> {
         return RetrofiClient.getApiArtSpace().uploadPainting(
-            title,
-            description,
-            media,
-            genre,
-            price,
-            createdYear,
-            artistId,
-            keterangan
+            file = photo,
+            title = title,
+            description = description,
+            media = media,
+            genre = genre,
+            price = price,
+            yearCreated = yearCreated,
+            artistId = artistId,
         )
     }
 
-    suspend fun getAllpainting(): Response<List<PaintingDetails>> {
+    suspend fun getAllpainting(): Response<List<AllPaintingResponse>> {
         return RetrofiClient.getApiArtSpace().getAllPainting()
     }
+
     companion object {
         @Volatile
         private var instance: ProvideRepository? = null
-        fun getInstance(
-            providePreference: ProvidePreference
-        ): ProvideRepository =
+
+        fun getInstance(providePreference: ProvidePreference): ProvideRepository =
             instance ?: synchronized(this) {
                 instance ?: ProvideRepository(providePreference)
             }.also { instance = it }

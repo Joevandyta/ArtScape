@@ -9,13 +9,13 @@ import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.jovan.artscape.data.ProvideRepository
 import com.jovan.artscape.data.pref.UserModel
-import com.jovan.artscape.remote.response.painting.ErrorResponse
-import com.jovan.artscape.remote.response.painting.PaintingDetails
-import com.jovan.artscape.remote.response.painting.PaintingResponse
+import com.jovan.artscape.remote.response.ApiResponse
+import com.jovan.artscape.remote.response.ErrorResponse
+import com.jovan.artscape.remote.response.painting.AllPaintingResponse
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repository: ProvideRepository) : ViewModel() {
-    private val paintingResponse = MutableLiveData<PaintingResponse<List<PaintingDetails>>>()
+    private val paintingResponse = MutableLiveData<ApiResponse<List<AllPaintingResponse>>>()
 
     fun getSesion(): LiveData<UserModel> {
         return repository.getSession().asLiveData()
@@ -26,18 +26,18 @@ class HomeViewModel(private val repository: ProvideRepository) : ViewModel() {
             Log.d("PARAM", "SetAllPainting")
             val response = repository.getAllpainting()
             if (response.isSuccessful) {
-                paintingResponse.value = PaintingResponse.Success(response.body()!!)
+                paintingResponse.value = ApiResponse.Success(response.body()!!)
                 Log.d("RESPONSE isSuccessful", "addUser: ${response.body()}")
             } else {
                 val errorBody = response.errorBody()?.string()
                 val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
-                paintingResponse.value = PaintingResponse.Error(errorResponse.error)
+                paintingResponse.value = ApiResponse.Error(errorResponse.error, errorResponse.details?:"")
                 Log.d("RESPONSE notSuccessful", "addUser: ${errorResponse.error}")
             }
         }
     }
 
-    fun getAllPainting(): MutableLiveData<PaintingResponse<List<PaintingDetails>>> {
+    fun getAllPainting(): MutableLiveData<ApiResponse<List<AllPaintingResponse>>> {
         return paintingResponse
     }
 }
