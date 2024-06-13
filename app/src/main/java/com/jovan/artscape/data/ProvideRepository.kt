@@ -62,6 +62,16 @@ class ProvideRepository private constructor(
         return RetrofiClient.getApiArtSpace().getUserData(userId)
     }
 
+    suspend fun editUser(
+        id: String,
+        addUserRequest: AddUserRequest
+    ): Response<UserResponseSuccess> {
+        return RetrofiClient.getApiArtSpace().editUser(
+            id = id,
+            addUserRequest
+        )
+    }
+
     suspend fun uploadPainting(
         photo: MultipartBody.Part,
         title: RequestBody,
