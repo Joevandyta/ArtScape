@@ -25,6 +25,7 @@ class InterestActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(this)
     }
     private var selectedGenresList = mutableListOf<String>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityInterestBinding.inflate(layoutInflater)
@@ -34,11 +35,9 @@ class InterestActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         actionButton()
-
     }
 
     private fun addUser(addUserRequest: AddUserRequest?) {
-
         if (addUserRequest != null) {
             viewModel.addUser(addUserRequest)
 
@@ -46,13 +45,14 @@ class InterestActivity : AppCompatActivity() {
                 when (userResponse) {
                     is ApiResponse.Success -> {
                         // Show ID in Toast
+                        showLoading(false)
                         showToast("User ID: ${userResponse.data.uid}")
-                        viewModel.saveSession(UserModel( userResponse.data.uid, addUserRequest.idToken))
+                        viewModel.saveSession(UserModel(userResponse.data.uid, addUserRequest.idToken))
                         Log.d("UserDataActivity", "User ID: ${userResponse.data.uid}")
                         MaterialAlertDialogBuilder(this@InterestActivity).apply {
                             Log.d(
                                 "Save Genre AlertDialog",
-                                "${addUserRequest.idToken}, ${addUserRequest.name}, ${addUserRequest.address}, ${addUserRequest.bio}, ${addUserRequest.interest}"
+                                "${addUserRequest.idToken}, ${addUserRequest.name}, ${addUserRequest.address}, ${addUserRequest.bio}, ${addUserRequest.interest}",
                             )
                             setTitle("Yeah")
                             setMessage(userResponse.data.message)
@@ -66,9 +66,19 @@ class InterestActivity : AppCompatActivity() {
                     }
 
                     is ApiResponse.Error -> {
+                        showLoading(false)
                         // Show error message in Toast
                         showToast("Error: ${userResponse.error}")
                         Log.e("UserDataActivity", "Error: ${userResponse.error}")
+                        MaterialAlertDialogBuilder(this@InterestActivity).apply {
+                            setTitle("Error")
+                            setMessage("Cant save your user data, please try again!")
+                            setPositiveButton("Continue") { _, _ ->
+                            }
+                            setCancelable(false)
+                            create()
+                            show()
+                        }
                     }
                 }
             }
@@ -87,20 +97,27 @@ class InterestActivity : AppCompatActivity() {
                         val chip: Chip = findViewById(id)
                         selectedGenresList.add(chip.text.toString())
                     }
-                    tv.text = "Selected genres: ${selectedGenresList}"
+                    tv.text = "Selected genres: $selectedGenresList"
+                }
+
+                if (selectedGenresList.size < 3) {
+                    buttonSave.isEnabled = false
+                } else {
+                    buttonSave.isEnabled = true
                 }
             }
 
             buttonSave.setOnClickListener {
-                val user = if (Build.VERSION.SDK_INT >= 33) {
-                    intent.getParcelableExtra(EXTRA_USER_WITH_ADDRESS, AddUserRequest::class.java)
-                } else {
-                    @Suppress("DEPRECATION")
-                    intent.getParcelableExtra(EXTRA_USER_WITH_ADDRESS)
-                }
+                showLoading(true)
+                val user =
+                    if (Build.VERSION.SDK_INT >= 33) {
+                        intent.getParcelableExtra(EXTRA_USER_WITH_ADDRESS, AddUserRequest::class.java)
+                    } else {
+                        @Suppress("DEPRECATION")
+                        intent.getParcelableExtra(EXTRA_USER_WITH_ADDRESS)
+                    }
                 user?.interest = selectedGenresList
                 addUser(user)
-
             }
         }
     }

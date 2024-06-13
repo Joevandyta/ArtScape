@@ -1,4 +1,4 @@
-package com.jovan.artscape.ui.main.home
+package com.jovan.artscape.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -69,14 +69,16 @@ class PaintingListAdapter : RecyclerView.Adapter<PaintingListAdapter.ViewHolder>
 
     override fun getItemCount(): Int = list.size
 
-    inner class ViewHolder(private val binding: ItemGridArtBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(
+        private val binding: ItemGridArtBinding,
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(user: AllPaintingResponse) {
             binding.apply {
                 tvItemName.text = user.title
                 tvItemDescription.text = user.description
 
-                Glide.with(itemView)
+                Glide
+                    .with(itemView)
                     .load(user.photo)
                     .centerCrop()
                     .transition(DrawableTransitionOptions.withCrossFade())

@@ -29,6 +29,7 @@
 
     </androidx.appcompat.widget.Toolbar>
 
+
     <ImageView
         android:id="@+id/image_notif_error"
         android:layout_width="130dp"

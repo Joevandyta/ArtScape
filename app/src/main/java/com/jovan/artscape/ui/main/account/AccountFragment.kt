@@ -11,16 +11,19 @@ import androidx.credentials.CredentialManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.jovan.artscape.R
 import com.jovan.artscape.ViewModelFactory
 import com.jovan.artscape.databinding.FragmentAccountBinding
+import com.jovan.artscape.remote.response.ApiResponse
 import com.jovan.artscape.ui.AboutActivity
 import com.jovan.artscape.ui.NotificationActivity
 import com.jovan.artscape.ui.TransactionActivity
 import com.jovan.artscape.ui.login.LoginActivity
+import com.jovan.artscape.ui.mypainting.MyPaintingActivity
 import com.jovan.artscape.ui.profile.EditProfileActivity
 import kotlinx.coroutines.launch
 
@@ -28,7 +31,6 @@ import kotlinx.coroutines.launch
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-private const val EDIT_PROFILE_REQUEST = 123
 
 class AccountFragment : Fragment(R.layout.fragment_account) {
     private val viewModel by viewModels<AccountViewModel> {
@@ -77,9 +79,9 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
                     startActivity(Intent(requireContext(), TransactionActivity::class.java))
                 }
 
-                /*cvMypainting.setOnClickListener {
-                    startActivity(Intent(requireContext(), MyPaintingFragment::class.java))
-                }*/
+                cvMypainting.setOnClickListener {
+                    startActivity(Intent(requireContext(), MyPaintingActivity::class.java))
+                }
                 cvAddress.setOnClickListener {
                     showToast("Ini Alamat")
                 }
@@ -94,7 +96,7 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
                     viewModel.getSesion().observe(viewLifecycleOwner) {
                         AlertDialog.Builder(requireContext()).apply {
                             Log.d("Logout AlertDialog", "TOKEN: ${it.token}")
-                            setTitle("Logging Out ${it.token}")
+                            setTitle("Logging Out")
                             setMessage("Are you?")
                             setPositiveButton("yes") { _, _ ->
                                 signOut()
@@ -117,9 +119,23 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
         binding.apply {
             viewModel.apply {
                 getSesion().observe(viewLifecycleOwner) {
-                    getUserData(it.uid).observe(viewLifecycleOwner) { userData ->
-                        tvUsernameUpdate.text = userData.name
-                        tvPhoneNumber.text = userData.phoneNumber
+                    setUserData(it.uid)
+                    getUserData().observe(viewLifecycleOwner) { userData ->
+                        when (userData) {
+                            is ApiResponse.Success -> {
+                                tvUsernameUpdate.text = userData.data.name
+                                tvPhoneNumber.text = userData.data.phoneNumber
+                                Glide
+                                    .with(requireContext())
+                                    .load(userData.data.picture)
+                                    .into(imgPicture)
+                            }
+                            is ApiResponse.Error -> {
+                                if (userData.error.contains("User not found")) {
+                                    signOut()
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -148,7 +164,4 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
     private fun showLoading(isLoading: Boolean) {
         binding.progressIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
-//    companion object {
-//        private const val EDIT_PROFILE_REQUEST = 123
-//    }
 }

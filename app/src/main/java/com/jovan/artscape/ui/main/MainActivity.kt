@@ -8,18 +8,23 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.credentials.ClearCredentialStateRequest
+import androidx.credentials.CredentialManager
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.jovan.artscape.R
 import com.jovan.artscape.ViewModelFactory
 import com.jovan.artscape.databinding.ActivityMainBinding
+import com.jovan.artscape.remote.response.ApiResponse
 import com.jovan.artscape.ui.login.LoginActivity
 import com.jovan.artscape.ui.main.account.AccountFragment
 import com.jovan.artscape.ui.main.home.HomeFragment
 import com.jovan.artscape.ui.upload.UploadActivity
 import com.jovan.artscape.ui.upload.UploadActivity.Companion.EXTRA_IMAGE
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -68,6 +73,19 @@ class MainActivity : AppCompatActivity() {
                 Log.d("ID", "Token: ${user.uid}")
                 Log.d("TOKEN", "Token: ${user.token}")
             }
+            viewModel.setUserData(user.uid)
+            viewModel.getUserData().observe(this) {
+                when (it) {
+                    is ApiResponse.Success -> {
+                        Log.d("CURENT USER", "user Data: ${it.data}")
+                    }
+                    is ApiResponse.Error -> {
+                        if (it.error.contains("User not found")) {
+                            signOut()
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -91,6 +109,16 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnUploadArt.setOnClickListener {
             launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+        }
+    }
+
+    private fun signOut() {
+        lifecycleScope.launch {
+            viewModel.logout()
+            val credentialManager = CredentialManager.create(this@MainActivity)
+            auth.signOut()
+            credentialManager.clearCredentialState(ClearCredentialStateRequest())
+            startActivity(Intent(this@MainActivity, LoginActivity::class.java))
         }
     }
 

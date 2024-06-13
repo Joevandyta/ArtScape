@@ -56,7 +56,7 @@ interface ApiService {
     @GET("api/user/{id}")
     suspend fun getUserData(
         @Path("id") id: String,
-    ): AllUserResponse
+    ): Response<AllUserResponse>
 
     @PUT("api/user/{id}")
     suspend fun editUser(

@@ -22,7 +22,7 @@ import com.jovan.artscape.databinding.FragmentHomeBinding
 import com.jovan.artscape.remote.response.ApiResponse
 import com.jovan.artscape.ui.CartActivity
 import com.jovan.artscape.ui.NotificationActivity
-import com.jovan.artscape.ui.main.painting.DetailPaintingFragment
+import com.jovan.artscape.ui.adapter.PaintingListAdapter
 import com.jovan.artscape.ui.search.SearchActivity
 
 private const val ARG_PARAM1 = "param1"
@@ -73,12 +73,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     showLoading(false)
                     adapter.setHomePaintingList(it.data)
                     if (adapter.itemCount == 0) {
-                        Toast.makeText(
-                            requireContext(),
-                            "User doesnt Exist",
-                            Toast.LENGTH_SHORT,
-                        )
-                            .show()
+                        Toast
+                            .makeText(
+                                requireContext(),
+                                "User doesnt Exist",
+                                Toast.LENGTH_SHORT,
+                            ).show()
                     }
                 }
 
@@ -140,11 +140,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun replaceFragment() {
-        val newFragment = DetailPaintingFragment()
+/*        val newFragment = DetailPaintingFragment()
         val transaction = parentFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_container, newFragment)
         transaction.addToBackStack(null)
-        transaction.commit()
+        transaction.commit()*/
     }
 
     override fun onDestroyView() {

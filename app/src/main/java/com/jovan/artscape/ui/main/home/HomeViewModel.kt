@@ -14,12 +14,12 @@ import com.jovan.artscape.remote.response.ErrorResponse
 import com.jovan.artscape.remote.response.painting.AllPaintingResponse
 import kotlinx.coroutines.launch
 
-class HomeViewModel(private val repository: ProvideRepository) : ViewModel() {
+class HomeViewModel(
+    private val repository: ProvideRepository,
+) : ViewModel() {
     private val paintingResponse = MutableLiveData<ApiResponse<List<AllPaintingResponse>>>()
 
-    fun getSesion(): LiveData<UserModel> {
-        return repository.getSession().asLiveData()
-    }
+    fun getSesion(): LiveData<UserModel> = repository.getSession().asLiveData()
 
     fun setAllPainting() {
         viewModelScope.launch {
@@ -31,13 +31,11 @@ class HomeViewModel(private val repository: ProvideRepository) : ViewModel() {
             } else {
                 val errorBody = response.errorBody()?.string()
                 val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
-                paintingResponse.value = ApiResponse.Error(errorResponse.error, errorResponse.details?:"")
+                paintingResponse.value = ApiResponse.Error(errorResponse.error, errorResponse.details ?: "")
                 Log.d("RESPONSE notSuccessful", "addUser: ${errorResponse.error}")
             }
         }
     }
 
-    fun getAllPainting(): MutableLiveData<ApiResponse<List<AllPaintingResponse>>> {
-        return paintingResponse
-    }
+    fun getAllPainting(): MutableLiveData<ApiResponse<List<AllPaintingResponse>>> = paintingResponse
 }
