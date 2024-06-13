@@ -337,7 +337,6 @@ class UploadActivity : AppCompatActivity() {
                 showToast("Back")
                 true
             }
-
             else -> super.onOptionsItemSelected(item)
         }
     }

@@ -7,6 +7,4 @@ import kotlinx.parcelize.Parcelize
 data class UserResponseSuccess(
     val message: String,
     val uid: String,
-    val name: String?,
-    val phoneNumber: String
 ) : Parcelable
