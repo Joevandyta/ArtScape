@@ -17,6 +17,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
 
@@ -55,17 +56,17 @@ interface ApiService {
         @Path("id") id: String,
     ): AddUserRequest
 
-    /*    @PUT("api/pengguna/{id}")
+    @PUT("api/user/{id}")
         suspend fun editUser(
             @Path("id") id: String,
             @Body addUserRequest: AddUserRequest
-        ): retrofit2.Response<SuccessResponse>
+        ): Response<UserResponseSuccess>
 
-        @DELETE("api/pengguna/{id}")
-        suspend fun deleteUser(
-            @Path("id") id: String
-        ): retrofit2.Response<SuccessResponse>
-     */
+//        @DELETE("api/pengguna/{id}")
+//        suspend fun deleteUser(
+//            @Path("id") id: String
+//        ): retrofit2.Response<SuccessResponse>
+//     */
 
     // PAINTING VBN M,./
     @Multipart

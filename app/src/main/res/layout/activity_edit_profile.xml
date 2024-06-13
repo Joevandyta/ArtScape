@@ -70,18 +70,18 @@
                 app:layout_constraintTop_toTopOf="@+id/picture_layout"
                 app:shapeAppearanceOverlay="@style/CircleImage" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/edit_profile_image"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/edit"
-                android:textAllCaps="false"
-                app:icon="@drawable/ic_pencil"
-                app:layout_constraintBottom_toBottomOf="@+id/img_picture"
-                app:layout_constraintEnd_toEndOf="@+id/img_picture"
-                app:layout_constraintStart_toEndOf="@+id/img_picture"
-                app:layout_constraintTop_toBottomOf="@+id/img_picture" />
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:id="@+id/edit_profile_image"-->
+<!--                style="@style/Widget.MaterialComponents.Button.TextButton"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/edit"-->
+<!--                android:textAllCaps="false"-->
+<!--                app:icon="@drawable/ic_pencil"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/img_picture"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/img_picture"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/img_picture"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/img_picture" />-->
 
 
             <LinearLayout
@@ -91,7 +91,7 @@
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_profile_image">
+                app:layout_constraintTop_toBottomOf="@+id/img_picture">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/ed_username_layout"
@@ -137,8 +137,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linear_layout_edit_text" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
@@ -151,5 +153,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonUpdate"
+        style="@style/semibold"
+        android:layout_width="355dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:text="Update"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,7 @@ import com.jovan.artscape.ui.login.interest.InterestViewModel
 import com.jovan.artscape.ui.main.MainViewModel
 import com.jovan.artscape.ui.main.account.AccountViewModel
 import com.jovan.artscape.ui.main.home.HomeViewModel
+import com.jovan.artscape.ui.profile.EditProfileViewModel
 import com.jovan.artscape.ui.upload.UploadViewModel
 
 class ViewModelFactory(private val repository: ProvideRepository) :
@@ -42,6 +43,9 @@ class ViewModelFactory(private val repository: ProvideRepository) :
             }
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
                 HomeViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(EditProfileViewModel::class.java) -> {
+                EditProfileViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
