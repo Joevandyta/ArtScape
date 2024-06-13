@@ -1,7 +1,5 @@
 package com.jovan.artscape.ui.main.account
 
-
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
@@ -19,9 +17,7 @@ import com.google.firebase.auth.auth
 import com.jovan.artscape.R
 import com.jovan.artscape.ViewModelFactory
 import com.jovan.artscape.databinding.FragmentAccountBinding
-import com.jovan.artscape.remote.response.user.UserResponseSuccess
 import com.jovan.artscape.ui.AboutActivity
-import com.jovan.artscape.ui.MyPaintingFragment
 import com.jovan.artscape.ui.NotificationActivity
 import com.jovan.artscape.ui.TransactionActivity
 import com.jovan.artscape.ui.login.LoginActivity
@@ -57,18 +53,21 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentAccountBinding.bind(view)
+        updateProfile()
+        actionSetup()
+    }
 
+    private fun actionSetup() {
         binding.apply {
             editProfileButton.setOnClickListener {
                 Log.d("AccountFragment", "Edit Profile Button Clicked")
-                val intent = Intent(requireContext(), EditProfileActivity::class.java)
-                intent.putExtra("USER_ID", auth.currentUser?.uid)
-                startActivityForResult(intent, EDIT_PROFILE_REQUEST)
-//                startActivity(Intent(requireContext(), EditProfileActivity::class.java))
-
+                startActivity(Intent(requireContext(), EditProfileActivity::class.java))
             }
             settingsCard.apply {
                 cvNotification.setOnClickListener {
@@ -78,9 +77,9 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
                     startActivity(Intent(requireContext(), TransactionActivity::class.java))
                 }
 
-                cvMypainting.setOnClickListener {
+                /*cvMypainting.setOnClickListener {
                     startActivity(Intent(requireContext(), MyPaintingFragment::class.java))
-                }
+                }*/
                 cvAddress.setOnClickListener {
                     showToast("Ini Alamat")
                 }
@@ -113,22 +112,20 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
             }
         }
     }
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == EDIT_PROFILE_REQUEST && resultCode == Activity.RESULT_OK) {
-            val userData = data?.getParcelableExtra<UserResponseSuccess>("USER_DATA")
-            userData?.let {
-                updateProfile(it)
+
+    private fun updateProfile() {
+        binding.apply {
+            viewModel.apply {
+                getSesion().observe(viewLifecycleOwner) {
+                    getUserData(it.uid).observe(viewLifecycleOwner) { userData ->
+                        tvUsernameUpdate.text = userData.name
+                        tvPhoneNumber.text = userData.phoneNumber
+                    }
+                }
             }
         }
     }
 
-    private fun updateProfile(userData: UserResponseSuccess){
-        binding.apply{
-            tvUsernameUpdate.text = userData.name
-            tvPhoneNumber.text = userData.phoneNumber
-        }
-    }
     private fun signOut() {
         lifecycleScope.launch {
             viewModel.logout()
@@ -147,7 +144,6 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
     private fun showToast(text: String) {
         Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
     }
-
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE

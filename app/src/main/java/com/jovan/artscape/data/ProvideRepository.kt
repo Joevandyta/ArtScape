@@ -5,12 +5,14 @@ import com.jovan.artscape.data.pref.UserModel
 import com.jovan.artscape.remote.api.RetrofiClient
 import com.jovan.artscape.remote.request.AddUserRequest
 import com.jovan.artscape.remote.request.LoginRequest
+import com.jovan.artscape.remote.request.UpdateUserRequest
 import com.jovan.artscape.remote.response.address.DistrictResponse
 import com.jovan.artscape.remote.response.address.ProvinceResponse
 import com.jovan.artscape.remote.response.address.RegenciesResponse
 import com.jovan.artscape.remote.response.address.VillageResponse
 import com.jovan.artscape.remote.response.painting.AllPaintingResponse
 import com.jovan.artscape.remote.response.painting.UploadResponseSuccess
+import com.jovan.artscape.remote.response.user.AllUserResponse
 import com.jovan.artscape.remote.response.user.UserResponseSuccess
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
@@ -25,52 +27,36 @@ class ProvideRepository private constructor(
         providePreference.saveSession(user)
     }
 
-    fun getSession(): Flow<UserModel> {
-        return providePreference.getSession()
-    }
+    fun getSession(): Flow<UserModel> = providePreference.getSession()
 
     suspend fun logout() {
         providePreference.logout()
     }
 
     // API Region
-    suspend fun getProvinces(): List<ProvinceResponse> {
-        return RetrofiClient.getApiRegion().getProvince()
-    }
+    suspend fun getProvinces(): List<ProvinceResponse> = RetrofiClient.getApiRegion().getProvince()
 
-    suspend fun getRegencies(id: String): List<RegenciesResponse> {
-        return RetrofiClient.getApiRegion().getRegencies(id)
-    }
+    suspend fun getRegencies(id: String): List<RegenciesResponse> = RetrofiClient.getApiRegion().getRegencies(id)
 
-    suspend fun getDistricts(id: String): List<DistrictResponse> {
-        return RetrofiClient.getApiRegion().getDistrict(id)
-    }
+    suspend fun getDistricts(id: String): List<DistrictResponse> = RetrofiClient.getApiRegion().getDistrict(id)
 
-    suspend fun getVillages(id: String): List<VillageResponse> {
-        return RetrofiClient.getApiRegion().getVillage(id)
-    }
+    suspend fun getVillages(id: String): List<VillageResponse> = RetrofiClient.getApiRegion().getVillage(id)
 
-    suspend fun addUserData(addUserRequest: AddUserRequest): Response<UserResponseSuccess> {
-        return RetrofiClient.getApiArtSpace().addUserData(addUserRequest)
-    }
+    suspend fun addUserData(addUserRequest: AddUserRequest): Response<UserResponseSuccess> =
+        RetrofiClient.getApiArtSpace().addUserData(addUserRequest)
 
-    suspend fun setlogin(loginRequest: LoginRequest): Response<UserResponseSuccess> {
-        return RetrofiClient.getApiArtSpace().login(loginRequest)
-    }
+    suspend fun setlogin(loginRequest: LoginRequest): Response<UserResponseSuccess> = RetrofiClient.getApiArtSpace().login(loginRequest)
 
-    suspend fun getUserData(userId: String): AddUserRequest {
-        return RetrofiClient.getApiArtSpace().getUserData(userId)
-    }
+    suspend fun getUserData(userId: String): AllUserResponse = RetrofiClient.getApiArtSpace().getUserData(userId)
 
     suspend fun editUser(
         id: String,
-        addUserRequest: AddUserRequest
-    ): Response<UserResponseSuccess> {
-        return RetrofiClient.getApiArtSpace().editUser(
+        updateUserRequest: UpdateUserRequest,
+    ): Response<UserResponseSuccess> =
+        RetrofiClient.getApiArtSpace().editUser(
             id = id,
-            addUserRequest
+            updateUserRequest,
         )
-    }
 
     suspend fun uploadPainting(
         photo: MultipartBody.Part,
@@ -81,8 +67,8 @@ class ProvideRepository private constructor(
         price: RequestBody,
         yearCreated: RequestBody,
         artistId: RequestBody,
-    ): Response<UploadResponseSuccess> {
-        return RetrofiClient.getApiArtSpace().uploadPainting(
+    ): Response<UploadResponseSuccess> =
+        RetrofiClient.getApiArtSpace().uploadPainting(
             file = photo,
             title = title,
             description = description,
@@ -92,11 +78,8 @@ class ProvideRepository private constructor(
             yearCreated = yearCreated,
             artistId = artistId,
         )
-    }
 
-    suspend fun getAllpainting(): Response<List<AllPaintingResponse>> {
-        return RetrofiClient.getApiArtSpace().getAllPainting()
-    }
+    suspend fun getAllpainting(): Response<List<AllPaintingResponse>> = RetrofiClient.getApiArtSpace().getAllPainting()
 
     companion object {
         @Volatile

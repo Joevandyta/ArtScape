@@ -2,6 +2,7 @@ package com.jovan.artscape.remote.api
 
 import com.jovan.artscape.remote.request.AddUserRequest
 import com.jovan.artscape.remote.request.LoginRequest
+import com.jovan.artscape.remote.request.UpdateUserRequest
 import com.jovan.artscape.remote.response.address.DistrictResponse
 import com.jovan.artscape.remote.response.address.ProvinceResponse
 import com.jovan.artscape.remote.response.address.RegenciesResponse
@@ -9,6 +10,7 @@ import com.jovan.artscape.remote.response.address.VillageResponse
 import com.jovan.artscape.remote.response.painting.AllPaintingResponse
 import com.jovan.artscape.remote.response.painting.PaintingDetailsResponse
 import com.jovan.artscape.remote.response.painting.UploadResponseSuccess
+import com.jovan.artscape.remote.response.user.AllUserResponse
 import com.jovan.artscape.remote.response.user.UserResponseSuccess
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -51,22 +53,22 @@ interface ApiService {
         @Body loginRequest: LoginRequest,
     ): Response<UserResponseSuccess>
 
-    @POST("api/auth/{id}")
+    @GET("api/user/{id}")
     suspend fun getUserData(
         @Path("id") id: String,
-    ): AddUserRequest
+    ): AllUserResponse
 
     @PUT("api/user/{id}")
-        suspend fun editUser(
-            @Path("id") id: String,
-            @Body addUserRequest: AddUserRequest
-        ): Response<UserResponseSuccess>
+    suspend fun editUser(
+        @Path("id") id: String,
+        @Body updateUserRequest: UpdateUserRequest,
+    ): Response<UserResponseSuccess>
 
-//        @DELETE("api/pengguna/{id}")
-//        suspend fun deleteUser(
-//            @Path("id") id: String
-//        ): retrofit2.Response<SuccessResponse>
-//     */
+    /*    @DELETE("api/pengguna/{id}")
+        suspend fun deleteUser(
+            @Path("id") id: String
+        ): retrofit2.Response<SuccessResponse>
+     */
 
     // PAINTING VBN M,./
     @Multipart
