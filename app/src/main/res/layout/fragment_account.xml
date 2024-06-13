@@ -28,18 +28,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-            <TextView
-                android:id="@+id/tv_name"
-                style="@style/bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="@string/username"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@+id/picture_layout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/picture_layout"
@@ -58,14 +46,15 @@
                 style="@style/semibold"
                 android:layout_width="120dp"
                 android:layout_height="40dp"
-                android:text="@string/edit_profile"
+                android:layout_marginTop="64dp"
                 android:gravity="center"
+                android:text="@string/edit_profile"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/picture_layout" />
-
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/img_picture"
@@ -95,6 +84,29 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/settings_card" />
+
+
+            <TextView
+                android:id="@+id/tv_usernameUpdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Username"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/picture_layout" />
+
+            <TextView
+                android:id="@+id/tv_phoneNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/phone_number"
+                app:layout_constraintBottom_toTopOf="@+id/edit_profile_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_usernameUpdate"
+                app:layout_constraintVertical_bias="0.333" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
