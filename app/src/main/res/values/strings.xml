@@ -144,5 +144,6 @@
     <string name="painting_media">Painting Media</string>
     <string name="example_canvas_paper">example: canvas, paper</string>
     <string name="example_2003">example: 2003</string>
+    <string name="there_is_no_painting">You haven\'t uploaded any paintings, please add more paintings, okay!</string>
 
 </resources>

@@ -204,6 +204,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="31dp"
             android:gravity="center"
+            android:enabled="false"
             android:text="@string/save_data"
             android:textAlignment="center"
             android:textColor="@color/white"

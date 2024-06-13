@@ -1,4 +1,4 @@
-package com.jovan.artscape.ui.main.account
+package com.jovan.artscape.ui.mypainting
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -11,36 +11,31 @@ import com.jovan.artscape.data.ProvideRepository
 import com.jovan.artscape.data.pref.UserModel
 import com.jovan.artscape.remote.response.ApiResponse
 import com.jovan.artscape.remote.response.ErrorResponse
-import com.jovan.artscape.remote.response.user.AllUserResponse
+import com.jovan.artscape.remote.response.painting.AllPaintingResponse
 import kotlinx.coroutines.launch
 
-class AccountViewModel(
+class MyPaintingViewModel(
     private val repository: ProvideRepository,
 ) : ViewModel() {
-    val userDataResponse = MutableLiveData<ApiResponse<AllUserResponse>>()
+    private val paintingResponse = MutableLiveData<ApiResponse<List<AllPaintingResponse>>>()
 
     fun getSesion(): LiveData<UserModel> = repository.getSession().asLiveData()
 
-    fun logout() {
+    fun setAllPainting() {
         viewModelScope.launch {
-            repository.logout()
-        }
-    }
-
-    fun setUserData(id: String)  {
-        viewModelScope.launch {
-            val response = repository.getUserData(id)
+            Log.d("PARAM", "SetAllPainting")
+            val response = repository.getAllpainting()
             if (response.isSuccessful) {
-                userDataResponse.value = ApiResponse.Success(response.body()!!)
-                Log.d("RESPONSE isSuccessful", "User: ${response.body()}")
+                paintingResponse.value = ApiResponse.Success(response.body()!!)
+                Log.d("RESPONSE isSuccessful", "addUser: ${response.body()}")
             } else {
                 val errorBody = response.errorBody()?.string()
                 val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
-                userDataResponse.value = ApiResponse.Error(errorResponse.error, errorResponse.details ?: "")
-                Log.d("RESPONSE notSuccessful", "ERROR: ${errorResponse.error}")
+                paintingResponse.value = ApiResponse.Error(errorResponse.error, errorResponse.details ?: "")
+                Log.d("RESPONSE notSuccessful", "addUser: ${errorResponse.error}")
             }
         }
     }
 
-    fun getUserData(): MutableLiveData<ApiResponse<AllUserResponse>> = userDataResponse
+    fun getAllPainting(): MutableLiveData<ApiResponse<List<AllPaintingResponse>>> = paintingResponse
 }

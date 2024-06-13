@@ -59,8 +59,7 @@ class UploadActivity : AppCompatActivity() {
                 .setCancelable(false)
                 .setPositiveButton("Yes") { _, _ ->
                     finish()
-                }
-                .setNegativeButton("No") { dialog, _ ->
+                }.setNegativeButton("No") { dialog, _ ->
                     dialog.dismiss()
                 }
             create()
@@ -80,7 +79,8 @@ class UploadActivity : AppCompatActivity() {
         previewImageUri = Uri.parse(intent.getStringExtra(EXTRA_IMAGE))
 
         binding.apply {
-            Glide.with(this@UploadActivity)
+            Glide
+                .with(this@UploadActivity)
                 .load(previewImageUri)
                 .into(previewImageView)
         }
@@ -234,9 +234,7 @@ class UploadActivity : AppCompatActivity() {
         }
     }
 
-    private fun isValid(editText: TextInputEditText): Boolean {
-        return editText.text.toString().isNotEmpty()
-    }
+    private fun isValid(editText: TextInputEditText): Boolean = editText.text.toString().isNotEmpty()
 
     fun setMyButtonEnable() {
         binding.apply {
@@ -248,7 +246,12 @@ class UploadActivity : AppCompatActivity() {
             val isDescriptionValid = isValid(edDescription)
 
             buttonAdd.isEnabled =
-                isTitleValid && isGenreValid && isPriceValid && isMediaValid && isYearCreatedValid && isDescriptionValid
+                isTitleValid &&
+                isGenreValid &&
+                isPriceValid &&
+                isMediaValid &&
+                isYearCreatedValid &&
+                isDescriptionValid
         }
     }
 

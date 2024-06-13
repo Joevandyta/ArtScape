@@ -47,7 +47,7 @@ class ProvideRepository private constructor(
 
     suspend fun setlogin(loginRequest: LoginRequest): Response<UserResponseSuccess> = RetrofiClient.getApiArtSpace().login(loginRequest)
 
-    suspend fun getUserData(userId: String): AllUserResponse = RetrofiClient.getApiArtSpace().getUserData(userId)
+    suspend fun getUserData(userId: String): Response<AllUserResponse> = RetrofiClient.getApiArtSpace().getUserData(userId)
 
     suspend fun editUser(
         id: String,

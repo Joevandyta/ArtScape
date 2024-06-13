@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.painting.DetailPaintingFragment">
+    tools:context=".ui.main.painting.DetailPaintingActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/detail_painting_toolbar_layout"
@@ -22,7 +22,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
-            android:theme="@style/ToolbarDefaultIconStyleBlackOrWhite"
             app:title="Detail Painting" />
 
     </com.google.android.material.appbar.AppBarLayout>

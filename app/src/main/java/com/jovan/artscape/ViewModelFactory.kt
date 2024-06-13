@@ -12,14 +12,16 @@ import com.jovan.artscape.ui.login.interest.InterestViewModel
 import com.jovan.artscape.ui.main.MainViewModel
 import com.jovan.artscape.ui.main.account.AccountViewModel
 import com.jovan.artscape.ui.main.home.HomeViewModel
+import com.jovan.artscape.ui.mypainting.MyPaintingViewModel
 import com.jovan.artscape.ui.profile.EditProfileViewModel
 import com.jovan.artscape.ui.upload.UploadViewModel
 
-class ViewModelFactory(private val repository: ProvideRepository) :
-    ViewModelProvider.NewInstanceFactory() {
+class ViewModelFactory(
+    private val repository: ProvideRepository,
+) : ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return when {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T =
+        when {
             modelClass.isAssignableFrom(AddressViewModel::class.java) -> {
                 AddressViewModel(repository) as T
             }
@@ -47,9 +49,11 @@ class ViewModelFactory(private val repository: ProvideRepository) :
             modelClass.isAssignableFrom(EditProfileViewModel::class.java) -> {
                 EditProfileViewModel(repository) as T
             }
+            modelClass.isAssignableFrom(MyPaintingViewModel::class.java) -> {
+                MyPaintingViewModel(repository) as T
+            }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
-    }
 
     companion object {
         @Suppress("ktlint:standard:property-naming")
