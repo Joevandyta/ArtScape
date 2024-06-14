@@ -62,6 +62,11 @@ class DetailPaintingActivity : AppCompatActivity() {
                     is ApiResponse.Success -> {
                         tvArtistName.text = it.data.name
                         tvArtistAddress.text = it.data.address
+                        Glide
+                            .with(this@DetailPaintingActivity)
+                            .load(it.data.picture)
+                            .placeholder(R.drawable.painting_dummy) // Placeholder sementara gambar di-load
+                            .into(imgArtist)
                     }
 
                     is ApiResponse.Error -> {
