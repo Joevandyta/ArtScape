@@ -117,16 +117,16 @@
     <string name="artist_address">Artist Address</string>
 
 
-<!--    Notification alert-->
+    <!--    Notification alert-->
     <string name="notif_messages">We are preparing something</string>
 
-<!--    About the ArtScape-->
+    <!--    About the ArtScape-->
     <string name="about_quote_title"> Art Is a Journey </string>
     <string name="about_quote_source"> - Art Inspiration </string>
 
     <string name="slogan">ArtScape: Exploration, from Screen to Soul</string>
     <string name="version">Versi 1.0.0</string>
-    <string name ="sign_in_to_continue">Sign in to continue</string>
+    <string name="sign_in_to_continue">Sign in to continue</string>
 
     <string name="phone_number">Phone Number</string>
     <string name="edit">Edit</string>
