@@ -85,12 +85,14 @@ class PaintingListAdapter : RecyclerView.Adapter<PaintingListAdapter.ViewHolder>
             }
             binding.root.setOnClickListener {
                 // TODO send ID when clicked
-                onItemClickCallBack?.onItemClicked(item)
+                onItemClickCallBack?.onItemClicked(user.id)
+
             }
         }
     }
 
     interface OnItemClickCallBack {
-        fun onItemClicked(data: AllPaintingResponse)
+        fun onItemClicked(paintingId: String)
+//        fun onItemClicked()
     }
 }

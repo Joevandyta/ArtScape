@@ -12,6 +12,7 @@ import com.jovan.artscape.ui.login.interest.InterestViewModel
 import com.jovan.artscape.ui.main.MainViewModel
 import com.jovan.artscape.ui.main.account.AccountViewModel
 import com.jovan.artscape.ui.main.home.HomeViewModel
+import com.jovan.artscape.ui.main.painting.DetailPaintingViewModel
 import com.jovan.artscape.ui.mypainting.MyPaintingViewModel
 import com.jovan.artscape.ui.profile.EditProfileViewModel
 import com.jovan.artscape.ui.search.SearchViewModel
@@ -53,8 +54,13 @@ class ViewModelFactory(
             modelClass.isAssignableFrom(MyPaintingViewModel::class.java) -> {
                 MyPaintingViewModel(repository) as T
             }
+
             modelClass.isAssignableFrom(SearchViewModel::class.java) -> {
                 SearchViewModel(repository) as T
+            }
+            
+            modelClass.isAssignableFrom(DetailPaintingViewModel::class.java) -> {
+                DetailPaintingViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
