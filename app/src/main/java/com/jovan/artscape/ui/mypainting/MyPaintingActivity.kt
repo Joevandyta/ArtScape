@@ -15,7 +15,7 @@ import com.jovan.artscape.databinding.ActivityMyPaintingBinding
 import com.jovan.artscape.remote.response.ApiResponse
 import com.jovan.artscape.remote.response.painting.AllPaintingResponse
 import com.jovan.artscape.ui.adapter.PaintingListAdapter
-import com.jovan.artscape.ui.main.painting.DetailPaintingActivity
+import com.jovan.artscape.ui.mypainting.detail.MyPaintingDetailsActivity
 
 class MyPaintingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMyPaintingBinding
@@ -73,7 +73,7 @@ class MyPaintingActivity : AppCompatActivity() {
         adapter.setOnItemClickCallBack(
             object : PaintingListAdapter.OnItemClickCallBack {
                 override fun onItemClicked(data: AllPaintingResponse) {
-                    val intent = Intent(this@MyPaintingActivity, DetailPaintingActivity::class.java)
+                    val intent = Intent(this@MyPaintingActivity, MyPaintingDetailsActivity::class.java)
                     startActivity(intent)
                 }
             },
