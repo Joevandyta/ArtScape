@@ -7,16 +7,12 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.jovan.artscape.R
 import com.jovan.artscape.ViewModelFactory
-import com.jovan.artscape.data.ProvideRepository
 import com.jovan.artscape.databinding.ActivityDetailPaintingBinding
+import com.jovan.artscape.remote.response.ApiResponse
 import com.jovan.artscape.remote.response.painting.PaintingDetailsResponse
-import com.jovan.artscape.ui.profile.EditProfileViewModel
 
 class DetailPaintingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailPaintingBinding
@@ -33,7 +29,7 @@ class DetailPaintingActivity : AppCompatActivity() {
 
         val paintingId = intent.getStringExtra("PAINTING_ID") ?: return
         viewModel.setDetailPainting(paintingId)
-        viewModel.getDetailResponse().observe(this, Observer { response ->
+        viewModel.getDetailResponse().observe(this) { response ->
             if (response.isSuccessful) {
                 val paintingDetails = response.body()
                 paintingDetails?.let {
@@ -42,7 +38,7 @@ class DetailPaintingActivity : AppCompatActivity() {
             } else {
                 showToast("Failed to fetch data")
             }
-        })
+        }
 
         onBackPressedDispatcher.addCallback(
             this,
@@ -54,19 +50,41 @@ class DetailPaintingActivity : AppCompatActivity() {
             },
         )
     }
-    private fun bindData(details: PaintingDetailsResponse) {
-        binding.tvPaintingTitle.text = details.title
-        binding.tvPaintingPrice.text = details.price.toString()
-//            getString(R.string.price_format, details.price)
-        binding.tvArtist.text = details.artistId // ini seharusnya nama artis, bukan ID, sesuaikan jika ada API tambahan
-        binding.tvGenre.text = details.genre
-        binding.tvCreateAt.text = details.yearCreated.toString()
-        binding.tvDescription.text = details.description
 
-        Glide.with(this)
-            .load(details.photo)
-            .placeholder(R.drawable.painting_dummy) // Placeholder sementara gambar di-load
-            .into(binding.imgPainting)
+    private fun bindData(details: PaintingDetailsResponse) {
+        binding.apply {
+            tvPaintingTitle.text = details.title
+            tvPaintingPrice.text = getString(R.string.rp, details.price.toString())
+
+            viewModel.setUserData(details.artistId)
+            viewModel.getUserData().observe(this@DetailPaintingActivity) {
+                when (it) {
+                    is ApiResponse.Success -> {
+                        tvArtistName.text = it.data.name
+                        tvArtistAddress.text = it.data.address
+                        Glide
+                            .with(this@DetailPaintingActivity)
+                            .load(it.data.picture)
+                            .placeholder(R.drawable.painting_dummy) // Placeholder sementara gambar di-load
+                            .into(imgArtist)
+                    }
+
+                    is ApiResponse.Error -> {
+                        onBackPressedDispatcher.onBackPressed()
+                        showToast("Error Adding Data")
+                    }
+                }
+            }
+            tvGenre.text = details.genre
+            tvCreateAt.text = details.yearCreated.toString()
+            tvDescription.text = details.description
+
+            Glide
+                .with(this@DetailPaintingActivity)
+                .load(details.photo)
+                .placeholder(R.drawable.painting_dummy) // Placeholder sementara gambar di-load
+                .into(binding.imgPainting)
+        }
     }
 
     private fun topActionBar() {
@@ -85,6 +103,7 @@ class DetailPaintingActivity : AppCompatActivity() {
                 showToast("Back")
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
