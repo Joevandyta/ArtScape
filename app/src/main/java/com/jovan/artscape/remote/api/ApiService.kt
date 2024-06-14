@@ -3,6 +3,7 @@ package com.jovan.artscape.remote.api
 import com.jovan.artscape.remote.request.AddUserRequest
 import com.jovan.artscape.remote.request.LoginRequest
 import com.jovan.artscape.remote.request.UpdateUserRequest
+import com.jovan.artscape.remote.response.SearchResponse
 import com.jovan.artscape.remote.response.address.DistrictResponse
 import com.jovan.artscape.remote.response.address.ProvinceResponse
 import com.jovan.artscape.remote.response.address.RegenciesResponse
@@ -22,6 +23,7 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
     @GET("provinces.json")
@@ -91,4 +93,9 @@ interface ApiService {
     suspend fun getPaintingDetail(
         @Path("id") id: String,
     ): Response<PaintingDetailsResponse>
+
+    @GET("api/search")
+    suspend fun search(
+        @Query("keyword") query: String,
+    ): Response<SearchResponse>
 }

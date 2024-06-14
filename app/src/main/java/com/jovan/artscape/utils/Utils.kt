@@ -30,16 +30,12 @@ class GenericDiffCallback<T>(
     override fun areItemsTheSame(
         oldItemPosition: Int,
         newItemPosition: Int,
-    ): Boolean {
-        return itemIdProvider(oldList[oldItemPosition]) == itemIdProvider(newList[newItemPosition])
-    }
+    ): Boolean = itemIdProvider(oldList[oldItemPosition]) == itemIdProvider(newList[newItemPosition])
 
     override fun areContentsTheSame(
         oldItemPosition: Int,
         newItemPosition: Int,
-    ): Boolean {
-        return itemContentProvider(oldList[oldItemPosition]) == itemContentProvider(newList[newItemPosition])
-    }
+    ): Boolean = itemContentProvider(oldList[oldItemPosition]) == itemContentProvider(newList[newItemPosition])
 }
 
 fun createCustomTempFile(context: Context): File {
