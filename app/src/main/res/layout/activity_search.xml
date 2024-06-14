@@ -35,13 +35,109 @@
         app:queryBackground="@null"
         app:queryHint="@string/search" />
 
-    <TextView
-        android:id="@+id/artist_search"
-        style="@style/TitleText"
+
+    <ScrollView
+        android:id="@+id/scrollView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="4dp"
-        tools:text="artist" />
+        android:fillViewport="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_view">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_artist_title"
+                style="@style/bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="8dp"
+
+                android:text="@string/artist"
+                android:textColor="@color/md_theme_primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_artist_empty"
+                style="@style/light"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:visibility="gone"
+                android:textColor="@color/black_400"
+                android:text="@string/there_is_no_artist_matching_the_search"
+                app:layout_constraintTop_toBottomOf="@+id/tv_artist_title" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_artist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_artist_title"
+                tools:itemCount="1"
+                tools:listitem="@layout/item_user_row" />
+
+            <TextView
+                android:id="@+id/tv_painting_title"
+                style="@style/bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="8dp"
+                android:text="@string/painting"
+                android:textColor="@color/md_theme_primary"
+                app:layout_constraintTop_toBottomOf="@+id/rv_artist" />
+
+            <TextView
+                android:id="@+id/tv_painting_empty"
+                style="@style/light"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:textColor="@color/black_400"
+                android:visibility="gone"
+                android:text="@string/there_is_no_paintings_matching_the_search"
+                app:layout_constraintTop_toBottomOf="@+id/tv_painting_title" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_painting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_painting_title"
+                tools:listitem="@layout/item_grid_art" />
+
+            <View
+                android:id="@+id/view_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_painting" />
+        </LinearLayout>
+    </ScrollView>
+
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progressIndicator"
+        style="@style/Widget.MaterialComponents.LinearProgressIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
