@@ -6,38 +6,19 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.jovan.artscape.databinding.ItemGridArtBinding
-import com.jovan.artscape.remote.response.painting.AllPaintingResponse
+import com.jovan.artscape.databinding.ItemUserRowBinding
+import com.jovan.artscape.remote.response.user.AllUserResponse
 import com.jovan.artscape.utils.GenericDiffCallback
 
-class PaintingListAdapter : RecyclerView.Adapter<PaintingListAdapter.ViewHolder>() {
-    private var list: List<AllPaintingResponse> = emptyList()
+class UserListAdapter : RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
+    private var list: List<AllUserResponse> = emptyList()
     private var onItemClickCallBack: OnItemClickCallBack? = null
 
     fun setOnItemClickCallBack(onItemClickCallBack: OnItemClickCallBack) {
         this.onItemClickCallBack = onItemClickCallBack
     }
 
-    fun setUserPaintingList(
-        user: List<AllPaintingResponse>,
-        artistId: String,
-    ) {
-        val filteredList = user.filter { it.artistId == artistId } // Assuming `artistId` is a property of `AllPaintingResponse`
-        val diffResult =
-            DiffUtil.calculateDiff(
-                GenericDiffCallback(
-                    list,
-                    filteredList,
-                    { it.id },
-                    { it },
-                ),
-            )
-
-        list = filteredList.reversed()
-        diffResult.dispatchUpdatesTo(this)
-    }
-
-    fun setHomePaintingList(user: List<AllPaintingResponse>) {
+    fun setUserList(user: List<AllUserResponse>) {
         val diffResult =
             DiffUtil.calculateDiff(
                 GenericDiffCallback(
@@ -56,7 +37,7 @@ class PaintingListAdapter : RecyclerView.Adapter<PaintingListAdapter.ViewHolder>
         parent: ViewGroup,
         viewType: Int,
     ): ViewHolder {
-        val binding = ItemGridArtBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemUserRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -70,27 +51,28 @@ class PaintingListAdapter : RecyclerView.Adapter<PaintingListAdapter.ViewHolder>
     override fun getItemCount(): Int = list.size
 
     inner class ViewHolder(
-        private val binding: ItemGridArtBinding,
+        private val binding: ItemUserRowBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: AllPaintingResponse) {
+        fun bind(user: AllUserResponse) {
             binding.apply {
-                tvItemName.text = item.title
-                tvItemDescription.text = item.description
+                tvUserName.text = user.name
+                tvUserBio.text = user.description
+
                 Glide
                     .with(itemView)
-                    .load(item.photo)
+                    .load(user.picture)
                     .centerCrop()
                     .transition(DrawableTransitionOptions.withCrossFade())
-                    .into(ivItemPhoto)
+                    .into(ivUserPhoto)
             }
             binding.root.setOnClickListener {
                 // TODO send ID when clicked
-                onItemClickCallBack?.onItemClicked(item)
+                onItemClickCallBack?.onItemClicked(user)
             }
         }
     }
 
     interface OnItemClickCallBack {
-        fun onItemClicked(data: AllPaintingResponse)
+        fun onItemClicked(data: AllUserResponse)
     }
 }

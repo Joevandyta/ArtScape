@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.jovan.artscape.ViewModelFactory
 import com.jovan.artscape.databinding.ActivityMyPaintingBinding
 import com.jovan.artscape.remote.response.ApiResponse
+import com.jovan.artscape.remote.response.painting.AllPaintingResponse
 import com.jovan.artscape.ui.adapter.PaintingListAdapter
 import com.jovan.artscape.ui.main.painting.DetailPaintingActivity
 
@@ -31,7 +32,6 @@ class MyPaintingActivity : AppCompatActivity() {
             showLoading(true)
         }
         setContentView(binding.root)
-
         adapterBind()
     }
 
@@ -58,12 +58,6 @@ class MyPaintingActivity : AppCompatActivity() {
 
                             if (adapter.itemCount == 0) {
                                 binding.emptyPaintingContainer.visibility = View.VISIBLE
-                                Toast
-                                    .makeText(
-                                        this@MyPaintingActivity,
-                                        "User doesnt Exist",
-                                        Toast.LENGTH_SHORT,
-                                    ).show()
                             }
                         }
 
@@ -78,7 +72,7 @@ class MyPaintingActivity : AppCompatActivity() {
 
         adapter.setOnItemClickCallBack(
             object : PaintingListAdapter.OnItemClickCallBack {
-                override fun onItemClicked() {
+                override fun onItemClicked(data: AllPaintingResponse) {
                     val intent = Intent(this@MyPaintingActivity, DetailPaintingActivity::class.java)
                     startActivity(intent)
                 }

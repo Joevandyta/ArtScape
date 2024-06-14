@@ -22,6 +22,7 @@ import kotlinx.coroutines.launch
 class UserDataActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUserDataBinding
     private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUserDataBinding.inflate(layoutInflater)
@@ -32,12 +33,16 @@ class UserDataActivity : AppCompatActivity() {
         enableButton()
         actionSetup()
 
-        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                signOut()
-            }
-        })
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    signOut()
+                }
+            },
+        )
     }
+
     private fun signOut() {
         lifecycleScope.launch {
             val credentialManager = CredentialManager.create(this@UserDataActivity)
@@ -45,60 +50,79 @@ class UserDataActivity : AppCompatActivity() {
             credentialManager.clearCredentialState(ClearCredentialStateRequest())
         }
     }
+
     private fun enableButton() {
         binding.apply {
-            edName.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
+            edName.addTextChangedListener(
+                object : TextWatcher {
+                    override fun beforeTextChanged(
+                        s: CharSequence,
+                        start: Int,
+                        count: Int,
+                        after: Int,
+                    ) {
+                    }
 
-                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                    override fun onTextChanged(
+                        s: CharSequence,
+                        start: Int,
+                        before: Int,
+                        count: Int,
+                    ) {
+                    }
 
-                }
+                    override fun afterTextChanged(s: Editable) {
+                        setMyButtonEnable()
+                    }
+                },
+            )
+            edBio.addTextChangedListener(
+                object : TextWatcher {
+                    override fun beforeTextChanged(
+                        s: CharSequence,
+                        start: Int,
+                        count: Int,
+                        after: Int,
+                    ) {
+                    }
 
-                override fun afterTextChanged(s: Editable) {
-                    setMyButtonEnable()
-                }
-            })
-            edBio.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
+                    override fun onTextChanged(
+                        s: CharSequence,
+                        start: Int,
+                        before: Int,
+                        count: Int,
+                    ) {
+                    }
 
-                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                    override fun afterTextChanged(s: Editable) {
+                        setMyButtonEnable()
+                    }
+                },
+            )
 
-                }
+            edPhoneNumber.addTextChangedListener(
+                object : TextWatcher {
+                    override fun beforeTextChanged(
+                        s: CharSequence,
+                        start: Int,
+                        count: Int,
+                        after: Int,
+                    ) {
+                    }
 
-                override fun afterTextChanged(s: Editable) {
-                    setMyButtonEnable()
-                }
-            })
+                    override fun onTextChanged(
+                        s: CharSequence,
+                        start: Int,
+                        before: Int,
+                        count: Int,
+                    ) {
+                    }
 
-            edPhoneNumber.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-
-                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-
-                }
-
-                override fun afterTextChanged(s: Editable) {
-                    setMyButtonEnable()
-                }
-            })
+                    override fun afterTextChanged(s: Editable) {
+                        setMyButtonEnable()
+                    }
+                },
+            )
         }
     }
 
@@ -115,7 +139,6 @@ class UserDataActivity : AppCompatActivity() {
     private fun actionSetup() {
         binding.apply {
             buttonAddUser.setOnClickListener {
-
                 val token = intent.getStringExtra(EXTRA_ID_TOKEN).toString()
 
                 Log.d("token USER DATA", token)
@@ -129,7 +152,6 @@ class UserDataActivity : AppCompatActivity() {
         }
     }
 
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle item selection
         return when (item.itemId) {
@@ -141,10 +163,12 @@ class UserDataActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
     private fun showToast(text: String) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }
-    companion object{
+
+    companion object {
         const val EXTRA_ID_TOKEN = "extra_id_token"
     }
 }

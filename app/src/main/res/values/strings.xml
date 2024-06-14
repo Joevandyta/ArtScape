@@ -145,5 +145,8 @@
     <string name="example_canvas_paper">example: canvas, paper</string>
     <string name="example_2003">example: 2003</string>
     <string name="there_is_no_painting">You haven\'t uploaded any paintings, please add more paintings, okay!</string>
+    <string name="painting">Painting</string>
+    <string name="there_is_no_paintings_matching_the_search">there is no paintings matching the search</string>
+    <string name="there_is_no_artist_matching_the_search">there is no artist matching the search</string>
 
 </resources>
