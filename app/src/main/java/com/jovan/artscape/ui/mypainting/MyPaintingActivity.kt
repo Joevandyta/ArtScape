@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.jovan.artscape.ViewModelFactory
 import com.jovan.artscape.databinding.ActivityMyPaintingBinding
 import com.jovan.artscape.remote.response.ApiResponse
-import com.jovan.artscape.remote.response.painting.AllPaintingResponse
 import com.jovan.artscape.ui.adapter.PaintingListAdapter
 import com.jovan.artscape.ui.mypainting.detail.MyPaintingDetailsActivity
 
@@ -72,8 +71,9 @@ class MyPaintingActivity : AppCompatActivity() {
 
         adapter.setOnItemClickCallBack(
             object : PaintingListAdapter.OnItemClickCallBack {
-                override fun onItemClicked(data: AllPaintingResponse) {
+                override fun onItemClicked(paintingId: String) {
                     val intent = Intent(this@MyPaintingActivity, MyPaintingDetailsActivity::class.java)
+                    intent.putExtra("PAINTING_ID", paintingId)
                     startActivity(intent)
                 }
             },

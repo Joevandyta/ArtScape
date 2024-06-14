@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.jovan.artscape.ViewModelFactory
 import com.jovan.artscape.databinding.ActivitySearchBinding
 import com.jovan.artscape.remote.response.ApiResponse
-import com.jovan.artscape.remote.response.painting.AllPaintingResponse
 import com.jovan.artscape.remote.response.user.AllUserResponse
 import com.jovan.artscape.ui.adapter.PaintingListAdapter
 import com.jovan.artscape.ui.adapter.UserListAdapter
@@ -77,8 +76,8 @@ class SearchActivity : AppCompatActivity() {
 
                     paintingAdapter.setOnItemClickCallBack(
                         object : PaintingListAdapter.OnItemClickCallBack {
-                            override fun onItemClicked(data: AllPaintingResponse) {
-                                showToast("${data.photo} Clicked")
+                            override fun onItemClicked(paintingId: String) {
+                                showToast("$paintingId Clicked")
                             }
                         },
                     )

@@ -197,31 +197,6 @@
                         app:layout_constraintTop_toBottomOf="@+id/tv_description_title">
 
                         <TableRow>
-
-                            <TextView
-                                style="@style/description_text"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/artist_name" />
-
-                            <TextView
-                                style="@style/DescriptionText"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:padding="4dp"
-                                android:text="@string/double_colon" />
-
-                            <TextView
-                                android:id="@+id/tv_artist"
-                                style="@style/description_text"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:padding="4dp"
-                                android:text="@string/leornardo_da_vinci" />
-                        </TableRow>
-
-                        <TableRow>
-
                             <TextView
                                 style="@style/description_text"
                                 android:layout_width="match_parent"
@@ -267,7 +242,6 @@
                                 android:padding="4dp"
                                 android:text="@string/year_dummy" />
                         </TableRow>
-
 
                     </TableLayout>
 

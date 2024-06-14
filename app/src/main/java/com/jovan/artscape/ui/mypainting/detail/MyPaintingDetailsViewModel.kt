@@ -1,4 +1,4 @@
-package com.jovan.artscape.ui.main.painting
+package com.jovan.artscape.ui.mypainting.detail
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -16,10 +16,10 @@ import com.jovan.artscape.remote.response.user.AllUserResponse
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class DetailPaintingViewModel(
+class MyPaintingDetailsViewModel(
     private val repository: ProvideRepository,
 ) : ViewModel() {
-    private val _response = MutableLiveData<Response<PaintingDetailsResponse>>()
+    private val paintingResponse = MutableLiveData<Response<PaintingDetailsResponse>>()
     private val userDataResponse = MutableLiveData<ApiResponse<AllUserResponse>>()
 
     fun getSession(): LiveData<UserModel> = repository.getSession().asLiveData()
@@ -28,14 +28,14 @@ class DetailPaintingViewModel(
         viewModelScope.launch {
             try {
                 val response = repository.getPaintingDetail(id)
-                _response.value = response
+                paintingResponse.value = response
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
     }
 
-    fun getDetailResponse(): LiveData<Response<PaintingDetailsResponse>> = _response
+    fun getDetailResponse(): LiveData<Response<PaintingDetailsResponse>> = paintingResponse
 
     fun setUserData(id: String) {
         viewModelScope.launch {
