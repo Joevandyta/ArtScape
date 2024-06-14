@@ -23,6 +23,7 @@ import com.jovan.artscape.remote.response.ApiResponse
 import com.jovan.artscape.ui.CartActivity
 import com.jovan.artscape.ui.NotificationActivity
 import com.jovan.artscape.ui.adapter.PaintingListAdapter
+import com.jovan.artscape.ui.main.painting.DetailPaintingActivity
 import com.jovan.artscape.ui.search.SearchActivity
 
 private const val ARG_PARAM1 = "param1"
@@ -64,6 +65,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun adapterBind() {
         val adapter = PaintingListAdapter()
+        adapter.setOnItemClickCallBack(object : PaintingListAdapter.OnItemClickCallBack {
+            override fun onItemClicked(paintingId: String) {
+                val intent = Intent(requireContext(), DetailPaintingActivity::class.java)
+                intent.putExtra("PAINTING_ID", paintingId)
+                startActivity(intent)
+            }
+        })
         binding.rvArt.adapter = adapter
         binding.rvArt.layoutManager = LinearLayoutManager(requireContext())
         viewModel.getAllPainting().observe(viewLifecycleOwner) {

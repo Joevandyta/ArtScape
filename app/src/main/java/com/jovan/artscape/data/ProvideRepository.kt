@@ -11,6 +11,7 @@ import com.jovan.artscape.remote.response.address.ProvinceResponse
 import com.jovan.artscape.remote.response.address.RegenciesResponse
 import com.jovan.artscape.remote.response.address.VillageResponse
 import com.jovan.artscape.remote.response.painting.AllPaintingResponse
+import com.jovan.artscape.remote.response.painting.PaintingDetailsResponse
 import com.jovan.artscape.remote.response.painting.UploadResponseSuccess
 import com.jovan.artscape.remote.response.user.AllUserResponse
 import com.jovan.artscape.remote.response.user.UserResponseSuccess
@@ -81,6 +82,12 @@ class ProvideRepository private constructor(
 
     suspend fun getAllpainting(): Response<List<AllPaintingResponse>> = RetrofiClient.getApiArtSpace().getAllPainting()
 
+    suspend fun getPaintingDetail( id: String
+    ): Response<PaintingDetailsResponse> {
+        return RetrofiClient.getApiArtSpace().getPaintingDetail(
+            id = id
+        )
+    }
     companion object {
         @Volatile
         private var instance: ProvideRepository? = null
