@@ -76,7 +76,7 @@ interface ApiService {
     @Multipart
     @POST("api/artwork/add")
     suspend fun uploadPainting(
-        @Part file: MultipartBody.Part,
+        @Part photo: MultipartBody.Part,
         @Part("title") title: RequestBody,
         @Part("description") description: RequestBody,
         @Part("media") media: RequestBody,

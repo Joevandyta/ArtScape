@@ -15,6 +15,11 @@
 # Uncomment this to preserve the line number information for
 # debugging stack traces.
 #-keepattributes SourceFile,LineNumberTable
+-keep class com.google.android.gms.** { *; }
+-keep class com.google.firebase.** { *; }
+-keep class com.google.api.** { *; }
+-keep class androidx.credential.** { *; }
+-keep class com.jovan.artscape.** { *; }
 
 # If you keep the line number information, uncomment this to
 # hide the original source file name.

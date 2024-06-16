@@ -112,30 +112,6 @@ class UploadActivity : AppCompatActivity() {
                 },
             )
 
-            edGenre.addTextChangedListener(
-                object : TextWatcher {
-                    override fun beforeTextChanged(
-                        s: CharSequence?,
-                        start: Int,
-                        count: Int,
-                        after: Int,
-                    ) {
-                    }
-
-                    override fun onTextChanged(
-                        s: CharSequence?,
-                        start: Int,
-                        before: Int,
-                        count: Int,
-                    ) {
-                    }
-
-                    override fun afterTextChanged(s: Editable?) {
-                        setMyButtonEnable()
-                    }
-                },
-            )
-
             edPrice.addTextChangedListener(
                 object : TextWatcher {
                     override fun beforeTextChanged(
@@ -239,7 +215,6 @@ class UploadActivity : AppCompatActivity() {
     fun setMyButtonEnable() {
         binding.apply {
             val isTitleValid = isValid(edTitlePainting)
-            val isGenreValid = isValid(edGenre)
             val isPriceValid = isValid(edPrice)
             val isMediaValid = isValid(edPaintingMedia)
             val isYearCreatedValid = isValid(edYearCreated)
@@ -247,7 +222,6 @@ class UploadActivity : AppCompatActivity() {
 
             buttonAdd.isEnabled =
                 isTitleValid &&
-                isGenreValid &&
                 isPriceValid &&
                 isMediaValid &&
                 isYearCreatedValid &&
@@ -265,14 +239,14 @@ class UploadActivity : AppCompatActivity() {
 
                     val photo =
                         MultipartBody.Part.createFormData(
-                            "file",
+                            "photo",
                             imageFile.name,
                             requestImageFile,
                         )
                     val title = edTitlePainting.text.toString().toRequestBody()
                     val description = edDescription.text.toString().toRequestBody()
                     val media = edPaintingMedia.text.toString().toRequestBody()
-                    val genre = edGenre.text.toString().toRequestBody()
+                    val genre = tvGenrePrediction.text.toString().toRequestBody()
                     val price = edPrice.text.toString().toRequestBody()
                     val yearCreated = edYearCreated.text.toString().toRequestBody()
                     Log.d("PARAM", "addUser: \"${edYearCreated.text}\"")
