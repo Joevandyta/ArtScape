@@ -1,12 +1,21 @@
 package com.jovan.artscape.ui.main.painting
 
+import android.app.Dialog
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MenuItem
+import android.view.View
+import android.view.Window
+import android.view.WindowManager
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.jovan.artscape.R
 import com.jovan.artscape.ViewModelFactory
@@ -26,6 +35,7 @@ class DetailPaintingActivity : AppCompatActivity() {
         binding = ActivityDetailPaintingBinding.inflate(layoutInflater)
         setContentView(binding.root)
         topActionBar()
+        bottomAppbar()
 
         val paintingId = intent.getStringExtra("PAINTING_ID") ?: return
         viewModel.setDetailPainting(paintingId)
@@ -65,7 +75,7 @@ class DetailPaintingActivity : AppCompatActivity() {
                         Glide
                             .with(this@DetailPaintingActivity)
                             .load(it.data.picture)
-                            .placeholder(R.drawable.painting_dummy) // Placeholder sementara gambar di-load
+                            .placeholder(R.drawable.painting_dummy)
                             .into(imgArtist)
                     }
 
@@ -82,10 +92,38 @@ class DetailPaintingActivity : AppCompatActivity() {
             Glide
                 .with(this@DetailPaintingActivity)
                 .load(details.photo)
-                .placeholder(R.drawable.painting_dummy) // Placeholder sementara gambar di-load
+                .placeholder(R.drawable.painting_dummy)
                 .into(binding.imgPainting)
         }
     }
+    private fun  bottomAppbar() {
+        binding.btnAddComment.setOnClickListener{
+            showAddCommentDialog()
+        }
+    }
+    private fun showAddCommentDialog() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        val inflater = LayoutInflater.from(this)
+        val view: View = inflater.inflate(R.layout.dialog_add_comment, null)
+        dialog.setContentView(view)
+
+        val window: Window? = dialog.window
+        if (window != null) {
+            val params: WindowManager.LayoutParams = window.attributes
+            params.width = WindowManager.LayoutParams.MATCH_PARENT
+            window.attributes = params
+        }
+
+        val commentsList = view.findViewById<RecyclerView>(R.id.comments_list)
+        val editTextComment = view.findViewById<EditText>(R.id.editTextComment)
+        val btnSendComment = view.findViewById<ImageButton>(R.id.btn_send_comment)
+        btnSendComment.setOnClickListener {
+            val comment = editTextComment.text.toString()
+        }
+        dialog.show()
+    }
+
 
     private fun topActionBar() {
         supportActionBar?.show()

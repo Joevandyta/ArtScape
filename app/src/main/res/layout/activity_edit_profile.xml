@@ -56,7 +56,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view"
-                app:shapeAppearanceOverlay="@style/CircleImage" />
+                app:shapeAppearanceOverlay="@style/CircleImageView" />
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/img_picture"
@@ -68,7 +68,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/picture_layout"
                 app:layout_constraintStart_toStartOf="@+id/picture_layout"
                 app:layout_constraintTop_toTopOf="@+id/picture_layout"
-                app:shapeAppearanceOverlay="@style/CircleImage" />
+                app:shapeAppearanceOverlay="@style/CircleImageView" />
 
 
             <LinearLayout

@@ -69,6 +69,7 @@
         <!--        <item name="appBarLayoutStyle">@style/ToolbarDefaultIconStyle</item>-->
     </style>
 
+
     <style name="Theme.ArtScape" parent="Base.Theme.ArtScape" />
 
 

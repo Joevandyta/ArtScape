@@ -115,6 +115,14 @@
     <string name="total_painting_dummy">777</string>
     <string name="about_artist">About Artist</string>
     <string name="artist_address">Artist Address</string>
+    <string name="add_comment">Comment</string>
+    <string name="review">Reviews</string>
+    <string name="dialog">Send your comment</string>
+    <string name="dialog1">Enter your comment here</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_ok">Send</string>
+
+
 
 
     <!--    Notification alert-->
@@ -138,7 +146,8 @@
     <string name="bio">Bio</string>
     <string name="add_user_data">Add User Data</string>
     <string name="save_data">Save Data</string>
-    <string name="sign_in">Sign In</string>
+    <string name="sign_in">Sign in with your google account</string>
+    <string name="sign_in1">Sign In</string>
     <string name="button_back">button back</string>
     <string name="year_created">Year Created</string>
     <string name="painting_media">Painting Media</string>

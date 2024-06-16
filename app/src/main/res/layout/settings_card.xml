@@ -1,4 +1,5 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,10 +10,8 @@
         android:id="@+id/bg_transaction_title"
         android:layout_width="match_parent"
         android:layout_height="28dp"
-
         card_view:layout_constraintTop_toTopOf="parent"
-        card_view:layout_constraintStart_toStartOf="parent"
-        />
+        card_view:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tv_transaction_title"
@@ -21,34 +20,34 @@
         android:layout_height="wrap_content"
         android:text="@string/transaction"
         android:layout_marginStart="16dp"
-
         card_view:layout_constraintBottom_toBottomOf="@+id/bg_transaction_title"
         card_view:layout_constraintTop_toTopOf="@+id/bg_transaction_title" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_notification"
-        card_view:strokeWidth="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/transparant"
         card_view:cardElevation="0dp"
+        card_view:strokeWidth="0dp"
         card_view:layout_constraintTop_toBottomOf="@+id/bg_transaction_title">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-
+            style="@style/CardViewStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/CardViewStyle">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/notif_icon"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="360dp"
                 android:src="@drawable/notification"
                 card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
+                card_view:layout_constraintEnd_toStartOf="@+id/tv_notification"
+                card_view:layout_constraintHorizontal_bias="0.0"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/tv_notification"
@@ -56,23 +55,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="28dp"
-
                 android:text="@string/notification"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"
                 card_view:layout_constraintVertical_bias="0.0" />
-
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/ic_arrow_forward"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
-
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -84,25 +71,24 @@
         android:backgroundTint="@color/transparant"
         card_view:cardElevation="0dp"
         card_view:strokeWidth="0dp"
-
         card_view:layout_constraintTop_toBottomOf="@+id/cv_notification">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-
             style="@style/CardViewStyle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/transaction_icon"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="360dp"
                 android:src="@drawable/receipt"
                 card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
+                card_view:layout_constraintEnd_toStartOf="@+id/tv_transaction_history"
+                card_view:layout_constraintHorizontal_bias="0.0"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/tv_transaction_history"
@@ -110,22 +96,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="28dp"
-
                 android:text="@string/transaction_history"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"
                 card_view:layout_constraintVertical_bias="1.0" />
-
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/ic_arrow_forward"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -133,13 +108,9 @@
     <View
         android:id="@+id/bg_general_title"
         android:layout_width="match_parent"
-
         android:layout_height="28dp"
-
-
         card_view:layout_constraintTop_toBottomOf="@+id/cv_transaction_history"
-        card_view:layout_constraintStart_toStartOf="parent"
-        />
+        card_view:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tv_general_title"
@@ -147,10 +118,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/general"
-
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-
         card_view:layout_constraintBottom_toBottomOf="@+id/bg_general_title"
         card_view:layout_constraintTop_toTopOf="@+id/bg_general_title" />
 
@@ -165,20 +134,21 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
 
+            style="@style/CardViewStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/CardViewStyle">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/painting_icon"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="360dp"
-                android:src="@drawable/list_paint"
+                android:src="@drawable/palette"
                 card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
+                card_view:layout_constraintEnd_toStartOf="@+id/tv_mypainting"
+                card_view:layout_constraintHorizontal_bias="0.0"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/tv_mypainting"
@@ -191,15 +161,6 @@
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"
                 card_view:layout_constraintVertical_bias="0.0" />
-
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/ic_arrow_forward"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -214,20 +175,21 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
 
+            style="@style/CardViewStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/CardViewStyle">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/address_icon"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="360dp"
                 android:src="@drawable/place"
                 card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
+                card_view:layout_constraintEnd_toStartOf="@+id/tv_address"
+                card_view:layout_constraintHorizontal_bias="0.0"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/tv_address"
@@ -240,15 +202,6 @@
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"
                 card_view:layout_constraintVertical_bias="0.0" />
-
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/ic_arrow_forward"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -288,20 +241,21 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
 
+            style="@style/CardViewStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/CardViewStyle">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/support_icon"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="360dp"
                 android:src="@drawable/support"
                 card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
+                card_view:layout_constraintEnd_toStartOf="@+id/tv_support"
+                card_view:layout_constraintHorizontal_bias="0.0"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/tv_support"
@@ -315,15 +269,6 @@
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"
                 card_view:layout_constraintVertical_bias="0.0" />
-
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/ic_arrow_forward"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -339,20 +284,21 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
 
+            style="@style/CardViewStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/CardViewStyle">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/about_icon"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="360dp"
                 android:src="@drawable/info"
                 card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
+                card_view:layout_constraintEnd_toStartOf="@+id/tv_about_app"
+                card_view:layout_constraintHorizontal_bias="0.0"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/tv_about_app"
@@ -367,15 +313,6 @@
                 card_view:layout_constraintTop_toTopOf="parent"
                 card_view:layout_constraintVertical_bias="0.0" />
 
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/ic_arrow_forward"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -383,13 +320,9 @@
     <View
         android:id="@+id/bg_logout_title"
         android:layout_width="match_parent"
-
         android:layout_height="28dp"
-
-
         card_view:layout_constraintTop_toBottomOf="@+id/cv_about_app"
-        card_view:layout_constraintStart_toStartOf="parent"
-        />
+        card_view:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tv_logout_title"
@@ -408,7 +341,6 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/transparant"
         card_view:strokeWidth="0dp"
-
         card_view:cardElevation="0dp"
         card_view:layout_constraintTop_toBottomOf="@+id/bg_logout_title">
 
@@ -422,12 +354,13 @@
                 android:id="@+id/logout_icon"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="360dp"
                 android:src="@drawable/logout"
                 card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent" />
+                card_view:layout_constraintEnd_toStartOf="@+id/tv_logout"
+                card_view:layout_constraintHorizontal_bias="0.0"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/tv_logout"
@@ -435,22 +368,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-
                 android:text="@string/logout"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"
                 card_view:layout_constraintVertical_bias="1.0" />
-
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/ic_arrow_forward"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

@@ -74,7 +74,7 @@ class MyPaintingDetailsActivity : AppCompatActivity() {
             Glide
                 .with(this@MyPaintingDetailsActivity)
                 .load(details.photo)
-                .placeholder(R.drawable.painting_dummy) // Placeholder sementara gambar di-load
+                .placeholder(R.drawable.painting_dummy)
                 .into(ivPainting)
         }
     }
