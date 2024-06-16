@@ -1,9 +1,9 @@
-# My Android Application
+# ArtScape
 
-<img src="path_to_logo" alt="Logo" style="width:200px;"/>
+<img src="https://github.com/Joevandyta/ArtScape/assets/108873685/2e8937fd-520b-4e7c-ab26-cf61df89b687" alt="Logo" style="width:200px;"/>
 
 ## <h2 style="font-size: 1.5em;">Project Description</h2>
-**My Android Application** is designed to <span style="font-size:1.2em;">*describe the purpose of your app*</span>. It provides users with <span style="font-size:1.2em;">*describe the main functionalities or benefits*</span> to enhance their experience.
+**ArtScape** is designed to <span style="font-size:1.2em;">*describe the purpose of your app*</span>. It provides users with <span style="font-size:1.2em;">*describe the main functionalities or benefits*</span> to enhance their experience.
 
 ## <h2 style="font-size: 1.5em;">Features</h2>
 - **Feature 1**: <span style="font-size:1.1em;">_Description of feature 1_</span>
@@ -23,15 +23,16 @@
 - [**JDK**](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) 8 or higher
 - **Android SDK**
 
-<h2 style="font-size: 1.5em;">Usage</h2>
-Login: Users can sign in using their credentials.
-Dashboard: After signing in, users will see the main dashboard.
-Feature 1: <span style="font-size:1.1em;">Detailed instructions on how to use feature 1</span>.
-Feature 2: <span style="font-size:1.1em;">Detailed instructions on how to use feature 2</span>.
-Feature 3: <span style="font-size:1.1em;">Detailed instructions on how to use feature 3</span>.
-<h2 style="font-size: 1.5em;">Technologies Used</h2>
-Kotlin: Programming language
-Firebase: Backend services
-Retrofit: REST client
-Room: Database
-Glide: Image loading library
+## <h2 style="font-size: 1.5em;">Usage</h2>
+- Login: Users can sign in using their credentials from google Auth
+- Dashboard: After signing in, users will see the main dashboard.
+- Feature 1: <span style="font-size:1.1em;">Detailed instructions on how to use feature 1</span>.
+- Feature 2: <span style="font-size:1.1em;">Detailed instructions on how to use feature 2</span>.
+- Feature 3: <span style="font-size:1.1em;">Detailed instructions on how to use feature 3</span>.
+
+### <h2 style="font-size: 1.5em;">Technologies Used</h2>
+- Kotlin: Programming language
+- Firebase: Backend services
+- Retrofit: REST client
+- Room: Database
+- Glide: Image loading library
