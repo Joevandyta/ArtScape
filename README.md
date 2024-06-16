@@ -23,7 +23,15 @@
 - [**JDK**](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) 8 or higher
 - **Android SDK**
 
-### <h3 style="font-size: 1.3em;">Setup</h3>
-1. **Clone the repository**:
-   ```sh
-   git clone https://github.com/yourusername/your-repo-name.git
+<h2 style="font-size: 1.5em;">Usage</h2>
+Login: Users can sign in using their credentials.
+Dashboard: After signing in, users will see the main dashboard.
+Feature 1: <span style="font-size:1.1em;">Detailed instructions on how to use feature 1</span>.
+Feature 2: <span style="font-size:1.1em;">Detailed instructions on how to use feature 2</span>.
+Feature 3: <span style="font-size:1.1em;">Detailed instructions on how to use feature 3</span>.
+<h2 style="font-size: 1.5em;">Technologies Used</h2>
+Kotlin: Programming language
+Firebase: Backend services
+Retrofit: REST client
+Room: Database
+Glide: Image loading library
