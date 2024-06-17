@@ -15,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.jovan.artscape.R
 import com.jovan.artscape.databinding.ActivityUserDataBinding
 import com.jovan.artscape.ui.login.address.AddAddressActivity
 import kotlinx.coroutines.launch
@@ -128,6 +129,14 @@ class UserDataActivity : AppCompatActivity() {
 
     fun setMyButtonEnable() {
         binding.apply {
+            val phoneNumber = edPhoneNumber.text.toString()
+
+            if (phoneNumber.startsWith("0")) {
+                edPhoneNumber.error = "Invalid Phone Number"
+            } else {
+                edPhoneNumber.error = null
+            }
+
             val isNameValid = edName.text.toString().isNotEmpty()
             val isPhoneNumberValid = edPhoneNumber.text.toString().isNotEmpty()
             val isBioValid = edBio.text.toString().isNotEmpty()
@@ -140,13 +149,14 @@ class UserDataActivity : AppCompatActivity() {
         binding.apply {
             buttonAddUser.setOnClickListener {
                 val token = intent.getStringExtra(EXTRA_ID_TOKEN).toString()
+                val phoneNumber = getString(R.string.template_62, edPhoneNumber.text.toString())
+                Log.d("token USER DATA", "$token $phoneNumber")
 
-                Log.d("token USER DATA", token)
                 val intent = Intent(this@UserDataActivity, AddAddressActivity::class.java)
                 intent.putExtra(AddAddressActivity.EXTRA_ID_TOKEN, token)
                 intent.putExtra(AddAddressActivity.EXTRA_NAME, edName.text.toString())
                 intent.putExtra(AddAddressActivity.EXTRA_BIO, edBio.text.toString())
-                intent.putExtra(AddAddressActivity.EXTRA_PHONE_NUMBER, edPhoneNumber.text.toString())
+                intent.putExtra(AddAddressActivity.EXTRA_PHONE_NUMBER, phoneNumber)
                 startActivity(intent)
             }
         }

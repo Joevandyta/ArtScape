@@ -71,7 +71,7 @@ class ProvideRepository private constructor(
         artistId: RequestBody,
     ): Response<UploadResponseSuccess> =
         RetrofiClient.getApiArtSpace().uploadPainting(
-            file = photo,
+            photo = photo,
             title = title,
             description = description,
             media = media,
@@ -83,12 +83,11 @@ class ProvideRepository private constructor(
 
     suspend fun getAllpainting(): Response<List<AllPaintingResponse>> = RetrofiClient.getApiArtSpace().getAllPainting()
 
-    suspend fun getPaintingDetail( id: String
-    ): Response<PaintingDetailsResponse> {
-        return RetrofiClient.getApiArtSpace().getPaintingDetail(
-            id = id
+    suspend fun getPaintingDetail(id: String): Response<PaintingDetailsResponse> =
+        RetrofiClient.getApiArtSpace().getPaintingDetail(
+            id = id,
         )
-    }
+
     suspend fun search(query: String): Response<SearchResponse> = RetrofiClient.getApiArtSpace().search(query)
 
     companion object {
