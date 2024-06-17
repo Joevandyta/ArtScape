@@ -12,6 +12,9 @@ import com.jovan.artscape.databinding.ActivityEditProfileBinding
 import com.jovan.artscape.remote.request.UpdateUserRequest
 import com.jovan.artscape.remote.response.ApiResponse
 import com.jovan.artscape.ui.main.MainActivity
+import com.airbnb.lottie.LottieDrawable
+import com.airbnb.lottie.LottieCompositionFactory
+import com.jovan.artscape.R
 
 class EditProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditProfileBinding
@@ -19,39 +22,26 @@ class EditProfileActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(this)
     }
 
-    //    private var currentImageUri: Uri? = null
     private lateinit var userId: String
 
-    //    private val launcherGallery = registerForActivityResult(
-//        ActivityResultContracts.PickVisualMedia()
-//    ) { uri: Uri? ->
-//        if (uri != null) {
-//            currentImageUri = uri
-//            binding.imgPicture.setImageURI(uri)
-//            showImage()
-//        } else {
-//            Log.d("Photo Picker", "No media selected")
-//        }
-//    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
         userId = intent.getStringExtra("USER_ID") ?: ""
 
-// //        binding.editProfileImage.setOnClickListener{
-// //            startGallery()
-//        }
         binding.buttonUpdate.setOnClickListener {
             updateUserProfile()
         }
         getUserResponse()
-//        actionSetup()
+
+        LottieCompositionFactory.fromRawRes(this, R.raw.settings).addListener { composition ->
+            binding.settingView.setComposition(composition)
+            binding.settingView.repeatCount = LottieDrawable.INFINITE
+            binding.settingView.playAnimation()
+        }
     }
 
-    //    private fun startGallery() {
-//        launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-//    }
     private fun updateUserProfile() {
         val username = binding.edUsername.text.toString()
         val phoneNumber = binding.edPhoneNumber.text.toString()
@@ -65,6 +55,7 @@ class EditProfileActivity : AppCompatActivity() {
 
         viewModel.getSession().observe(this) {
             viewModel.editUser(it.uid, updateUserRequest)
+            showLoading(true) // Show loading indicator when the update request starts
         }
     }
 
@@ -76,11 +67,10 @@ class EditProfileActivity : AppCompatActivity() {
                     showLoading(false)
                     MaterialAlertDialogBuilder(this).apply {
                         setTitle("Success")
-                        setMessage("User Data Successfully Change")
+                        setMessage("User Data Successfully Changed")
                         setPositiveButton("Continue") { _, _ ->
                             val intent = Intent(context, MainActivity::class.java)
-                            intent.flags =
-                                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                             startActivity(intent)
                             finish()
                         }
@@ -94,26 +84,18 @@ class EditProfileActivity : AppCompatActivity() {
                     Log.d("Edit Profile FAILED", "${response.error} ${response.details}")
                     MaterialAlertDialogBuilder(this).apply {
                         setTitle("Failed")
-                        setMessage("Unable to change Data")
-                        setPositiveButton("Continue") { _, _ ->
-                        }
+                        setMessage("Unable to Change Data")
+                        setPositiveButton("Continue") { _, _ -> }
                         setCancelable(false)
                         create()
                         show()
                     }
                 }
             }
-
-            // Handle error response
         }
     }
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
-//    private fun showImage() {
-//        currentImageUri?.let { uri ->
-//            binding.imgPicture.setImageURI(uri)
-//        }
-//    }
 }

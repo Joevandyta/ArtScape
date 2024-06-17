@@ -121,6 +121,12 @@
     <string name="dialog1">Enter your comment here</string>
     <string name="btn_cancel">Cancel</string>
     <string name="btn_ok">Send</string>
+    <string name="bio">Bio</string>
+    <string name="title_phone">Phone Number</string>
+    <string name="title_bio">Bio</string>
+    <string name="welcome">Welcome to</string>
+    <string name="welcome1">Artscape</string>
+
 
 
 
@@ -143,7 +149,6 @@
     <string name="select_districts">Select districts</string>
     <string name="select_regency">Select Regency</string>
     <string name="select_village">Select Village</string>
-    <string name="bio">Bio</string>
     <string name="add_user_data">Add User Data</string>
     <string name="save_data">Save Data</string>
     <string name="sign_in">Sign in with your google account</string>

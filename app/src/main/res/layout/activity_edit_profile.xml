@@ -23,8 +23,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
-            app:title="Edit User Profile" />
+            app:title="Change User Profile" />
     </com.google.android.material.appbar.AppBarLayout>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/setting_view"
+        android:layout_width="150dp"
+        android:layout_height="140dp"
+        app:lottie_rawRes="@raw/settings"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true"
+        app:layout_constraintTop_toBottomOf="@+id/edit_profile_toolbar_layout"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"/>
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -32,44 +46,11 @@
         android:layout_height="wrap_content"
         android:fillViewport="true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_profile_toolbar_layout">
+        app:layout_constraintTop_toBottomOf="@+id/setting_view">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <View
-                android:id="@+id/view"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@drawable/bg_view_account"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/picture_layout"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:background="?attr/colorSurface"
-                app:layout_constraintBottom_toBottomOf="@+id/view"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view"
-                app:shapeAppearanceOverlay="@style/CircleImageView" />
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/img_picture"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
-                android:background="#f1f1f1"
-                android:src="@drawable/ic_person"
-                app:layout_constraintBottom_toBottomOf="@+id/picture_layout"
-                app:layout_constraintEnd_toEndOf="@+id/picture_layout"
-                app:layout_constraintStart_toStartOf="@+id/picture_layout"
-                app:layout_constraintTop_toTopOf="@+id/picture_layout"
-                app:shapeAppearanceOverlay="@style/CircleImageView" />
-
 
             <LinearLayout
                 android:id="@+id/linear_layout_edit_text"
@@ -78,7 +59,7 @@
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img_picture">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/ed_username_layout"
@@ -113,7 +94,8 @@
                         android:layout_height="match_parent"
                         android:ems="10"
                         android:gravity="start|center"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -172,6 +154,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
