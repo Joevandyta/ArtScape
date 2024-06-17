@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/bg_white_corner"
+    android:layout_margin="16dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/blabla"
+        style="@style/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:gravity="center"
+        android:text="@string/dialog" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="16dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/comments_list"
+            android:background="@drawable/bg_white_corner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_comment" />
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp">
+
+        <EditText
+            android:id="@+id/editTextComment"
+            style="@style/username"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+
+            android:background="@drawable/bg_white_corner_gray"
+            android:hint="Enter your comment here"
+            android:padding="12dp" />
+
+        <ImageButton
+            android:id="@+id/btn_send_comment"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/bg_gradient_circle"
+            android:src="@drawable/send" />
+    </LinearLayout>
+
+</LinearLayout>
