@@ -15,6 +15,9 @@ import com.jovan.artscape.databinding.ActivityEditProfileBinding
 import com.jovan.artscape.remote.request.UpdateUserRequest
 import com.jovan.artscape.remote.response.ApiResponse
 import com.jovan.artscape.ui.main.MainActivity
+import com.airbnb.lottie.LottieDrawable
+import com.airbnb.lottie.LottieCompositionFactory
+import com.jovan.artscape.R
 
 class EditProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditProfileBinding
@@ -36,6 +39,13 @@ class EditProfileActivity : AppCompatActivity() {
         setMyButtonEnable()
         enableButton()
         getUserResponse()
+
+        LottieCompositionFactory.fromRawRes(this, R.raw.settings).addListener { composition ->
+            binding.settingView.setComposition(composition)
+            binding.settingView.repeatCount = LottieDrawable.INFINITE
+            binding.settingView.playAnimation()
+        }
+
     }
 
     private fun updateUserProfile() {
@@ -51,6 +61,7 @@ class EditProfileActivity : AppCompatActivity() {
 
         viewModel.getSession().observe(this) {
             viewModel.editUser(it.uid, updateUserRequest)
+            showLoading(true) // Show loading indicator when the update request starts
         }
     }
 
@@ -154,11 +165,10 @@ class EditProfileActivity : AppCompatActivity() {
                     showLoading(false)
                     MaterialAlertDialogBuilder(this).apply {
                         setTitle("Success")
-                        setMessage("User Data Successfully Change")
+                        setMessage("User Data Successfully Changed")
                         setPositiveButton("Continue") { _, _ ->
                             val intent = Intent(context, MainActivity::class.java)
-                            intent.flags =
-                                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                             startActivity(intent)
                             finish()
                         }
@@ -172,17 +182,14 @@ class EditProfileActivity : AppCompatActivity() {
                     Log.d("Edit Profile FAILED", "${response.error} ${response.details}")
                     MaterialAlertDialogBuilder(this).apply {
                         setTitle("Failed")
-                        setMessage("Unable to change Data")
-                        setPositiveButton("Continue") { _, _ ->
-                        }
+                        setMessage("Unable to Change Data")
+                        setPositiveButton("Continue") { _, _ -> }
                         setCancelable(false)
                         create()
                         show()
                     }
                 }
             }
-
-            // Handle error response
         }
     }
 
