@@ -107,10 +107,8 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
                             setMessage("Are you?")
                             setPositiveButton("yes") { _, _ ->
                                 signOut()
-                                showLoading(false)
                             }
                             setNegativeButton("no") { _, _ ->
-                                showLoading(false)
                             }
                             setCancelable(false)
                             create()
@@ -138,10 +136,12 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
                                     .load(userData.data.picture)
                                     .into(imgPicture)
                             }
+
                             is ApiResponse.Error -> {
                                 if (userData.error.contains("User not found")) {
                                     signOut()
                                 }
+                                Log.d("AccountFragment", "Error: ${userData.error}")
                             }
                         }
                     }

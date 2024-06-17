@@ -13,6 +13,7 @@ import androidx.credentials.CredentialManager
 import androidx.credentials.CustomCredential
 import androidx.credentials.GetCredentialRequest
 import androidx.credentials.GetCredentialResponse
+import androidx.credentials.exceptions.NoCredentialException
 import androidx.lifecycle.lifecycleScope
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
@@ -43,47 +44,91 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityLoginBinding.inflate(layoutInflater)
-
         setContentView(binding.root)
 
         auth = Firebase.auth
+        onStartLogin()
         actionButton()
+    }
+
+    private fun onStartLogin() {
+        showLoading(true)
+        val currentUser = auth.currentUser
+
+        viewModel.getSession().observe(this@LoginActivity) {
+            if (currentUser != null && it.isLogin) {
+                updateUI(currentUser)
+            } else if (currentUser != null) {
+                currentUser.getIdToken(true).addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val uidToken = task.result?.token
+                        saveToDatabase(currentUser, uidToken.toString())
+                        showLoading(false)
+                        Log.d("firebaseAuthWithGoogle TOKEN", uidToken.toString())
+                    } else {
+                        showLoading(false)
+                        // Handle error -> task.getException()
+                        Log.d("ERROR", "Error getting ID Token: ${task.exception}")
+                    }
+                }
+            } else {
+                showLoading(false)
+                Log.d("ERROR", "User Must Login")
+            }
+        }
     }
 
     private fun signIn() {
         val credentialManager =
-            CredentialManager.create(this) //import from androidx.CredentialManager
-        val googleIdOption = GetGoogleIdOption.Builder()
-            .setFilterByAuthorizedAccounts(false)
-            .setServerClientId(getString(R.string.web_client_id))
-            .build()
-        val request = GetCredentialRequest.Builder() //import from androidx.CredentialManager
-            .addCredentialOption(googleIdOption)
-            .build()
+            CredentialManager.create(this) // import from androidx.CredentialManager
+        val googleIdOption =
+            GetGoogleIdOption
+                .Builder()
+                .setFilterByAuthorizedAccounts(false)
+                .setServerClientId(getString(R.string.web_client_id))
+                .build()
+        val request =
+            GetCredentialRequest
+                .Builder() // import from androidx.CredentialManager
+                .addCredentialOption(googleIdOption)
+                .build()
 
         lifecycleScope.launch {
             showLoading(true)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
                 try {
-                    val result: GetCredentialResponse = credentialManager.getCredential(
-                        request = request,
-                        context = this@LoginActivity
-                    )
+                    val result: GetCredentialResponse =
+                        credentialManager.getCredential(
+                            request = request,
+                            context = this@LoginActivity,
+                        )
                     handleSignIn(result)
+                } catch (e: NoCredentialException) {
+                    Log.d("error", "No credentials available: ${e.message}")
+                    showToast("No credentials available. Please sign in manually.")
+                    showLoading(false)
                 } catch (e: GetCredentialException) {
                     Log.d("error", e.message.toString())
+                    showToast("Failed to get credentials: ${e.message}")
+                    showLoading(false)
                 }
             } else {
                 try {
-                    val result: GetCredentialResponse = credentialManager.getCredential(
-                        request = request,
-                        context = this@LoginActivity
-                    )
+                    val result: GetCredentialResponse =
+                        credentialManager.getCredential(
+                            request = request,
+                            context = this@LoginActivity,
+                        )
                     handleSignIn(result)
+                } catch (e: NoCredentialException) {
+                    Log.d("error NoCredentialException", "No credentials available: ${e.message}")
+                    showToast("No credentials available. Please sign in manually.")
+                    showLoading(false)
                 } catch (e: Exception) {
-                    Log.d("error", e.message.toString())
+                    showLoading(false)
+
+                    Log.d("signIn error exeption", e.message.toString())
                 }
             }
         }
@@ -120,7 +165,8 @@ class LoginActivity : AppCompatActivity() {
         val credential: AuthCredential = GoogleAuthProvider.getCredential(idToken, null)
         Log.d("TOKEN", credential.toString())
 
-        auth.signInWithCredential(credential)
+        auth
+            .signInWithCredential(credential)
             .addOnCompleteListener(this) {
                 if (it.isSuccessful) {
                     val user = auth.currentUser
@@ -129,7 +175,6 @@ class LoginActivity : AppCompatActivity() {
                             val uidToken = task.result?.token
                             saveToDatabase(user, uidToken.toString())
                             Log.d("firebaseAuthWithGoogle TOKEN", uidToken.toString())
-
                         } else {
                             showLoading(false)
                             // Handle error -> task.getException()
@@ -145,8 +190,10 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
-    private fun saveToDatabase(user: FirebaseUser?, idToken: String) {
-
+    private fun saveToDatabase(
+        user: FirebaseUser?,
+        idToken: String,
+    ) {
         viewModel.setLogin(idToken)
         viewModel.getLogin().observe(this@LoginActivity) {
             when (it) {
@@ -158,7 +205,7 @@ class LoginActivity : AppCompatActivity() {
                     MaterialAlertDialogBuilder(this).apply {
                         Log.d(
                             "Save Genre AlertDialog",
-                            "${user?.uid}"
+                            "${user?.uid}",
                         )
                         setTitle("Yeah")
                         setMessage(it.data.message)
@@ -188,7 +235,6 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
-
     }
 
     private fun updateUI(curentUser: FirebaseUser?) {
@@ -197,7 +243,6 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
     }
-
 
     private fun actionButton() {
         binding.signInButton.setOnClickListener {
@@ -211,27 +256,6 @@ class LoginActivity : AppCompatActivity() {
 
     private fun showToast(text: String) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        showLoading(true)
-        viewModel.getSession().observe(this@LoginActivity) {
-            val currentUser = auth.currentUser
-            if (it.isLogin && currentUser != null) {
-                updateUI(currentUser)
-            } else currentUser?.getIdToken(true)?.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val uidToken = task.result?.token
-                    saveToDatabase(currentUser, uidToken.toString())
-                    Log.d("firebaseAuthWithGoogle TOKEN", uidToken.toString())
-                } else {
-                    showLoading(false)
-                    // Handle error -> task.getException()
-                    Log.d("ERROR", "Error getting ID Token: ${task.exception}")
-                }
-            }
-        }
     }
 
     companion object {

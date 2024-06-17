@@ -27,17 +27,21 @@ class AccountViewModel(
         }
     }
 
-    fun setUserData(id: String)  {
+    fun setUserData(id: String) {
         viewModelScope.launch {
-            val response = repository.getUserData(id)
-            if (response.isSuccessful) {
-                userDataResponse.value = ApiResponse.Success(response.body()!!)
-                Log.d("RESPONSE isSuccessful", "User: ${response.body()}")
-            } else {
-                val errorBody = response.errorBody()?.string()
-                val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
-                userDataResponse.value = ApiResponse.Error(errorResponse.error, errorResponse.details ?: "")
-                Log.d("RESPONSE notSuccessful", "ERROR: ${errorResponse.error}")
+            try {
+                val response = repository.getUserData(id)
+                if (response.isSuccessful) {
+                    userDataResponse.value = ApiResponse.Success(response.body()!!)
+                    Log.d("RESPONSE isSuccessful", "User: ${response.body()}")
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
+                    userDataResponse.value = ApiResponse.Error(errorResponse.error, errorResponse.details ?: "")
+                    Log.d("RESPONSE notSuccessful", "ERROR: ${errorResponse.error}")
+                }
+            } catch (e: Exception) {
+                userDataResponse.value = ApiResponse.Error(e.message.toString(), "")
             }
         }
     }

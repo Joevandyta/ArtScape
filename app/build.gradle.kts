@@ -23,7 +23,6 @@ android {
         debug {
             buildConfigField("String", "ENDPOINT_REGION", "\"https://www.emsifa.com/api-wilayah-indonesia/api/\"")
             buildConfigField("String", "ENDPOINT_ARTSCAPE", "\"https://backend-app-artscape-7yazuf5wiq-et.a.run.app/\"")
-
         }
         release {
             buildConfigField("String", "ENDPOINT_REGION", "\"https://www.emsifa.com/api-wilayah-indonesia/api/\"")
@@ -32,7 +31,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -46,6 +45,7 @@ android {
     buildFeatures {
         viewBinding = true
         buildConfig = true
+        mlModelBinding = true
     }
 }
 
@@ -61,23 +61,22 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
 
-    //coroutine
+    // coroutine
     implementation(libs.jetbrains.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
-
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    //googlePlayServices
+    // googlePlayServices
     implementation(libs.play.services.base)
 
-    implementation(libs.github.glide )
+    implementation(libs.github.glide)
 //    dataStore
     implementation(libs.androidx.datastore.preferences)
 
-    //retrofit
+    // retrofit
     implementation(libs.retrofit)
     implementation(libs.retrofit2.converter.gson)
 
@@ -96,4 +95,4 @@ dependencies {
 
     //ui
     implementation(libs.lottie)
-}
+

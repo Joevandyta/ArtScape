@@ -85,6 +85,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="32dp"
+                    app:prefixText="@string/phone_number_template"
                     android:layout_marginTop="16dp"
                     android:hint="@string/phone_number">
 
@@ -94,8 +95,8 @@
                         android:layout_height="match_parent"
                         android:ems="10"
                         android:gravity="start|center"
-                        android:inputType="text"
-                        />
+
+                        android:inputType="number" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout

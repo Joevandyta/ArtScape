@@ -164,5 +164,16 @@
     <string name="there_is_no_artist_matching_the_search">there is no artist matching the search</string>
     <string name="edit_painting">Edit Painting</string>
     <string name="rp">Rp%1$s</string>
+    <string name="modern_art">Modern art</string>
+    <string name="genre_layout">Genre :</string>
+    <string name="please_select_3_minimum">Please select 3 minimum</string>
+    <string name="what_are_you_interested_in">What are you interested in?</string>
+    <string name="impresionisme">Impresionisme</string>
+    <string name="realism">Realism</string>
+    <string name="romanticism">Romanticism</string>
+    <string name="naturalisme">Naturalisme</string>
+    <string name="sketch">Sketch</string>
+    <string name="phone_number_template">+62</string>
+    <string name="template_62">+62%1$s</string>
 
 </resources>
