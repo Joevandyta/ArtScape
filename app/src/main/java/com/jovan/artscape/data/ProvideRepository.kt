@@ -6,6 +6,7 @@ import com.jovan.artscape.remote.api.RetrofiClient
 import com.jovan.artscape.remote.request.AddUserRequest
 import com.jovan.artscape.remote.request.LoginRequest
 import com.jovan.artscape.remote.request.UpdateUserRequest
+import com.jovan.artscape.remote.response.ClasificationListResponse
 import com.jovan.artscape.remote.response.SearchResponse
 import com.jovan.artscape.remote.response.address.DistrictResponse
 import com.jovan.artscape.remote.response.address.ProvinceResponse
@@ -89,6 +90,9 @@ class ProvideRepository private constructor(
         )
 
     suspend fun search(query: String): Response<SearchResponse> = RetrofiClient.getApiArtSpace().search(query)
+
+    suspend fun genreClasification(painting: MultipartBody.Part): Response<ClasificationListResponse> =
+        RetrofiClient.getApiGenreClasification().genreClasification(painting)
 
     companion object {
         @Volatile

@@ -23,9 +23,7 @@
         <item name="android:textSize">24sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:padding">8dp</item>
-
     </style>
-
 
     <style name="SectionBgStyle">
         <item name="android:background">@color/opacity_20_primary</item>

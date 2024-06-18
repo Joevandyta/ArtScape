@@ -23,10 +23,12 @@ android {
         debug {
             buildConfigField("String", "ENDPOINT_REGION", "\"https://www.emsifa.com/api-wilayah-indonesia/api/\"")
             buildConfigField("String", "ENDPOINT_ARTSCAPE", "\"https://backend-app-artscape-7yazuf5wiq-et.a.run.app/\"")
+            buildConfigField("String", "ENDPOINT_GENRE_CLASSIFICATION", "\"https://genre-classification-api-ludpnm2hga-et.a.run.app/\"")
         }
         release {
             buildConfigField("String", "ENDPOINT_REGION", "\"https://www.emsifa.com/api-wilayah-indonesia/api/\"")
             buildConfigField("String", "ENDPOINT_ARTSCAPE", "\"https://backend-app-artscape-7yazuf5wiq-et.a.run.app/\"")
+            buildConfigField("String", "ENDPOINT_GENRE_CLASSIFICATION", "\"https://genre-classification-api-ludpnm2hga-et.a.run.app/\"")
 
             isMinifyEnabled = false
             proguardFiles(
@@ -73,7 +75,7 @@ dependencies {
     implementation(libs.play.services.base)
 
     implementation(libs.github.glide)
-//    dataStore
+    // dataStore
     implementation(libs.androidx.datastore.preferences)
 
     // retrofit
@@ -82,12 +84,12 @@ dependencies {
 
     implementation(libs.logging.interceptor)
 
-    //    credential
+    // credential
     implementation(libs.androidx.credentials)
     implementation(libs.androidx.credentials.play.services.auth)
     implementation(libs.googleid)
 
-//    Firebase
+    // Firebase
     implementation(libs.firebase.auth)
     implementation(libs.play.services.auth)
     implementation(platform(libs.firebase.bom))

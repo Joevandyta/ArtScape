@@ -26,6 +26,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import java.text.DecimalFormat
 
 class UploadActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUploadBinding
@@ -37,10 +38,10 @@ class UploadActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUploadBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        topActionBar()
         bindingView()
         genrePrediction()
+        setContentView(binding.root)
+        topActionBar()
         onBackPressedDispatcher.addCallback(
             this,
             object : OnBackPressedCallback(true) {
@@ -77,7 +78,37 @@ class UploadActivity : AppCompatActivity() {
     }
 
     private fun genrePrediction() {
-        binding.tvGenrePrediction.text = "Realism"
+        previewImageUri?.let { uri ->
+            val imageFile = uriToFile(uri, this@UploadActivity).reduceFileImage()
+            val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+
+            val photo =
+                MultipartBody.Part.createFormData(
+                    "file",
+                    imageFile.name,
+                    requestImageFile,
+                )
+            viewModel.setGenreClasification(photo)
+        } ?: showToast("Cant Predict Image")
+
+        viewModel.getGenreClasification().observe(this) {
+            when (it) {
+                is ApiResponse.Success -> {
+                    val data = it.data.predictions!!.first()
+                    val decimalFormat = DecimalFormat("#.##")
+                    val genre = data.className
+                    val confidence = data.probability
+                    val confidencePercentage = decimalFormat.format(confidence * 100) + "%"
+                    binding.tvGenrePrediction.text = genre.toString()
+                    binding.tvConfidance.text = confidencePercentage
+                    setMyButtonEnable()
+                }
+
+                is ApiResponse.Error -> {
+                    Log.d("ERROR", "${it.error} ${it.details}")
+                }
+            }
+        }
     }
 
     private fun bindingView() {
@@ -224,13 +255,15 @@ class UploadActivity : AppCompatActivity() {
             val isMediaValid = isValid(edPaintingMedia)
             val isYearCreatedValid = isValid(edYearCreated)
             val isDescriptionValid = isValid(edDescription)
+            val isGenreValid = binding.tvConfidance.text.isNotEmpty()
 
             buttonAdd.isEnabled =
                 isTitleValid &&
                 isPriceValid &&
                 isMediaValid &&
                 isYearCreatedValid &&
-                isDescriptionValid
+                isDescriptionValid &&
+                isGenreValid
         }
     }
 
@@ -248,6 +281,7 @@ class UploadActivity : AppCompatActivity() {
                             imageFile.name,
                             requestImageFile,
                         )
+
                     val title = edTitlePainting.text.toString().toRequestBody()
                     val description = edDescription.text.toString().toRequestBody()
                     val media = edPaintingMedia.text.toString().toRequestBody()
@@ -294,6 +328,7 @@ class UploadActivity : AppCompatActivity() {
                         show()
                     }
                 }
+
                 is ApiResponse.Error -> {
                     showLoading(false)
                     Log.d("UPLOAD FAILED", "${it.error} ${it.details}")
@@ -318,6 +353,7 @@ class UploadActivity : AppCompatActivity() {
                 onBackPressedDispatcher.onBackPressed()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

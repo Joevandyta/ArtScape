@@ -22,7 +22,7 @@
     <color name="md_theme_onSecondary">#FFFFFF</color>
     <color name="md_theme_secondaryContainer">#C8E6FF</color>
     <color name="md_theme_onSecondaryContainer">#001E2F</color>
-    <color name="md_theme_tertiary">#715C0C</color>
+    <color name="md_theme_tertiary">#ffd600</color>
     <color name="md_theme_onTertiary">#FFFFFF</color>
     <color name="md_theme_tertiaryContainer">#FEE086</color>
     <color name="md_theme_onTertiaryContainer">#231B00</color>
