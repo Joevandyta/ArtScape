@@ -3,6 +3,7 @@ package com.jovan.artscape.remote.api
 import com.jovan.artscape.remote.request.AddUserRequest
 import com.jovan.artscape.remote.request.LoginRequest
 import com.jovan.artscape.remote.request.UpdateUserRequest
+import com.jovan.artscape.remote.response.ClasificationListResponse
 import com.jovan.artscape.remote.response.SearchResponse
 import com.jovan.artscape.remote.response.address.DistrictResponse
 import com.jovan.artscape.remote.response.address.ProvinceResponse
@@ -98,4 +99,10 @@ interface ApiService {
     suspend fun search(
         @Query("keyword") query: String,
     ): Response<SearchResponse>
+
+    @Multipart
+    @POST("predict_recommend")
+    suspend fun genreClasification(
+        @Part file: MultipartBody.Part,
+    ): Response<ClasificationListResponse>
 }

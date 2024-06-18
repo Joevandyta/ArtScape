@@ -85,7 +85,7 @@ class InterestActivity : AppCompatActivity() {
 
     private fun actionButton() {
         binding.apply {
-            chipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
+            chipGroup.setOnCheckedStateChangeListener { _, checkedIds ->
                 if (checkedIds.isEmpty()) {
                     tv.text = "No genre selected"
                     selectedGenresList = mutableListOf()

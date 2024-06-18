@@ -83,7 +83,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="8dp"
-                    android:text="@string/modern_art"
+                    android:text="waiting..."
+                    app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+                    app:layout_constraintTop_toBottomOf="@+id/preview_image_view" />
+
+                <TextView
+                    android:id="@+id/tv_confidance"
+                    style="@style/bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="(30%)"
                     app:layout_constraintStart_toStartOf="@+id/linearLayout2"
                     app:layout_constraintTop_toBottomOf="@+id/preview_image_view" />
             </LinearLayout>

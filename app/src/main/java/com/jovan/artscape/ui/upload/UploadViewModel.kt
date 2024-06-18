@@ -10,18 +10,20 @@ import com.google.gson.Gson
 import com.jovan.artscape.data.ProvideRepository
 import com.jovan.artscape.data.pref.UserModel
 import com.jovan.artscape.remote.response.ApiResponse
+import com.jovan.artscape.remote.response.ClasificationListResponse
 import com.jovan.artscape.remote.response.ErrorResponse
 import com.jovan.artscape.remote.response.painting.UploadResponseSuccess
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
-class UploadViewModel(private val repository: ProvideRepository) : ViewModel() {
+class UploadViewModel(
+    private val repository: ProvideRepository,
+) : ViewModel() {
     private val uploadResponse = MutableLiveData<ApiResponse<UploadResponseSuccess>>()
+    private val genreResponse = MutableLiveData<ApiResponse<ClasificationListResponse>>()
 
-    fun getSession(): LiveData<UserModel> {
-        return repository.getSession().asLiveData()
-    }
+    fun getSession(): LiveData<UserModel> = repository.getSession().asLiveData()
 
     fun setUploadPainting(
         photo: MultipartBody.Part,
@@ -50,7 +52,28 @@ class UploadViewModel(private val repository: ProvideRepository) : ViewModel() {
         }
     }
 
-    fun getUploadResponse(): LiveData<ApiResponse<UploadResponseSuccess>> {
-        return uploadResponse
+    fun getUploadResponse(): LiveData<ApiResponse<UploadResponseSuccess>> = uploadResponse
+
+    fun setGenreClasification(painting: MultipartBody.Part) {
+        viewModelScope.launch {
+            try {
+                val response = repository.genreClasification(painting)
+                Log.d("PARAM", "setGenreClasification")
+                if (response.isSuccessful) {
+                    genreResponse.value = ApiResponse.Success(response.body()!!)
+                    Log.d("RESPONSE isSuccessful", "setGenreClasification: ${response.body()}")
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
+                    genreResponse.value =
+                        ApiResponse.Error(errorResponse.error, errorResponse.details ?: "")
+                    Log.d("RESPONSE notSuccessful", "setGenreClasification: ${errorResponse.error}")
+                }
+            } catch (e: Exception) {
+                genreResponse.value = ApiResponse.Error(e.message.toString(), "")
+            }
+        }
     }
+
+    fun getGenreClasification(): LiveData<ApiResponse<ClasificationListResponse>> = genreResponse
 }
