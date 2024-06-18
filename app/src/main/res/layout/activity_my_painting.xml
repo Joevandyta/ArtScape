@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
             app:navigationIcon="@drawable/baseline_arrow_back"
-            app:title="@string/upload_art" />
+            app:title="@string/my_painting" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
@@ -39,7 +39,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_mypainting"

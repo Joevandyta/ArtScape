@@ -40,6 +40,7 @@ class UploadActivity : AppCompatActivity() {
         setContentView(binding.root)
         topActionBar()
         bindingView()
+        genrePrediction()
         onBackPressedDispatcher.addCallback(
             this,
             object : OnBackPressedCallback(true) {
@@ -73,6 +74,10 @@ class UploadActivity : AppCompatActivity() {
         val toolbar: Toolbar = binding.uploadToolbar
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun genrePrediction() {
+        binding.tvGenrePrediction.text = "Dadaism"
     }
 
     private fun bindingView() {

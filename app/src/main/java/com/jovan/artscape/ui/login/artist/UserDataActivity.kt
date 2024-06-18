@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.credentials.ClearCredentialStateRequest
 import androidx.credentials.CredentialManager
 import androidx.lifecycle.lifecycleScope
@@ -27,6 +28,7 @@ class UserDataActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUserDataBinding.inflate(layoutInflater)
+        topActionBar()
         setContentView(binding.root)
         auth = Firebase.auth
 
@@ -44,12 +46,21 @@ class UserDataActivity : AppCompatActivity() {
         )
     }
 
+    private fun topActionBar() {
+        supportActionBar?.show()
+        val toolbar: Toolbar = binding.userDataToolbar
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = ""
+    }
+
     private fun signOut() {
         lifecycleScope.launch {
             val credentialManager = CredentialManager.create(this@UserDataActivity)
             auth.signOut()
             credentialManager.clearCredentialState(ClearCredentialStateRequest())
         }
+        finish()
     }
 
     private fun enableButton() {

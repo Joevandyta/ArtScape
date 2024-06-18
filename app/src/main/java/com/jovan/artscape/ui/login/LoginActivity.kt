@@ -226,7 +226,6 @@ class LoginActivity : AppCompatActivity() {
                         val intent = Intent(this@LoginActivity, UserDataActivity::class.java)
                         intent.putExtra(EXTRA_ID_TOKEN, idToken)
                         startActivity(intent)
-                        showToast("Error: ${it.error}")
                         Log.d("UserDataActivity", "Error: ${it.error}")
                     } else {
                         Log.d("UserDataActivity", "Error: Unexpected")

@@ -108,10 +108,10 @@
     <string name="year_dummy">1999</string>
     <string name="leornardo_da_vinci">Leornardo Da Vinci</string>
     <string name="total">Total</string>
-    <string name="price_dummy">Rp500.000</string>
+    <string name="price_dummy">Rp 0</string>
     <string name="checkout">Checkout</string>
     <string name="painting_name_dummy">Painting Name</string>
-    <string name="substract">substract</string>
+    <string name="substract">subtract</string>
     <string name="total_painting_dummy">777</string>
     <string name="about_artist">About Artist</string>
     <string name="artist_address">Artist Address</string>
@@ -168,12 +168,20 @@
     <string name="genre_layout">Genre :</string>
     <string name="please_select_3_minimum">Please select 3 minimum</string>
     <string name="what_are_you_interested_in">What are you interested in?</string>
-    <string name="impresionisme">Impresionisme</string>
-    <string name="realism">Realism</string>
-    <string name="romanticism">Romanticism</string>
-    <string name="naturalisme">Naturalisme</string>
-    <string name="sketch">Sketch</string>
+
     <string name="phone_number_template">+62</string>
     <string name="template_62">+62%1$s</string>
+    <string name="abstract_genre">Abstract</string>
+    <string name="cubism">Cubism</string>
+    <string name="dadaism">Dadaism</string>
+    <string name="fauvism">Fauvism</string>
+    <string name="impressionism">Impressionism</string>
+    <string name="nouveau">Nouveau</string>
+    <string name="pop">Pop</string>
+    <string name="realism">Realism</string>
+    <string name="renaissance">Renaissance</string>
+    <string name="surrealism">Surrealism</string>
+    <string name="about_artscape">About ArtScape</string>
+    <string name="my_painting">My Painting</string>
 
 </resources>
