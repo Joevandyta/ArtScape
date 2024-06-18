@@ -1,6 +1,7 @@
 package com.jovan.artscape.ui.main.painting
 
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -22,6 +23,7 @@ import com.jovan.artscape.ViewModelFactory
 import com.jovan.artscape.databinding.ActivityDetailPaintingBinding
 import com.jovan.artscape.remote.response.ApiResponse
 import com.jovan.artscape.remote.response.painting.PaintingDetailsResponse
+import com.jovan.artscape.ui.CartActivity
 
 class DetailPaintingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailPaintingBinding
@@ -97,6 +99,9 @@ class DetailPaintingActivity : AppCompatActivity() {
         }
     }
     private fun  bottomAppbar() {
+        binding.btnCart.setOnClickListener {
+            startActivity(Intent(this, CartActivity::class.java))
+        }
         binding.btnAddComment.setOnClickListener{
             showAddCommentDialog()
         }

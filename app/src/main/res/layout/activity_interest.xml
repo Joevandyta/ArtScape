@@ -4,192 +4,177 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".ui.login.interest.InterestActivity">
 
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/toolbar_genre_layout"
-        style="@style/Widget.MaterialComponents.AppBarLayout.Primary"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_genre"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/transparant"
+        android:layout_height="?attr/actionBarSize"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/baseline_arrow_back" />
 
-        <com.google.android.material.appbar.MaterialToolbar
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_genre">
 
-            android:id="@+id/toolbar_genre"
-            style="@style/ToolbarCenteredTitleStyle"
+        <TextView
+            android:id="@+id/tv_header"
+            style="@style/semibold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:navigationIcon="@drawable/baseline_arrow_back"
-            android:minHeight="?attr/actionBarSize"/>
-    </com.google.android.material.appbar.AppBarLayout>
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/select_title"
+            android:textSize="20dp" />
 
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="16dp"
-        android:fillViewport="true"
-        app:layout_constraintBottom_toTopOf="@+id/tv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_genre_layout">
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <TextView
+            android:id="@+id/tv_desc4"
+            style="@style/medium"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_header"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/select"
+            android:textSize="14sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="402dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_desc4"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:paddingStart="16dp">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/tv_impresionisme"
+                style="@style/Widget.Material3.Chip.Filter.Elevated"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:paddingStart="0dp"
+                android:text="Impresionisme" />
 
-                <TextView
-                    android:id="@+id/tv_header"
-                    style="@style/semibold"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/tv_realism"
+                style="@style/Widget.Material3.Chip.Filter.Elevated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Realism" />
 
-                    android:text="@string/what_are_you_interested_in"
-                    android:textSize="24sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/tv_romantisisme"
+                style="@style/Widget.Material3.Chip.Filter.Elevated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Romantisisme" />
 
-                <TextView
-                    android:id="@+id/tv_desc4"
-                    style="@style/regular"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/please_select_3_minimum"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_header" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/tv_abstract"
+                style="@style/Widget.Material3.Chip.Filter.Elevated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Abstract" />
 
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/chipGroup"
-                    android:layout_width="402dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginLeft="10sp"
-                    android:layout_marginTop="9dp"
-                    android:layout_marginEnd="10sp"
-                    android:layout_marginRight="10sp"
-                    android:layout_marginBottom="10sp">
+            <com.google.android.material.chip.Chip
+                android:id="@+id/tv_naturalisme"
+                style="@style/Widget.Material3.Chip.Filter.Elevated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Naturalisme" />
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_abstract"
-                        style="@style/Widget.Material3.Chip.Filter.Elevated"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/abstract_genre" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/tv_sketch"
+                style="@style/Widget.Material3.Chip.Filter.Elevated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sketch" />
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_cubism"
-                        style="@style/Widget.Material3.Chip.Filter.Elevated"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/cubism" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/tv_ekspresionisme"
+                style="@style/Widget.Material3.Chip.Filter.Elevated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ekspresionisme" />
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_dadaism"
-                        style="@style/Widget.Material3.Chip.Filter.Elevated"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/dadaism" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/tv_surrealisme"
+                style="@style/Widget.Material3.Chip.Filter.Elevated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Surrealisme" />
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_fauvism"
-                        style="@style/Widget.Material3.Chip.Filter.Elevated"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/fauvism" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/tv_klasik"
+                style="@style/Widget.Material3.Chip.Filter.Elevated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Klasik" />
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_impressionism"
-                        style="@style/Widget.Material3.Chip.Filter.Elevated"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/impressionism" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/tv_kubisme"
+                style="@style/Widget.Material3.Chip.Filter.Elevated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kubisme" />
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_nouveau"
-                        style="@style/Widget.Material3.Chip.Filter.Elevated"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/nouveau" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/tv_modernisme"
+                style="@style/Widget.Material3.Chip.Filter.Elevated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Modernisme" />
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_pop"
-                        style="@style/Widget.Material3.Chip.Filter.Elevated"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/pop" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/tv_kaligrafi"
+                style="@style/Widget.Material3.Chip.Filter.Elevated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kaligrafi" />
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_realism"
-                        style="@style/Widget.Material3.Chip.Filter.Elevated"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/realism" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/tv_kontemporer"
+                style="@style/Widget.Material3.Chip.Filter.Elevated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kontemporer" />
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_renaissance"
-                        style="@style/Widget.Material3.Chip.Filter.Elevated"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/renaissance" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/tv_luminisme"
+                style="@style/Widget.Material3.Chip.Filter.Elevated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Luminisme" />
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip_surrealism"
-                        style="@style/Widget.Material3.Chip.Filter.Elevated"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/surrealism" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/tv_urban"
+                style="@style/Widget.Material3.Chip.Filter.Elevated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Urban" />
 
-                </com.google.android.material.chip.ChipGroup>
+        </com.google.android.material.chip.ChipGroup>
 
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/chipGroup"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10sp" />
 
-            </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </ScrollView>
-
-    <TextView
-        android:id="@+id/tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/button_save"
-        app:layout_constraintStart_toStartOf="@+id/button_save" />
-
-    <Button
-        android:id="@+id/button_save"
-        style="@style/semibold"
-        android:layout_width="match_parent"
-        android:layout_margin="16dp"
-        android:layout_height="49dp"
-        android:enabled="false"
-        android:gravity="center"
-        android:text="@string/save_data"
-        android:layout_marginBottom="16dp"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    </RelativeLayout>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progressIndicator"
@@ -199,5 +184,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_save"
+        style="@style/CustomButtonStyle"
+        android:layout_width="283dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="16dp"
+        android:enabled="false"
+        android:gravity="center"
+        android:text="@string/save_data"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
+        app:layout_constraintVertical_bias="0.875"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

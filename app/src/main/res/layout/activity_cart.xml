@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:background="#FFFFFF"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.CartActivity">
@@ -50,14 +51,15 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="8dp">
 
             <TextView
                 android:id="@+id/total_price_title"
-                style="@style/SubtitleText"
-                android:paddingStart="16dp"
+                style="@style/medium"
+                android:paddingStart="8dp"
                 android:textStyle="normal"
-                android:paddingTop="8dp"
+                android:paddingTop="0dp"
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -68,26 +70,32 @@
             <TextView
                 android:id="@+id/total_price"
 
-                style="@style/TitleText"
+                style="@style/bold"
+                android:textSize="18sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/price_dummy"
-                android:paddingStart="16dp"
+                android:paddingStart="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/total_price_title"/>
 
             <Button
                 android:id="@+id/materialButton"
-                style="@style/bold"
-                android:textColor="@color/white"
-                android:gravity="center"
+                style="@style/CustomButtonStyle"
                 android:layout_width="100dp"
                 android:layout_height="40dp"
-                android:text="@string/checkout"
                 android:layout_marginEnd="16dp"
+                android:background="@drawable/bg_gradient"
+                android:gravity="center"
+                android:padding="0dp"
+                android:text="@string/checkout"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:backgroundTint="@null"
                 app:layout_constraintBottom_toBottomOf="@id/total_price"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/total_price_title" />
+                app:layout_constraintTop_toTopOf="@id/total_price_title"
+                tools:ignore="TouchTargetSizeCheck" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

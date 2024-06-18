@@ -126,6 +126,8 @@
     <string name="title_bio">Bio</string>
     <string name="welcome">Welcome to</string>
     <string name="welcome1">Artscape</string>
+    <string name="select">Select at least 3 interests.</string>
+    <string name="select_title">What are you interested in?</string>
 
 
 

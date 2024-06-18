@@ -20,6 +20,10 @@ import com.jovan.artscape.databinding.ActivityEditProfileBinding
 import com.jovan.artscape.remote.request.UpdateUserRequest
 import com.jovan.artscape.remote.response.ApiResponse
 import com.jovan.artscape.ui.main.MainActivity
+import com.airbnb.lottie.LottieDrawable
+import com.airbnb.lottie.LottieCompositionFactory
+
+
 
 class EditProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditProfileBinding

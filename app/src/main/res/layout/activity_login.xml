@@ -24,13 +24,13 @@
     <TextView
         android:id="@+id/tv_account_create"
         style="@style/medium"
-        android:layout_width="408dp"
-        android:layout_height="25dp"
+        android:layout_width="301dp"
+        android:layout_height="22dp"
         android:layout_marginTop="4dp"
-
         android:gravity="center"
         android:text="@string/create_your_account"
         android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
