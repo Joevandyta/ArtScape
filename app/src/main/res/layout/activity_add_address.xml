@@ -2,21 +2,33 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="#FFFFFF"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.login.address.AddAddressActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_address"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/baseline_arrow_back" />
+
     <TextView
         android:id="@+id/tv_title_address"
-        style="@style/bold"
+        style="@style/semibold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:text="@string/enter_your_address"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar_address" />
 
 
     <LinearLayout
@@ -88,21 +100,44 @@
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
+    <!--    <Button-->
+<!--        android:id="@+id/button_address"-->
+<!--        style="@style/CustomButtonStyle"-->
+<!--        android:layout_width="283dp"-->
+<!--        android:layout_height="49dp"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_marginBottom="32dp"-->
+<!--        android:enabled="false"-->
+<!--        android:gravity="center"-->
+<!--        android:text="Next"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="16sp"-->
+<!--        app:backgroundTint="@null"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/ll_address_fields"-->
+<!--        app:layout_constraintVertical_bias="0.954"-->
+<!--        tools:ignore="MissingConstraints" />-->
+
     <Button
         android:id="@+id/button_address"
-        style="@style/semibold"
+        style="@style/CustomButtonStyle"
         android:layout_width="283dp"
         android:layout_height="49dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
         android:gravity="center"
         android:text="Next"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="18dp"
+        app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll_address_fields"
+        app:layout_constraintVertical_bias="0.96" />
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progressIndicator"

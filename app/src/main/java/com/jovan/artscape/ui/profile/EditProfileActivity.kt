@@ -17,7 +17,7 @@ import com.jovan.artscape.remote.response.ApiResponse
 import com.jovan.artscape.ui.main.MainActivity
 import com.airbnb.lottie.LottieDrawable
 import com.airbnb.lottie.LottieCompositionFactory
-import com.jovan.artscape.R
+
 
 class EditProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditProfileBinding

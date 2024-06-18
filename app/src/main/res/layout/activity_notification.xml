@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".ui.NotificationActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -17,6 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
+            android:background="#FFFFFF"
             android:id="@+id/notification_toolbar"
             style="@style/semibold"
             android:layout_width="match_parent"

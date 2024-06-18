@@ -33,7 +33,11 @@ class InterestActivity : AppCompatActivity() {
 
         val toolbar: Toolbar = findViewById(R.id.toolbar_genre)
         setSupportActionBar(toolbar)
-
+        supportActionBar?.title = ""
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
         actionButton()
     }
 
