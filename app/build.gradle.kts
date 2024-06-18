@@ -93,6 +93,6 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
 
-    //ui
+    // ui
     implementation(libs.lottie)
-
+}

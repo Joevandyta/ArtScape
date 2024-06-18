@@ -6,7 +6,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -178,15 +177,10 @@ class UserDataActivity : AppCompatActivity() {
         return when (item.itemId) {
             android.R.id.home -> {
                 onBackPressedDispatcher.onBackPressed()
-                showToast("Back")
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun showToast(text: String) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }
 
     companion object {

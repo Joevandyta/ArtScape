@@ -77,7 +77,7 @@ class UploadActivity : AppCompatActivity() {
     }
 
     private fun genrePrediction() {
-        binding.tvGenrePrediction.text = "Dadaism"
+        binding.tvGenrePrediction.text = "Realism"
     }
 
     private fun bindingView() {
@@ -316,7 +316,6 @@ class UploadActivity : AppCompatActivity() {
         return when (item.itemId) {
             android.R.id.home -> {
                 onBackPressedDispatcher.onBackPressed()
-                showToast("Back")
                 true
             }
             else -> super.onOptionsItemSelected(item)

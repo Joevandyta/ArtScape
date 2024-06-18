@@ -18,7 +18,7 @@ class AboutActivity : AppCompatActivity() {
 
     private fun topActionBar() {
         supportActionBar?.show()
-        val toolbar: Toolbar = binding.toolbarAbout
+        val toolbar: Toolbar = binding.toolbar
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }

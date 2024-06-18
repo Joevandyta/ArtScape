@@ -7,28 +7,6 @@
     android:background="#FFFFFF"
     tools:context=".ui.main.account.AccountFragment">
 
-    <!-- Toolbar -->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_fragment_account"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:contentInsetStart="0dp"
-        app:contentInsetStartWithNavigation="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/baseline_arrow_back">
-
-        <TextView
-            android:id="@+id/toolbar_title"
-            style="@style/semibold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:textColor="@color/black_or_white"
-            android:textSize="16sp" />
-
-    </androidx.appcompat.widget.Toolbar>
 
     <!-- ScrollView and existing content -->
     <ScrollView
@@ -39,7 +17,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_fragment_account">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
