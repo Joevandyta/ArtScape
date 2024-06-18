@@ -50,7 +50,6 @@ class InterestActivity : AppCompatActivity() {
                     is ApiResponse.Success -> {
                         // Show ID in Toast
                         showLoading(false)
-                        showToast("User ID: ${userResponse.data.uid}")
                         viewModel.saveSession(UserModel(userResponse.data.uid, addUserRequest.idToken))
                         Log.d("UserDataActivity", "User ID: ${userResponse.data.uid}")
                         MaterialAlertDialogBuilder(this@InterestActivity).apply {
@@ -72,7 +71,6 @@ class InterestActivity : AppCompatActivity() {
                     is ApiResponse.Error -> {
                         showLoading(false)
                         // Show error message in Toast
-                        showToast("Error: ${userResponse.error}")
                         Log.e("UserDataActivity", "Error: ${userResponse.error}")
                         MaterialAlertDialogBuilder(this@InterestActivity).apply {
                             setTitle("Error")

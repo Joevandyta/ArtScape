@@ -5,9 +5,14 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import com.airbnb.lottie.LottieCompositionFactory
+import com.airbnb.lottie.LottieDrawable
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.jovan.artscape.R
 import com.jovan.artscape.ViewModelFactory
@@ -17,6 +22,7 @@ import com.jovan.artscape.remote.response.ApiResponse
 import com.jovan.artscape.ui.main.MainActivity
 import com.airbnb.lottie.LottieDrawable
 import com.airbnb.lottie.LottieCompositionFactory
+
 
 
 class EditProfileActivity : AppCompatActivity() {
@@ -39,13 +45,40 @@ class EditProfileActivity : AppCompatActivity() {
         setMyButtonEnable()
         enableButton()
         getUserResponse()
-
+        topActionBar()
         LottieCompositionFactory.fromRawRes(this, R.raw.settings).addListener { composition ->
             binding.settingView.setComposition(composition)
             binding.settingView.repeatCount = LottieDrawable.INFINITE
             binding.settingView.playAnimation()
         }
 
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    finish()
+                }
+            },
+        )
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressedDispatcher.onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun topActionBar() {
+        supportActionBar?.show()
+        val toolbar: Toolbar = binding.editProfileToolbar
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Edit Profile"
     }
 
     private fun updateUserProfile() {

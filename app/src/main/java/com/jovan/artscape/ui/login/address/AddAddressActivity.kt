@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.jovan.artscape.R
@@ -13,9 +12,7 @@ import com.jovan.artscape.databinding.ActivityAddAddressBinding
 import com.jovan.artscape.remote.request.AddUserRequest
 import com.jovan.artscape.ui.login.interest.InterestActivity
 
-
 class AddAddressActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityAddAddressBinding
     private val viewModel by viewModels<AddressViewModel> {
         ViewModelFactory.getInstance(this)
@@ -36,10 +33,8 @@ class AddAddressActivity : AppCompatActivity() {
             val adapterItems = ArrayAdapter(this, R.layout.list_item_address, item)
             autoCompleteProvince.setAdapter(adapterItems)
 
-            autoCompleteProvince.setOnItemClickListener { adapterView, _, i, _ ->
+            autoCompleteProvince.setOnItemClickListener { _, _, i, _ ->
                 showLoading(true)
-                val itemList = adapterView.getItemAtPosition(i).toString()
-                Toast.makeText(this@AddAddressActivity, "Item: $itemList", Toast.LENGTH_SHORT).show()
                 clearRegencyAdapter()
                 viewModel.setRegencies(provinces[i].id)
                 showLoading(false)
@@ -49,12 +44,9 @@ class AddAddressActivity : AppCompatActivity() {
             val item = regency.map { it.name }
             val adapterItems = ArrayAdapter(this, R.layout.list_item_address, item)
             autoCompleteRegency.setAdapter(adapterItems)
-            autoCompleteRegency.setOnItemClickListener { adapterView, _, i, _ ->
+            autoCompleteRegency.setOnItemClickListener { _, _, i, _ ->
                 showLoading(true)
 
-                val itemList = adapterView.getItemAtPosition(i).toString()
-                Toast.makeText(this@AddAddressActivity, "Item: $itemList", Toast.LENGTH_SHORT)
-                    .show()
                 clearDistrictAdapter()
                 viewModel.setDistricts(regency[i].id)
                 showLoading(false)
@@ -64,12 +56,9 @@ class AddAddressActivity : AppCompatActivity() {
             val item = district.map { it.name }
             val adapterItems = ArrayAdapter(this, R.layout.list_item_address, item)
             autoCompleteDistrict.setAdapter(adapterItems)
-            autoCompleteDistrict.setOnItemClickListener { adapterView, _, i, _ ->
+            autoCompleteDistrict.setOnItemClickListener { _, _, i, _ ->
                 showLoading(true)
 
-                val itemList = adapterView.getItemAtPosition(i).toString()
-                Toast.makeText(this@AddAddressActivity, "Item: $itemList", Toast.LENGTH_SHORT)
-                    .show()
                 clearVillageAdapter()
                 viewModel.setVillages(district[i].id)
                 showLoading(false)
@@ -79,13 +68,6 @@ class AddAddressActivity : AppCompatActivity() {
             val item = village.map { it.name }
             val adapterItems = ArrayAdapter(this, R.layout.list_item_address, item)
             autoCompleteVillage.setAdapter(adapterItems)
-            autoCompleteVillage.setOnItemClickListener { adapterView, _, i, _ ->
-
-                val itemList = adapterView.getItemAtPosition(i).toString()
-                Toast.makeText(this@AddAddressActivity, "Item: $itemList", Toast.LENGTH_SHORT)
-                    .show()
-
-            }
         }
         actionButton()
     }
@@ -117,14 +99,20 @@ class AddAddressActivity : AppCompatActivity() {
         binding.apply {
             buttonAddress.setOnClickListener {
                 val token = intent.getStringExtra(EXTRA_ID_TOKEN)
-                val userData = AddUserRequest(
-                    idToken = token.toString(),
-                    name = intent.getStringExtra(EXTRA_NAME).toString(),
-                    bio = intent.getStringExtra(EXTRA_BIO).toString(),
-                    address = "${autoCompleteProvince.text}/${autoCompleteRegency.text}/${autoCompleteDistrict.text}/${autoCompleteVillage.text}",
-                    interest = listOf(),
-                    phoneNumber = intent.getStringExtra(EXTRA_PHONE_NUMBER).toString()
-                )
+                val province = autoCompleteProvince.text.toString()
+                val regency = autoCompleteRegency.text.toString()
+                val district = autoCompleteDistrict.text.toString()
+                val village = autoCompleteVillage.text.toString()
+
+                val userData =
+                    AddUserRequest(
+                        idToken = token.toString(),
+                        name = intent.getStringExtra(EXTRA_NAME).toString(),
+                        bio = intent.getStringExtra(EXTRA_BIO).toString(),
+                        address = "$province/$regency/$district/$village",
+                        interest = listOf(),
+                        phoneNumber = intent.getStringExtra(EXTRA_PHONE_NUMBER).toString(),
+                    )
 
                 val intent = Intent(this@AddAddressActivity, InterestActivity::class.java)
                 intent.putExtra(InterestActivity.EXTRA_USER_WITH_ADDRESS, userData)
@@ -132,9 +120,11 @@ class AddAddressActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun showLoading(isLoading: Boolean) {
         binding.progressIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
+
     companion object {
         const val EXTRA_ID_TOKEN = "extra_id_token"
         const val EXTRA_NAME = "extra_name"
@@ -142,4 +132,3 @@ class AddAddressActivity : AppCompatActivity() {
         const val EXTRA_PHONE_NUMBER = "extra_phone_number"
     }
 }
-

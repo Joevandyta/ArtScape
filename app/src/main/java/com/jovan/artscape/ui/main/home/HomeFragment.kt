@@ -65,13 +65,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun adapterBind() {
         val adapter = PaintingListAdapter()
-        adapter.setOnItemClickCallBack(object : PaintingListAdapter.OnItemClickCallBack {
-            override fun onItemClicked(paintingId: String) {
-                val intent = Intent(requireContext(), DetailPaintingActivity::class.java)
-                intent.putExtra("PAINTING_ID", paintingId)
-                startActivity(intent)
-            }
-        })
+        adapter.setOnItemClickCallBack(
+            object : PaintingListAdapter.OnItemClickCallBack {
+                override fun onItemClicked(paintingId: String) {
+                    val intent = Intent(requireContext(), DetailPaintingActivity::class.java)
+                    intent.putExtra("PAINTING_ID", paintingId)
+                    startActivity(intent)
+                }
+            },
+        )
         binding.rvArt.adapter = adapter
         binding.rvArt.layoutManager = LinearLayoutManager(requireContext())
         viewModel.getAllPainting().observe(viewLifecycleOwner) {
@@ -113,27 +115,22 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     // Handle the menu selection
                     return when (menuItem.itemId) {
                         R.id.bar_cart -> {
-                            // TODO : Go to cart
                             startActivity(Intent(requireContext(), CartActivity::class.java))
-                            showToast("Cart Bro")
                             true
                         }
 
                         R.id.bar_notification -> {
-                            // TODO : Go to notification
                             startActivity(
                                 Intent(
                                     requireContext(),
                                     NotificationActivity::class.java,
                                 ),
                             )
-                            showToast("Notif Bro")
                             true
                         }
 
                         R.id.bar_search -> {
                             startActivity(Intent(requireContext(), SearchActivity::class.java))
-                            showToast("Search Bro")
                             Log.d("HomeFragment", "onOptionsItemSelected: Search")
                             true
                         }

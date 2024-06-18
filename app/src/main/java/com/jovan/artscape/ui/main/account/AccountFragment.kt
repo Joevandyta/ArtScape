@@ -23,7 +23,6 @@ import com.jovan.artscape.ui.AboutActivity
 import com.jovan.artscape.ui.NotificationActivity
 import com.jovan.artscape.ui.TransactionActivity
 import com.jovan.artscape.ui.login.LoginActivity
-import com.jovan.artscape.ui.main.MainActivity
 import com.jovan.artscape.ui.mypainting.MyPaintingActivity
 import com.jovan.artscape.ui.profile.EditProfileActivity
 import kotlinx.coroutines.launch
@@ -64,12 +63,6 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
         _binding = FragmentAccountBinding.bind(view)
         updateProfile()
         actionSetup()
-        setupToolbar()
-    }
-    private fun setupToolbar() {
-        binding.toolbarFragmentAccount.setNavigationOnClickListener {
-            startActivity(Intent(requireContext(), MainActivity::class.java))
-        }
     }
 
     private fun actionSetup() {
@@ -90,10 +83,10 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
                     startActivity(Intent(requireContext(), MyPaintingActivity::class.java))
                 }
                 cvAddress.setOnClickListener {
-                    showToast("Ini Alamat")
+                    showToast("Change Address")
                 }
                 cvSupport.setOnClickListener {
-                    showToast("Ini Pembayaran")
+                    showToast("Support Us")
                 }
                 cvAboutApp.setOnClickListener {
                     startActivity(Intent(requireContext(), AboutActivity::class.java))
