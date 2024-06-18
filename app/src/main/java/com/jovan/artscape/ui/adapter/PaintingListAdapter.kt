@@ -75,7 +75,7 @@ class PaintingListAdapter : RecyclerView.Adapter<PaintingListAdapter.ViewHolder>
         fun bind(item: AllPaintingResponse) {
             binding.apply {
                 tvItemName.text = item.title
-                tvItemDescription.text = item.description
+                tvItemPrice.text = item.price
                 Glide
                     .with(itemView)
                     .load(item.photo)

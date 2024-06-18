@@ -42,10 +42,10 @@
                 android:textAppearance="@style/SubtitleText" />
 
             <TextView
-                android:id="@+id/tv_item_description"
+                android:id="@+id/tv_item_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/description"
+                android:text="@string/price_dummy"
                 android:textColor="@color/white"
                 android:textAppearance="@style/DescriptionText" />
         </LinearLayout>

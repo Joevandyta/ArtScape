@@ -3,18 +3,26 @@ package com.jovan.artscape.ui
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.jovan.artscape.R
+import androidx.appcompat.widget.Toolbar
+import com.jovan.artscape.databinding.ActivityAboutAppBinding
 
-class AboutActivity: AppCompatActivity() {
+class AboutActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityAboutAppBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_about_app)
+        binding = ActivityAboutAppBinding.inflate(layoutInflater)
+        topActionBar()
+        setContentView(binding.root)
+    }
 
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+    private fun topActionBar() {
+        supportActionBar?.show()
+        val toolbar: Toolbar = binding.toolbarAbout
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
