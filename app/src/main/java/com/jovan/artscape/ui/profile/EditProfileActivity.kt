@@ -28,7 +28,6 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private lateinit var userId: String
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditProfileBinding.inflate(layoutInflater)

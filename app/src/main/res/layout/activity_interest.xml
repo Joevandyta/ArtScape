@@ -52,117 +52,81 @@
             android:layout_width="402dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_desc4"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="9dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:paddingStart="16dp">
+            android:layout_marginBottom="10dp">
+
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/tv_impresionisme"
+                android:id="@+id/chip_abstract"
                 style="@style/Widget.Material3.Chip.Filter.Elevated"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="0dp"
-                android:text="Impresionisme" />
+                android:text="@string/abstract_genre" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/tv_realism"
+                android:id="@+id/chip_cubism"
                 style="@style/Widget.Material3.Chip.Filter.Elevated"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Realism" />
+                android:text="@string/cubism" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/tv_romantisisme"
+                android:id="@+id/chip_dadaism"
                 style="@style/Widget.Material3.Chip.Filter.Elevated"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Romantisisme" />
+                android:text="@string/dadaism" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/tv_abstract"
+                android:id="@+id/chip_fauvism"
                 style="@style/Widget.Material3.Chip.Filter.Elevated"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Abstract" />
+                android:text="@string/fauvism" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/tv_naturalisme"
+                android:id="@+id/chip_impressionism"
                 style="@style/Widget.Material3.Chip.Filter.Elevated"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Naturalisme" />
+                android:text="@string/impressionism" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/tv_sketch"
+                android:id="@+id/chip_nouveau"
                 style="@style/Widget.Material3.Chip.Filter.Elevated"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sketch" />
+                android:text="@string/nouveau" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/tv_ekspresionisme"
+                android:id="@+id/chip_pop"
                 style="@style/Widget.Material3.Chip.Filter.Elevated"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ekspresionisme" />
+                android:text="@string/pop" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/tv_surrealisme"
+                android:id="@+id/chip_realism"
                 style="@style/Widget.Material3.Chip.Filter.Elevated"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Surrealisme" />
+                android:text="@string/realism" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/tv_klasik"
+                android:id="@+id/chip_renaissance"
                 style="@style/Widget.Material3.Chip.Filter.Elevated"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Klasik" />
+                android:text="@string/renaissance" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/tv_kubisme"
+                android:id="@+id/chip_surrealism"
                 style="@style/Widget.Material3.Chip.Filter.Elevated"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kubisme" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/tv_modernisme"
-                style="@style/Widget.Material3.Chip.Filter.Elevated"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Modernisme" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/tv_kaligrafi"
-                style="@style/Widget.Material3.Chip.Filter.Elevated"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Kaligrafi" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/tv_kontemporer"
-                style="@style/Widget.Material3.Chip.Filter.Elevated"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Kontemporer" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/tv_luminisme"
-                style="@style/Widget.Material3.Chip.Filter.Elevated"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Luminisme" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/tv_urban"
-                style="@style/Widget.Material3.Chip.Filter.Elevated"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Urban" />
+                android:text="@string/surrealism" />
 
         </com.google.android.material.chip.ChipGroup>
 

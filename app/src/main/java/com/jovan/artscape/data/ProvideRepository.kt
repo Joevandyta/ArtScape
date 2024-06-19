@@ -5,8 +5,10 @@ import com.jovan.artscape.data.pref.UserModel
 import com.jovan.artscape.remote.api.RetrofiClient
 import com.jovan.artscape.remote.request.AddUserRequest
 import com.jovan.artscape.remote.request.LoginRequest
+import com.jovan.artscape.remote.request.RecommendationsPaintingRequest
 import com.jovan.artscape.remote.request.UpdateUserRequest
 import com.jovan.artscape.remote.response.ClasificationListResponse
+import com.jovan.artscape.remote.response.RecommendationsPaintingResponse
 import com.jovan.artscape.remote.response.SearchResponse
 import com.jovan.artscape.remote.response.address.DistrictResponse
 import com.jovan.artscape.remote.response.address.ProvinceResponse
@@ -93,6 +95,9 @@ class ProvideRepository private constructor(
 
     suspend fun genreClasification(painting: MultipartBody.Part): Response<ClasificationListResponse> =
         RetrofiClient.getApiGenreClasification().genreClasification(painting)
+
+    suspend fun recommendPainting(recommendPaintingRequest: RecommendationsPaintingRequest): Response<RecommendationsPaintingResponse> =
+        RetrofiClient.getApiPaintingRecomendation().recommendPainting(recommendPaintingRequest)
 
     companion object {
         @Volatile

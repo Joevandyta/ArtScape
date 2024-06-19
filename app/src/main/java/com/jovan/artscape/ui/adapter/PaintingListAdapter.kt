@@ -19,10 +19,19 @@ class PaintingListAdapter : RecyclerView.Adapter<PaintingListAdapter.ViewHolder>
     }
 
     fun setUserPaintingList(
-        user: List<AllPaintingResponse>,
+        painting: List<AllPaintingResponse>,
         artistId: String,
     ) {
-        val filteredList = user.filter { it.artistId == artistId } // Assuming `artistId` is a property of `AllPaintingResponse`
+        val filteredList =
+            painting.filter { it.artistId == artistId } // Assuming `artistId` is a property of `AllPaintingResponse`
+
+        /*val sortedList =
+            if (userInterests != null) {
+                filteredList.sortedWith(compareByDescending<AllPaintingResponse> { it.genre in userInterests }.thenBy { it.id })
+            } else {
+                filteredList.sortedBy { it.id }
+            }*/
+
         val diffResult =
             DiffUtil.calculateDiff(
                 GenericDiffCallback(
@@ -37,18 +46,40 @@ class PaintingListAdapter : RecyclerView.Adapter<PaintingListAdapter.ViewHolder>
         diffResult.dispatchUpdatesTo(this)
     }
 
-    fun setHomePaintingList(user: List<AllPaintingResponse>) {
+    fun setHomePaintingList(painting: List<AllPaintingResponse>) {
         val diffResult =
             DiffUtil.calculateDiff(
                 GenericDiffCallback(
                     list,
-                    user,
+                    painting,
                     { it.id },
                     { it },
                 ),
             )
 
-        list = user.reversed()
+        list = painting.reversed()
+        diffResult.dispatchUpdatesTo(this)
+    }
+
+    fun setRecomendedPaintingList(
+        paintingList: List<AllPaintingResponse>,
+        userInterests: List<String>,
+    ) {
+        val genreMap = linkedMapOf<String, AllPaintingResponse>()
+
+        val sortedList =
+            paintingList.sortedWith(compareByDescending<AllPaintingResponse> { it.genre in userInterests }.thenBy { it.id })
+        val diffResult =
+            DiffUtil.calculateDiff(
+                GenericDiffCallback(
+                    list,
+                    sortedList,
+                    { it.id },
+                    { it },
+                ),
+            )
+
+        list = sortedList
         diffResult.dispatchUpdatesTo(this)
     }
 
