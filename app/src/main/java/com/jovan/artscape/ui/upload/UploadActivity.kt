@@ -106,6 +106,17 @@ class UploadActivity : AppCompatActivity() {
 
                 is ApiResponse.Error -> {
                     Log.d("ERROR", "${it.error} ${it.details}")
+                    MaterialAlertDialogBuilder(this).apply {
+                        setTitle("Failed Clasify Painting")
+                        setMessage("Try Again Later")
+                        setPositiveButton("Continue") { _, _ ->
+                            startActivity(Intent(this@UploadActivity, MainActivity::class.java))
+                            finish()
+                        }
+                        setCancelable(false)
+                        create()
+                        show()
+                    }
                 }
             }
         }

@@ -67,7 +67,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun recommendPainting() {
         viewModel.apply {
-            getSesion().observe(viewLifecycleOwner) {
+            getSession().observe(viewLifecycleOwner) {
                 setUserData(it.uid)
             }
 
@@ -86,7 +86,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                                 numRecommendations = 3,
                             )
 
-                        setPaintingRecomendation(request)
+                        setPaintingRecommendation(request)
                         Log.d("HomeFragment", "onViewCreated: $request")
                     }
 
@@ -117,7 +117,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     is ApiResponse.Success -> {
                         Log.d("HomeFragment SUCCESS", "${allPainting.data}")
                         showLoading(false)
-                        getPaintingRecomendation().observe(viewLifecycleOwner) { paintingRecomend ->
+                        getPaintingRecommendation().observe(viewLifecycleOwner) { paintingRecomend ->
                             when (paintingRecomend) {
                                 is ApiResponse.Success -> {
                                     adapter.setRecomendedPaintingList(allPainting.data, paintingRecomend.data.recommendations)
@@ -133,6 +133,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                                 }
                                 is ApiResponse.Error -> {
                                     Log.d("HomeFragment ERROR", paintingRecomend.error)
+                                    adapterBind()
                                 }
                             }
                         }
@@ -141,6 +142,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     is ApiResponse.Error -> {
                         Log.d("HomeFragment ERROR", allPainting.error)
                         showLoading(false)
+                        adapterBind()
                     }
                 }
             }

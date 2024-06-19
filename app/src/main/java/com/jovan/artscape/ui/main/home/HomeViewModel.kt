@@ -24,7 +24,7 @@ class HomeViewModel(
     private val paintingRecomendationResponse = MutableLiveData<ApiResponse<RecommendationsPaintingResponse>>()
     private val userDataResponse = MutableLiveData<ApiResponse<AllUserResponse>>()
 
-    fun getSesion(): LiveData<UserModel> = repository.getSession().asLiveData()
+    fun getSession(): LiveData<UserModel> = repository.getSession().asLiveData()
 
     fun setAllPainting() {
         viewModelScope.launch {
@@ -44,19 +44,19 @@ class HomeViewModel(
 
     fun getAllPainting(): MutableLiveData<ApiResponse<List<AllPaintingResponse>>> = paintingResponse
 
-    fun setPaintingRecomendation(paintingRequest: RecommendationsPaintingRequest) {
+    fun setPaintingRecommendation(paintingRequest: RecommendationsPaintingRequest) {
         viewModelScope.launch {
             Log.d("PARAM", "SetAllPainting")
             try {
                 val response = repository.recommendPainting(paintingRequest)
                 if (response.isSuccessful) {
                     paintingRecomendationResponse.value = ApiResponse.Success(response.body()!!)
-                    Log.d("RESPONSE isSuccessful", "addUser: ${response.body()}")
+                    Log.d("RESPONSE isSuccessful", "SET PAINTING RECOMMEND: ${response.body()}")
                 } else {
                     val errorBody = response.errorBody()?.string()
                     val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
                     paintingRecomendationResponse.value = ApiResponse.Error(errorResponse.error, errorResponse.details ?: "")
-                    Log.d("RESPONSE notSuccessful", "addUser: ${errorResponse.error}")
+                    Log.d("RESPONSE notSuccessful", "SET PAINTING RECOMMEND: ${errorResponse.error}")
                 }
             } catch (e: Exception) {
                 Log.d("ERROR", "setPaintingRecomendation: ${e.message}")
@@ -65,7 +65,7 @@ class HomeViewModel(
         }
     }
 
-    fun getPaintingRecomendation(): MutableLiveData<ApiResponse<RecommendationsPaintingResponse>> = paintingRecomendationResponse
+    fun getPaintingRecommendation(): MutableLiveData<ApiResponse<RecommendationsPaintingResponse>> = paintingRecomendationResponse
 
     fun setUserData(id: String) {
         viewModelScope.launch {
