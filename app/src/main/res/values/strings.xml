@@ -186,5 +186,7 @@
     <string name="about_artscape">About ArtScape</string>
     <string name="my_painting">My Painting</string>
     <string name="interests">Interests</string>
+    <string name="made_by_group_c241_ps054">Made by group C241-PS054</string>
+    <string name="artscape">ArtScape</string>
 
 </resources>

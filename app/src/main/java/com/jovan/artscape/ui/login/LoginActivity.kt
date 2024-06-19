@@ -199,7 +199,6 @@ class LoginActivity : AppCompatActivity() {
             when (it) {
                 is ApiResponse.Success -> {
                     // Show ID in Toast
-                    showToast("User ID: ${it.data.uid}")
                     Log.d("UserDataActivity", "User ID: ${it.data.uid}")
                     showLoading(false)
                     MaterialAlertDialogBuilder(this).apply {

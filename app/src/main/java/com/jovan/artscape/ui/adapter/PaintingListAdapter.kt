@@ -57,6 +57,7 @@ class PaintingListAdapter : RecyclerView.Adapter<PaintingListAdapter.ViewHolder>
                 ),
             )
 
+        list = emptyList()
         list = painting.reversed()
         diffResult.dispatchUpdatesTo(this)
     }
@@ -65,7 +66,7 @@ class PaintingListAdapter : RecyclerView.Adapter<PaintingListAdapter.ViewHolder>
         paintingList: List<AllPaintingResponse>,
         userInterests: List<String>,
     ) {
-        val genreMap = linkedMapOf<String, AllPaintingResponse>()
+        linkedMapOf<String, AllPaintingResponse>()
 
         val sortedList =
             paintingList.sortedWith(compareByDescending<AllPaintingResponse> { it.genre in userInterests }.thenBy { it.id })
@@ -106,7 +107,7 @@ class PaintingListAdapter : RecyclerView.Adapter<PaintingListAdapter.ViewHolder>
         fun bind(item: AllPaintingResponse) {
             binding.apply {
                 tvItemName.text = item.title
-                tvItemPrice.text = item.price
+                tvItemPrice.text = "Rp${item.price}"
                 Glide
                     .with(itemView)
                     .load(item.photo)

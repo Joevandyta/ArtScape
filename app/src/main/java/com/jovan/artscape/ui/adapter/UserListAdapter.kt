@@ -29,6 +29,7 @@ class UserListAdapter : RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
                 ),
             )
 
+        list = emptyList()
         list = user.reversed()
         diffResult.dispatchUpdatesTo(this)
     }

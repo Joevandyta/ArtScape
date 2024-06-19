@@ -28,30 +28,39 @@ class ViewModelFactory(
             modelClass.isAssignableFrom(AddressViewModel::class.java) -> {
                 AddressViewModel(repository) as T
             }
+
             modelClass.isAssignableFrom(UploadViewModel::class.java) -> {
                 UploadViewModel(repository) as T
             }
+
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(repository) as T
             }
+
             modelClass.isAssignableFrom(AccountViewModel::class.java) -> {
                 AccountViewModel(repository) as T
             }
+
             modelClass.isAssignableFrom(MainViewModel::class.java) -> {
                 MainViewModel(repository) as T
             }
+
             modelClass.isAssignableFrom(UserViewModel::class.java) -> {
                 UserViewModel(repository) as T
             }
+
             modelClass.isAssignableFrom(InterestViewModel::class.java) -> {
                 InterestViewModel(repository) as T
             }
+
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
                 HomeViewModel(repository) as T
             }
+
             modelClass.isAssignableFrom(EditProfileViewModel::class.java) -> {
                 EditProfileViewModel(repository) as T
             }
+
             modelClass.isAssignableFrom(MyPaintingViewModel::class.java) -> {
                 MyPaintingViewModel(repository) as T
             }
@@ -63,9 +72,11 @@ class ViewModelFactory(
             modelClass.isAssignableFrom(DetailPaintingViewModel::class.java) -> {
                 DetailPaintingViewModel(repository) as T
             }
+
             modelClass.isAssignableFrom(MyPaintingDetailsViewModel::class.java) -> {
                 MyPaintingDetailsViewModel(repository) as T
             }
+
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
 
