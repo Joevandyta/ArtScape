@@ -50,4 +50,15 @@ object RetrofiClient {
                 .build()
         return retrofit.create(ApiService::class.java)
     }
+
+    fun getApiPaintingRecomendation(): ApiService {
+        val retrofit =
+            Retrofit
+                .Builder()
+                .baseUrl(BuildConfig.ENDPOINT_PAINTING_RECOMMENDATION)
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        return retrofit.create(ApiService::class.java)
+    }
 }

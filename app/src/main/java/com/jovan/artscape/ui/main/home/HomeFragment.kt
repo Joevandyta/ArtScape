@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.jovan.artscape.R
 import com.jovan.artscape.ViewModelFactory
 import com.jovan.artscape.databinding.FragmentHomeBinding
+import com.jovan.artscape.remote.request.RecommendationsPaintingRequest
 import com.jovan.artscape.remote.response.ApiResponse
 import com.jovan.artscape.ui.CartActivity
 import com.jovan.artscape.ui.NotificationActivity
@@ -57,10 +58,44 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         viewModel.setAllPainting().apply {
             showLoading(true)
         }
+        recommendPainting()
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
 
         adapterBind()
         topAppBar()
+    }
+
+    private fun recommendPainting() {
+        viewModel.apply {
+            getSesion().observe(viewLifecycleOwner) {
+                setUserData(it.uid)
+            }
+
+            getUserData().observe(viewLifecycleOwner) { getUserData ->
+                when (getUserData) {
+                    is ApiResponse.Success -> {
+                        val interests = getUserData.data.interest
+                        val ratings =
+                            interests!!
+                                .mapIndexed { index, genre ->
+                                    listOf(genre, 5 - index)
+                                }.take(5)
+                        val request =
+                            RecommendationsPaintingRequest(
+                                ratings = ratings,
+                                numRecommendations = 3,
+                            )
+
+                        setPaintingRecomendation(request)
+                        Log.d("HomeFragment", "onViewCreated: $request")
+                    }
+
+                    is ApiResponse.Error -> {
+                        Log.d("getUserData", getUserData.error)
+                    }
+                }
+            }
+        }
     }
 
     private fun adapterBind() {
@@ -76,25 +111,37 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         )
         binding.rvArt.adapter = adapter
         binding.rvArt.layoutManager = LinearLayoutManager(requireContext())
-        viewModel.getAllPainting().observe(viewLifecycleOwner) {
-            when (it) {
-                is ApiResponse.Success -> {
-                    Log.d("HomeFragment SUCCESS", "${it.data}")
-                    showLoading(false)
-                    adapter.setHomePaintingList(it.data)
-                    if (adapter.itemCount == 0) {
-                        Toast
-                            .makeText(
-                                requireContext(),
-                                "User doesnt Exist",
-                                Toast.LENGTH_SHORT,
-                            ).show()
+        viewModel.apply {
+            getAllPainting().observe(viewLifecycleOwner) { allPainting ->
+                when (allPainting) {
+                    is ApiResponse.Success -> {
+                        Log.d("HomeFragment SUCCESS", "${allPainting.data}")
+                        showLoading(false)
+                        getPaintingRecomendation().observe(viewLifecycleOwner) { paintingRecomend ->
+                            when (paintingRecomend) {
+                                is ApiResponse.Success -> {
+                                    adapter.setRecomendedPaintingList(allPainting.data, paintingRecomend.data.recommendations)
+                                    Log.d("getPaintingRecomendation SUCCESS", "${paintingRecomend.data}")
+                                    if (adapter.itemCount == 0) {
+                                        Toast
+                                            .makeText(
+                                                requireContext(),
+                                                "Data doesnt Exist",
+                                                Toast.LENGTH_SHORT,
+                                            ).show()
+                                    }
+                                }
+                                is ApiResponse.Error -> {
+                                    Log.d("HomeFragment ERROR", paintingRecomend.error)
+                                }
+                            }
+                        }
                     }
-                }
 
-                is ApiResponse.Error -> {
-                    Log.d("HomeFragment ERROR", it.error)
-                    showLoading(false)
+                    is ApiResponse.Error -> {
+                        Log.d("HomeFragment ERROR", allPainting.error)
+                        showLoading(false)
+                    }
                 }
             }
         }
@@ -142,14 +189,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             viewLifecycleOwner,
             Lifecycle.State.RESUMED,
         )
-    }
-
-    private fun replaceFragment() {
-/*        val newFragment = DetailPaintingFragment()
-        val transaction = parentFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_container, newFragment)
-        transaction.addToBackStack(null)
-        transaction.commit()*/
     }
 
     override fun onDestroyView() {

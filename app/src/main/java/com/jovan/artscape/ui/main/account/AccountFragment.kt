@@ -124,6 +124,7 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
                                 tvUsernameUpdate.text = userData.data.name
                                 tvPhoneNumber.text = userData.data.phoneNumber
                                 tvBioUpdate.text = userData.data.description
+                                tvInterests.text = userData.data.interest!!.joinToString(", ")
                                 Glide
                                     .with(requireContext())
                                     .load(userData.data.picture)

@@ -24,11 +24,14 @@ android {
             buildConfigField("String", "ENDPOINT_REGION", "\"https://www.emsifa.com/api-wilayah-indonesia/api/\"")
             buildConfigField("String", "ENDPOINT_ARTSCAPE", "\"https://backend-app-artscape-7yazuf5wiq-et.a.run.app/\"")
             buildConfigField("String", "ENDPOINT_GENRE_CLASSIFICATION", "\"https://genre-classification-api-ludpnm2hga-et.a.run.app/\"")
+            buildConfigField("String", "ENDPOINT_PAINTING_RECOMMENDATION", "\"https://api-recommend-ludpnm2hga-et.a.run.app/\"")
         }
         release {
             buildConfigField("String", "ENDPOINT_REGION", "\"https://www.emsifa.com/api-wilayah-indonesia/api/\"")
             buildConfigField("String", "ENDPOINT_ARTSCAPE", "\"https://backend-app-artscape-7yazuf5wiq-et.a.run.app/\"")
             buildConfigField("String", "ENDPOINT_GENRE_CLASSIFICATION", "\"https://genre-classification-api-ludpnm2hga-et.a.run.app/\"")
+
+            buildConfigField("String", "ENDPOINT_PAINTING_RECOMMENDATION", "\"https://api-recommend-ludpnm2hga-et.a.run.app/\"")
 
             isMinifyEnabled = false
             proguardFiles(

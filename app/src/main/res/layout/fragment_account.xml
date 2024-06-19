@@ -126,6 +126,24 @@
                         android:text="@string/bio"
                         android:textSize="14sp" />
 
+                    <TextView
+                        android:id="@+id/tv_title_interest"
+                        style="@style/light"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/interests"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/tv_interests"
+                        style="@style/regular"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Surealism"
+                        android:textSize="14sp" />
+
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
