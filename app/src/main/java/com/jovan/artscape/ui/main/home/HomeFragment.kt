@@ -133,7 +133,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                                 }
                                 is ApiResponse.Error -> {
                                     Log.d("HomeFragment ERROR", paintingRecomend.error)
-                                    adapterBind()
+                                    recommendPainting()
                                 }
                             }
                         }
