@@ -1,38 +1,78 @@
-# ArtScape
+# Bangkit Project Capstone
+## Android Learning Path
 
+<img src="https://github.com/Joevandyta/ArtScape/assets/148755512/6001e147-938f-4a3f-abfc-ccf603332f49" alt="Logo" style="width:900px;"/>
+
+## ArtScape 
+
+Welcome to ArtScape, an Android application designed to connect artists and art enthusiasts. ArtScape provides a platform for artists to showcase and sell their paintings, and for users to discover, search, and purchase artworks.
+
+ArtScape is designed to describe the purpose of your app. It provides users with describe the main functionalities or benefits to enhance their experience.
+
+
+## Logo 
 <img src="https://github.com/Joevandyta/ArtScape/assets/108873685/2e8937fd-520b-4e7c-ab26-cf61df89b687" alt="Logo" style="width:200px;"/>
 
-## <h2 style="font-size: 1.5em;">Project Description</h2>
-**ArtScape** is designed to <span style="font-size:1.2em;">*describe the purpose of your app*</span>. It provides users with <span style="font-size:1.2em;">*describe the main functionalities or benefits*</span> to enhance their experience.
+### Filosofi
 
-## <h2 style="font-size: 1.5em;">Features</h2>
-- **Feature 1**: <span style="font-size:1.1em;">_Description of feature 1_</span>
-- **Feature 2**: <span style="font-size:1.1em;">_Description of feature 2_</span>
-- **Feature 3**: <span style="font-size:1.1em;">_Description of feature 3_</span>
-- **Feature 4**: <span style="font-size:1.1em;">_Description of feature 4_</span>
+    "ArtScape" is present as a solution for the art landscape in Indonesia.
+    Combining the arts industry with technology.
+    Addressing artists' challenges in terms of exposure and accessibility.
+    Providing a digital platform to exhibit and sell works of art.
+    AI features include genre recognition, personal recommendations, and sentiment analysis.
 
-## <h2 style="font-size: 1.5em;">Screenshots</h2>
-| <img src="path_to_screenshot1" alt="Screenshot 1" style="width:300px;"/> | <img src="path_to_screenshot2" alt="Screenshot 2" style="width:300px;"/> | <img src="path_to_screenshot3" alt="Screenshot 3" style="width:300px;"/> |
-|:------------------------------------:|:------------------------------------:|:------------------------------------:|
-| <span style="font-size:0.9em;">_Caption 1_</span>                          | <span style="font-size:0.9em;">_Caption 2_</span>                          | <span style="font-size:0.9em;">_Caption 3_</span>                          |
+   
+## Getting Started
 
-## <h2 style="font-size: 1.5em;">Getting Started</h2>
+### Prerequisites
+- [Android Studio](https://developer.android.com/studio) 4.1 or higher
+- [JDK](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) 8 or higher
+- Android SDK
 
-### <h3 style="font-size: 1.3em;">Prerequisites</h3>
-- [**Android Studio**](https://developer.android.com/studio) 4.1 or higher
-- [**JDK**](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) 8 or higher
-- **Android SDK**
 
-## <h2 style="font-size: 1.5em;">Usage</h2>
-- Login: Users can sign in using their credentials from google Auth
-- Dashboard: After signing in, users will see the main dashboard.
-- Feature 1: <span style="font-size:1.1em;">Detailed instructions on how to use feature 1</span>.
-- Feature 2: <span style="font-size:1.1em;">Detailed instructions on how to use feature 2</span>.
-- Feature 3: <span style="font-size:1.1em;">Detailed instructions on how to use feature 3</span>.
+## UI Design
+<img src="https://github.com/Joevandyta/ArtScape/assets/148755512/1b5f39c8-5293-4039-9d16-4efb90b07298" alt="Logo" style="width:900px;"/>
 
-### <h2 style="font-size: 1.5em;">Technologies Used</h2>
-- Kotlin: Programming language
-- Firebase: Backend services
-- Retrofit: REST client
-- Room: Database
-- Glide: Image loading library
+
+For more details you can visit the figma app via the link below. 
+> [ArtScape UI Design](https://www.figma.com/design/sOtiTNwQxBWisybg9KX45v/FINAL-UI?node-id=32-153&t=7dx0883Wp94RS4eg-1)
+
+
+## Features
+
+**Login** : Google One Tap Sign-In: Users can sign in using their Google account credentials, providing a seamless and secure login experience.
+ 
+**HomePage** > **Main Homepage** : After signing in, users are greeted with the main homepage, showcasing featured paintings and artists.
+
+**Account Page** > **Account Information** : Users can view and manage their account details, including personal information and app settings.
+
+**Search** > **Advanced Search** : Users can search for paintings by genre, title, and description, as well as search for artists.
+
+**Upload Painting** > **Automatic Genre Detection** : Artists can upload their paintings, and the app will automatically classify the artwork into the appropriate genre.
+
+*(Coming Soon)* **Painting Transaction**  > **Sell Paintings** : Artists will soon be able to sell their paintings directly through the app, making ArtScape a comprehensive marketplace for art transactions.
+
+## Installation
+
+| Normal Course             | Post Condition                                                               | Precondition Sign in |
+| ----------------- | ------------------------------------------------------------------ | ------------- |
+|Download the app | Artist registered as ArtScape user   | Be registered as a google account user  |
+| Open the app| Artists can access the features provided by ArtScape      |       Have a smartphone |
+| | |  Have internet access |
+
+
+## Technology Used
+
+**Kotlin :** The primary programming language used for developing the application.
+
+**Firebase:** Used for backend services, including authentication, database, and cloud storage.
+
+**Retrofit :**  A REST client used for networking and API interactions. Room: A robust database library for local data storage.
+
+**Glide :**   An image loading library for efficient loading and caching of images.
+
+##
+We hope you enjoy using ArtScape! For any questions or feedback, please contact us at 
+
+Happy creating and exploring!
+
