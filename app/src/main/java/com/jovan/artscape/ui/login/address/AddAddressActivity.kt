@@ -2,6 +2,7 @@ package com.jovan.artscape.ui.login.address
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
@@ -11,6 +12,8 @@ import com.jovan.artscape.ViewModelFactory
 import com.jovan.artscape.databinding.ActivityAddAddressBinding
 import com.jovan.artscape.remote.request.AddUserRequest
 import com.jovan.artscape.ui.login.interest.InterestActivity
+import com.jovan.artscape.utils.DialogUtils
+import com.jovan.artscape.utils.NetworkUtils
 
 class AddAddressActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddAddressBinding
@@ -23,53 +26,15 @@ class AddAddressActivity : AppCompatActivity() {
         binding = ActivityAddAddressBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val autoCompleteProvince = binding.autoCompleteProvince
-        val autoCompleteRegency = binding.autoCompleteRegency
-        val autoCompleteDistrict = binding.autoCompleteDistrict
-        val autoCompleteVillage = binding.autoCompleteVillage
-
-        viewModel.getProvinces().observe(this) { provinces ->
-            val item = provinces.map { it.name }
-            val adapterItems = ArrayAdapter(this, R.layout.list_item_address, item)
-            autoCompleteProvince.setAdapter(adapterItems)
-
-            autoCompleteProvince.setOnItemClickListener { _, _, i, _ ->
-                showLoading(true)
-                clearRegencyAdapter()
-                viewModel.setRegencies(provinces[i].id)
-                showLoading(false)
-            }
+        if (NetworkUtils.isNetworkAvailable(this))
+            {
+                bindAddress()
+                actionButton()
+            } else {
+            showLoading(false)
+            Log.d("ERROR", "Network Not Available")
+            DialogUtils.showNetworkSettingsDialog(this)
         }
-        viewModel.getRegencies().observe(this) { regency ->
-            val item = regency.map { it.name }
-            val adapterItems = ArrayAdapter(this, R.layout.list_item_address, item)
-            autoCompleteRegency.setAdapter(adapterItems)
-            autoCompleteRegency.setOnItemClickListener { _, _, i, _ ->
-                showLoading(true)
-
-                clearDistrictAdapter()
-                viewModel.setDistricts(regency[i].id)
-                showLoading(false)
-            }
-        }
-        viewModel.getDistricts().observe(this) { district ->
-            val item = district.map { it.name }
-            val adapterItems = ArrayAdapter(this, R.layout.list_item_address, item)
-            autoCompleteDistrict.setAdapter(adapterItems)
-            autoCompleteDistrict.setOnItemClickListener { _, _, i, _ ->
-                showLoading(true)
-
-                clearVillageAdapter()
-                viewModel.setVillages(district[i].id)
-                showLoading(false)
-            }
-        }
-        viewModel.getVillages().observe(this) { village ->
-            val item = village.map { it.name }
-            val adapterItems = ArrayAdapter(this, R.layout.list_item_address, item)
-            autoCompleteVillage.setAdapter(adapterItems)
-        }
-        actionButton()
     }
 
     private fun clearRegencyAdapter() {
@@ -118,6 +83,55 @@ class AddAddressActivity : AppCompatActivity() {
                 intent.putExtra(InterestActivity.EXTRA_USER_WITH_ADDRESS, userData)
                 startActivity(intent)
             }
+        }
+    }
+
+    private fun bindAddress()  {
+        val autoCompleteProvince = binding.autoCompleteProvince
+        val autoCompleteRegency = binding.autoCompleteRegency
+        val autoCompleteDistrict = binding.autoCompleteDistrict
+        val autoCompleteVillage = binding.autoCompleteVillage
+
+        viewModel.getProvinces().observe(this) { provinces ->
+            val item = provinces.map { it.name }
+            val adapterItems = ArrayAdapter(this, R.layout.list_item_address, item)
+            autoCompleteProvince.setAdapter(adapterItems)
+
+            autoCompleteProvince.setOnItemClickListener { _, _, i, _ ->
+                showLoading(true)
+                clearRegencyAdapter()
+                viewModel.setRegencies(provinces[i].id)
+                showLoading(false)
+            }
+        }
+        viewModel.getRegencies().observe(this) { regency ->
+            val item = regency.map { it.name }
+            val adapterItems = ArrayAdapter(this, R.layout.list_item_address, item)
+            autoCompleteRegency.setAdapter(adapterItems)
+            autoCompleteRegency.setOnItemClickListener { _, _, i, _ ->
+                showLoading(true)
+
+                clearDistrictAdapter()
+                viewModel.setDistricts(regency[i].id)
+                showLoading(false)
+            }
+        }
+        viewModel.getDistricts().observe(this) { district ->
+            val item = district.map { it.name }
+            val adapterItems = ArrayAdapter(this, R.layout.list_item_address, item)
+            autoCompleteDistrict.setAdapter(adapterItems)
+            autoCompleteDistrict.setOnItemClickListener { _, _, i, _ ->
+                showLoading(true)
+
+                clearVillageAdapter()
+                viewModel.setVillages(district[i].id)
+                showLoading(false)
+            }
+        }
+        viewModel.getVillages().observe(this) { village ->
+            val item = village.map { it.name }
+            val adapterItems = ArrayAdapter(this, R.layout.list_item_address, item)
+            autoCompleteVillage.setAdapter(adapterItems)
         }
     }
 

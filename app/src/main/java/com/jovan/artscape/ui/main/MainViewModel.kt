@@ -13,6 +13,9 @@ import com.jovan.artscape.remote.response.ApiResponse
 import com.jovan.artscape.remote.response.ErrorResponse
 import com.jovan.artscape.remote.response.user.AllUserResponse
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 
 class MainViewModel(
     private val repository: ProvideRepository,
@@ -37,12 +40,27 @@ class MainViewModel(
                 } else {
                     val errorBody = response.errorBody()?.string()
                     val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
-                    userDataResponse.value = ApiResponse.Error(errorResponse.error, errorResponse.details ?: "")
+                    userDataResponse.value =
+                        ApiResponse.Error(errorResponse.error, errorResponse.details ?: "")
                     Log.d("RESPONSE notSuccessful", "ERROR: ${errorResponse.error}")
                 }
+            } catch (e: UnknownHostException) {
+                e.printStackTrace()
+                userDataResponse.value = ApiResponse.Error("No internet connection", "")
+                Log.d("NETWORK_ERROR", "No internet connection")
+            } catch (e: SocketTimeoutException) {
+                e.printStackTrace()
+                userDataResponse.value = ApiResponse.Error("Request timed out", "")
+                Log.d("TIMEOUT_ERROR", "Request timed out")
+            } catch (e: HttpException) {
+                e.printStackTrace()
+                userDataResponse.value = ApiResponse.Error("Server error", e.message ?: "")
+                Log.d("HTTP_ERROR", "Server error: ${e.message}")
             } catch (e: Exception) {
                 e.printStackTrace()
-                userDataResponse.value = ApiResponse.Error(e.message.toString(), "")
+                userDataResponse.value =
+                    ApiResponse.Error("An unexpected error occurred", e.message ?: "")
+                Log.d("UNKNOWN_ERROR", "An unexpected error occurred: ${e.message}")
             }
         }
     }

@@ -15,7 +15,9 @@ import com.jovan.artscape.remote.response.ErrorResponse
 import com.jovan.artscape.remote.response.user.UserResponseSuccess
 import kotlinx.coroutines.launch
 
-class LoginViewModel(private val repository: ProvideRepository) : ViewModel() {
+class LoginViewModel(
+    private val repository: ProvideRepository,
+) : ViewModel() {
     private val apiResponse = MutableLiveData<ApiResponse<UserResponseSuccess>>()
 
     fun saveSession(user: UserModel) {
@@ -24,30 +26,33 @@ class LoginViewModel(private val repository: ProvideRepository) : ViewModel() {
         }
     }
 
-    fun getSession(): LiveData<UserModel> {
-        return repository.getSession().asLiveData()
-    }
+    fun getSession(): LiveData<UserModel> = repository.getSession().asLiveData()
 
     fun setLogin(idToken: String) {
         viewModelScope.launch {
-            Log.d("PARAM", "addUser: $idToken")
-            val response = repository.setlogin(LoginRequest(idToken))
-            Log.d("RESPONSE setLogin", "addUser: ${response.body()}")
+            try {
+                Log.d("PARAM", "addUser: $idToken")
+                val response = repository.setlogin(LoginRequest(idToken))
+                Log.d("RESPONSE setLogin", "addUser: ${response.body()}")
 
-            if (response.isSuccessful) {
-                apiResponse.value = ApiResponse.Success(response.body()!!)
-                Log.d("RESPONSE isSuccessful", "addUser: ${response.body()}")
-            } else {
-                val errorBody = response.errorBody()?.string()
-                val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
+                if (response.isSuccessful) {
+                    apiResponse.value = ApiResponse.Success(response.body()!!)
+                    Log.d("RESPONSE isSuccessful", "addUser: ${response.body()}")
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
+                    apiResponse.value =
+                        ApiResponse.Error(errorResponse.error, errorResponse.details ?: "")
+                    Log.d("RESPONSE notSuccessful", "addUser: ${errorResponse.error}")
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
                 apiResponse.value =
-                    ApiResponse.Error(errorResponse.error, errorResponse.details ?: "")
-                Log.d("RESPONSE notSuccessful", "addUser: ${errorResponse.error}")
+                    ApiResponse.Error("An unexpected error occurred", e.message ?: "")
+                Log.d("UNKNOWN_ERROR", "An unexpected error occurred: ${e.message}")
             }
         }
     }
 
-    fun getLogin(): MutableLiveData<ApiResponse<UserResponseSuccess>> {
-        return apiResponse
-    }
+    fun getLogin(): MutableLiveData<ApiResponse<UserResponseSuccess>> = apiResponse
 }

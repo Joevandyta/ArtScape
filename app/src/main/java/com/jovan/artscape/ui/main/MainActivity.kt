@@ -82,6 +82,8 @@ class MainActivity : AppCompatActivity() {
                     is ApiResponse.Error -> {
                         if (it.error.contains("User not found")) {
                             signOut()
+                        } else {
+                            Log.d("ERROR", "An error occurred: ${it.error}")
                         }
                     }
                 }

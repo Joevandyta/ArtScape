@@ -33,6 +33,8 @@ import com.jovan.artscape.remote.response.ApiResponse
 import com.jovan.artscape.ui.login.artist.UserDataActivity
 import com.jovan.artscape.ui.login.artist.UserDataActivity.Companion.EXTRA_ID_TOKEN
 import com.jovan.artscape.ui.main.MainActivity
+import com.jovan.artscape.utils.DialogUtils
+import com.jovan.artscape.utils.NetworkUtils
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
@@ -46,10 +48,15 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        auth = Firebase.auth
-        onStartLogin()
-        actionButton()
+        if (NetworkUtils.isNetworkAvailable(this)) {
+            auth = Firebase.auth
+            onStartLogin()
+            actionButton()
+        } else {
+            showLoading(false)
+            Log.d("ERROR", "Network Not Available")
+            DialogUtils.showNetworkSettingsDialog(this)
+        }
     }
 
     private fun onStartLogin() {

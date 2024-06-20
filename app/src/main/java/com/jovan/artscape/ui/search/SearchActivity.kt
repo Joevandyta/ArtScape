@@ -14,6 +14,8 @@ import com.jovan.artscape.remote.response.ApiResponse
 import com.jovan.artscape.remote.response.user.AllUserResponse
 import com.jovan.artscape.ui.adapter.PaintingListAdapter
 import com.jovan.artscape.ui.adapter.UserListAdapter
+import com.jovan.artscape.utils.DialogUtils
+import com.jovan.artscape.utils.NetworkUtils
 
 class SearchActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchBinding
@@ -26,20 +28,27 @@ class SearchActivity : AppCompatActivity() {
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        actionButton()
-        val searchView = binding.searchView
-        searchView.clearFocus()
-        searchView.setOnQueryTextListener(
-            object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean = false
+        if (NetworkUtils.isNetworkAvailable(this))
+            {
+                actionButton()
+                val searchView = binding.searchView
+                searchView.clearFocus()
+                searchView.setOnQueryTextListener(
+                    object : SearchView.OnQueryTextListener {
+                        override fun onQueryTextSubmit(query: String?): Boolean = false
 
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    viewModel.setSearch(newText ?: "")
-                    searchResponse()
-                    return true
-                }
-            },
-        )
+                        override fun onQueryTextChange(newText: String?): Boolean {
+                            viewModel.setSearch(newText ?: "")
+                            searchResponse()
+                            return true
+                        }
+                    },
+                )
+            } else {
+            showLoading(false)
+            Log.d("ERROR", "Network Not Available")
+            DialogUtils.showNetworkSettingsDialog(this)
+        }
     }
 
     private fun searchResponse() {
