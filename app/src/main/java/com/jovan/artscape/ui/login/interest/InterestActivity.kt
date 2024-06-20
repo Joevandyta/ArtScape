@@ -18,6 +18,8 @@ import com.jovan.artscape.databinding.ActivityInterestBinding
 import com.jovan.artscape.remote.request.AddUserRequest
 import com.jovan.artscape.remote.response.ApiResponse
 import com.jovan.artscape.ui.main.MainActivity
+import com.jovan.artscape.utils.DialogUtils
+import com.jovan.artscape.utils.NetworkUtils
 
 class InterestActivity : AppCompatActivity() {
     private lateinit var binding: ActivityInterestBinding
@@ -30,15 +32,21 @@ class InterestActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityInterestBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val toolbar: Toolbar = findViewById(R.id.toolbar_genre)
-        setSupportActionBar(toolbar)
-        supportActionBar?.title = ""
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        toolbar.setNavigationOnClickListener {
-            onBackPressed()
+        if (NetworkUtils.isNetworkAvailable(this))
+            {
+                val toolbar: Toolbar = findViewById(R.id.toolbar_genre)
+                setSupportActionBar(toolbar)
+                supportActionBar?.title = ""
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                toolbar.setNavigationOnClickListener {
+                    onBackPressed()
+                }
+                actionButton()
+            } else {
+            showLoading(false)
+            Log.d("ERROR", "Network Not Available")
+            DialogUtils.showNetworkSettingsDialog(this)
         }
-        actionButton()
     }
 
     private fun addUser(addUserRequest: AddUserRequest?) {

@@ -1,8 +1,10 @@
 package com.jovan.artscape.ui.mypainting.detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
@@ -14,6 +16,8 @@ import com.jovan.artscape.ViewModelFactory
 import com.jovan.artscape.databinding.ActivityMyPaintingDetailsBinding
 import com.jovan.artscape.remote.response.ApiResponse
 import com.jovan.artscape.remote.response.painting.PaintingDetailsResponse
+import com.jovan.artscape.utils.DialogUtils
+import com.jovan.artscape.utils.NetworkUtils
 
 class MyPaintingDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMyPaintingDetailsBinding
@@ -25,20 +29,16 @@ class MyPaintingDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMyPaintingDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        topActionBar()
-
-        val paintingId = intent.getStringExtra("PAINTING_ID")
-        viewModel.setDetailPainting(paintingId.toString())
-        viewModel.getDetailResponse().observe(this) { response ->
-            if (response.isSuccessful) {
-                val paintingDetails = response.body()
-                paintingDetails?.let {
-                    bindData(it)
-                }
+        if (NetworkUtils.isNetworkAvailable(this))
+            {
+                topActionBar()
+                getDetails()
             } else {
-                showToast("Failed to fetch data")
-            }
+            showLoading(false)
+            Log.d("ERROR", "Network Not Available")
+            DialogUtils.showNetworkSettingsDialog(this)
         }
+
         onBackPressedDispatcher.addCallback(
             this,
             object : OnBackPressedCallback(true) {
@@ -48,6 +48,24 @@ class MyPaintingDetailsActivity : AppCompatActivity() {
                 }
             },
         )
+    }
+
+    private fun getDetails()  {
+        val paintingId = intent.getStringExtra("PAINTING_ID")
+        showLoading(true)
+        viewModel.setDetailPainting(paintingId.toString())
+        viewModel.getDetailResponse().observe(this) { response ->
+            if (response.isSuccessful) {
+                val paintingDetails = response.body()
+                paintingDetails?.let {
+                    bindData(it)
+                }
+                showLoading(false)
+            } else {
+                showToast("Failed to fetch data")
+                showLoading(false)
+            }
+        }
     }
 
     private fun bindData(details: PaintingDetailsResponse) {
@@ -112,5 +130,9 @@ class MyPaintingDetailsActivity : AppCompatActivity() {
 
     private fun showToast(text: String) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }

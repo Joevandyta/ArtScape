@@ -25,6 +25,8 @@ import com.jovan.artscape.ui.TransactionActivity
 import com.jovan.artscape.ui.login.LoginActivity
 import com.jovan.artscape.ui.mypainting.MyPaintingActivity
 import com.jovan.artscape.ui.profile.EditProfileActivity
+import com.jovan.artscape.utils.DialogUtils
+import com.jovan.artscape.utils.NetworkUtils
 import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
@@ -44,14 +46,20 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        auth = Firebase.auth
-        val firebaseUser = auth.currentUser
-        if (firebaseUser == null) {
-            startActivity(Intent(requireContext(), LoginActivity::class.java))
-        }
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+        if (NetworkUtils.isNetworkAvailable(requireContext())) {
+            auth = Firebase.auth
+            val firebaseUser = auth.currentUser
+            if (firebaseUser == null) {
+                startActivity(Intent(requireContext(), LoginActivity::class.java))
+            }
+            arguments?.let {
+                param1 = it.getString(ARG_PARAM1)
+                param2 = it.getString(ARG_PARAM2)
+            }
+        } else {
+            showLoading(false)
+            Log.d("ERROR", "Network Not Available")
+            DialogUtils.showNetworkSettingsDialog(requireContext())
         }
     }
 
@@ -61,8 +69,15 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
     ) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentAccountBinding.bind(view)
-        updateProfile()
-        actionSetup()
+
+        if (NetworkUtils.isNetworkAvailable(requireContext())) {
+            updateProfile()
+            actionSetup()
+        } else {
+            showLoading(false)
+            Log.d("ERROR", "Network Not Available")
+            DialogUtils.showNetworkSettingsDialog(requireContext())
+        }
     }
 
     private fun actionSetup() {

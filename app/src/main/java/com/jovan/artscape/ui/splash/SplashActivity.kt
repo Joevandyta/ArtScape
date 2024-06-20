@@ -17,6 +17,8 @@ import com.jovan.artscape.ViewModelFactory
 import com.jovan.artscape.remote.response.ApiResponse
 import com.jovan.artscape.ui.login.LoginActivity
 import com.jovan.artscape.ui.main.MainViewModel
+import com.jovan.artscape.utils.DialogUtils
+import com.jovan.artscape.utils.NetworkUtils
 import kotlinx.coroutines.launch
 
 class SplashActivity : AppCompatActivity() {
@@ -29,42 +31,46 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_splash)
+        if (NetworkUtils.isNetworkAvailable(this)) {
+            auth = Firebase.auth
+            val motionLayout = findViewById<MotionLayout>(R.id.motionLayout)
+            motionLayout.addTransitionListener(
+                object : MotionLayout.TransitionListener {
+                    override fun onTransitionStarted(
+                        p0: MotionLayout?,
+                        p1: Int,
+                        p2: Int,
+                    ) {
+                    }
 
-        auth = Firebase.auth
-        val motionLayout = findViewById<MotionLayout>(R.id.motionLayout)
-        motionLayout.addTransitionListener(
-            object : MotionLayout.TransitionListener {
-                override fun onTransitionStarted(
-                    p0: MotionLayout?,
-                    p1: Int,
-                    p2: Int,
-                ) {
-                }
+                    override fun onTransitionChange(
+                        p0: MotionLayout?,
+                        p1: Int,
+                        p2: Int,
+                        p3: Float,
+                    ) {
+                    }
 
-                override fun onTransitionChange(
-                    p0: MotionLayout?,
-                    p1: Int,
-                    p2: Int,
-                    p3: Float,
-                ) {
-                }
+                    override fun onTransitionCompleted(
+                        p0: MotionLayout?,
+                        p1: Int,
+                    ) {
+                        getSession(auth)
+                    }
 
-                override fun onTransitionCompleted(
-                    p0: MotionLayout?,
-                    p1: Int,
-                ) {
-                    getSession(auth)
-                }
-
-                override fun onTransitionTrigger(
-                    p0: MotionLayout?,
-                    p1: Int,
-                    p2: Boolean,
-                    p3: Float,
-                ) {
-                }
-            },
-        )
+                    override fun onTransitionTrigger(
+                        p0: MotionLayout?,
+                        p1: Int,
+                        p2: Boolean,
+                        p3: Float,
+                    ) {
+                    }
+                },
+            )
+        } else {
+            Log.d("ERROR", "Network Not Available")
+            DialogUtils.showNetworkSettingsDialog(this)
+        }
     }
 
     private fun getSession(auth: FirebaseAuth) {
@@ -87,6 +93,7 @@ class SplashActivity : AppCompatActivity() {
                             startActivity(Intent(this, LoginActivity::class.java))
                             finish()
                         }
+
                         is ApiResponse.Error -> {
                             if (it.error.contains("User not found")) {
                                 signOut()

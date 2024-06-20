@@ -15,6 +15,8 @@ import com.jovan.artscape.databinding.ActivityMyPaintingBinding
 import com.jovan.artscape.remote.response.ApiResponse
 import com.jovan.artscape.ui.adapter.PaintingListAdapter
 import com.jovan.artscape.ui.mypainting.detail.MyPaintingDetailsActivity
+import com.jovan.artscape.utils.DialogUtils
+import com.jovan.artscape.utils.NetworkUtils
 
 class MyPaintingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMyPaintingBinding
@@ -26,12 +28,19 @@ class MyPaintingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMyPaintingBinding.inflate(layoutInflater)
-        topActionBar()
-        viewModel.setAllPainting().apply {
-            showLoading(true)
-        }
         setContentView(binding.root)
-        adapterBind()
+        if (NetworkUtils.isNetworkAvailable(this))
+            {
+                topActionBar()
+                viewModel.setAllPainting().apply {
+                    showLoading(true)
+                }
+                adapterBind()
+            } else {
+            showLoading(false)
+            Log.d("ERROR", "Network Not Available")
+            DialogUtils.showNetworkSettingsDialog(this)
+        }
     }
 
     private fun topActionBar() {

@@ -20,6 +20,8 @@ import com.jovan.artscape.ViewModelFactory
 import com.jovan.artscape.databinding.ActivityUploadBinding
 import com.jovan.artscape.remote.response.ApiResponse
 import com.jovan.artscape.ui.main.MainActivity
+import com.jovan.artscape.utils.DialogUtils
+import com.jovan.artscape.utils.NetworkUtils
 import com.jovan.artscape.utils.reduceFileImage
 import com.jovan.artscape.utils.uriToFile
 import okhttp3.MediaType.Companion.toMediaType
@@ -38,10 +40,20 @@ class UploadActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUploadBinding.inflate(layoutInflater)
-        bindingView()
-        genrePrediction()
         setContentView(binding.root)
-        topActionBar()
+        if (NetworkUtils.isNetworkAvailable(this))
+            {
+                bindingView()
+                genrePrediction()
+                topActionBar()
+                actionSetup()
+                enableButton()
+                getUploadResponse()
+            } else {
+            showLoading(false)
+            Log.d("ERROR", "Network Not Available")
+            DialogUtils.showNetworkSettingsDialog(this)
+        }
         onBackPressedDispatcher.addCallback(
             this,
             object : OnBackPressedCallback(true) {
@@ -50,9 +62,6 @@ class UploadActivity : AppCompatActivity() {
                 }
             },
         )
-        actionSetup()
-        enableButton()
-        getUploadResponse()
     }
 
     private fun showExitConfirmationDialog() {

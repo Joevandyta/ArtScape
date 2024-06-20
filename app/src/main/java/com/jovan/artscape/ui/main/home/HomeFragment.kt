@@ -26,6 +26,8 @@ import com.jovan.artscape.ui.NotificationActivity
 import com.jovan.artscape.ui.adapter.PaintingListAdapter
 import com.jovan.artscape.ui.main.painting.DetailPaintingActivity
 import com.jovan.artscape.ui.search.SearchActivity
+import com.jovan.artscape.utils.DialogUtils
+import com.jovan.artscape.utils.NetworkUtils
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -54,15 +56,21 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     ) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentHomeBinding.bind(view)
-        toolbar = binding.homeToolbar
-        viewModel.setAllPainting().apply {
-            showLoading(true)
-        }
-        recommendPainting()
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
+        if (NetworkUtils.isNetworkAvailable(requireContext())) {
+            toolbar = binding.homeToolbar
+            viewModel.setAllPainting().apply {
+                showLoading(true)
+            }
+            recommendPainting()
+            (activity as AppCompatActivity).setSupportActionBar(toolbar)
 
-        adapterBind()
-        topAppBar()
+            adapterBind()
+            topAppBar()
+        } else {
+            showLoading(false)
+            Log.d("ERROR", "Network Not Available")
+            DialogUtils.showNetworkSettingsDialog(requireContext())
+        }
     }
 
     private fun recommendPainting() {

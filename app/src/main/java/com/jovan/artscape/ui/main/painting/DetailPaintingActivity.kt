@@ -3,12 +3,12 @@ package com.jovan.artscape.ui.main.painting
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
@@ -24,6 +24,8 @@ import com.jovan.artscape.databinding.ActivityDetailPaintingBinding
 import com.jovan.artscape.remote.response.ApiResponse
 import com.jovan.artscape.remote.response.painting.PaintingDetailsResponse
 import com.jovan.artscape.ui.CartActivity
+import com.jovan.artscape.utils.DialogUtils
+import com.jovan.artscape.utils.NetworkUtils
 
 class DetailPaintingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailPaintingBinding
@@ -36,20 +38,25 @@ class DetailPaintingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailPaintingBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        topActionBar()
-        bottomAppbar()
+        if (NetworkUtils.isNetworkAvailable(this)) {
+            topActionBar()
+            bottomAppbar()
 
-        val paintingId = intent.getStringExtra("PAINTING_ID") ?: return
-        viewModel.setDetailPainting(paintingId)
-        viewModel.getDetailResponse().observe(this) { response ->
-            if (response.isSuccessful) {
-                val paintingDetails = response.body()
-                paintingDetails?.let {
-                    bindData(it)
+            val paintingId = intent.getStringExtra("PAINTING_ID") ?: return
+            viewModel.setDetailPainting(paintingId)
+            viewModel.getDetailResponse().observe(this) { response ->
+                if (response.isSuccessful) {
+                    val paintingDetails = response.body()
+                    paintingDetails?.let {
+                        bindData(it)
+                    }
+                } else {
+                    showToast("Failed to fetch data")
                 }
-            } else {
-                showToast("Failed to fetch data")
             }
+        } else {
+            Log.d("ERROR", "Network Not Available")
+            DialogUtils.showNetworkSettingsDialog(this)
         }
 
         onBackPressedDispatcher.addCallback(
@@ -98,14 +105,16 @@ class DetailPaintingActivity : AppCompatActivity() {
                 .into(binding.imgPainting)
         }
     }
-    private fun  bottomAppbar() {
+
+    private fun bottomAppbar() {
         binding.btnCart.setOnClickListener {
             startActivity(Intent(this, CartActivity::class.java))
         }
-        binding.btnAddComment.setOnClickListener{
+        binding.btnAddComment.setOnClickListener {
             showAddCommentDialog()
         }
     }
+
     private fun showAddCommentDialog() {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -129,7 +138,6 @@ class DetailPaintingActivity : AppCompatActivity() {
         dialog.show()
     }
 
-
     private fun topActionBar() {
         supportActionBar?.show()
         supportActionBar?.title = "Upload Art"
@@ -143,7 +151,6 @@ class DetailPaintingActivity : AppCompatActivity() {
         return when (item.itemId) {
             android.R.id.home -> {
                 onBackPressedDispatcher.onBackPressed()
-                showToast("Back")
                 true
             }
 
